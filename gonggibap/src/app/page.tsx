@@ -68,7 +68,7 @@ export default function Home() {
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&libraries=services&autoload=false`}
         onLoad={onKakaoMapLoad}
       />
-      <div ref={mapRef} style={{ width: "100%", height: "500px" }} />
+      <div ref={mapRef} className="w-screen h-screen" />
     </>
   );
 }
