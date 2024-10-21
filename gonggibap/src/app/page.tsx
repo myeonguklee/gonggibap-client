@@ -2,17 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-
+import { Polygon } from "@/types/restaurant";
+import { useGetRestaurants } from "@/apis/restaurant";
 declare global {
   interface Window {
     kakao: any;
   }
 }
 
+const roundTo7Decimals = (value: number) => {
+  return parseFloat(value.toFixed(7));
+};
+
 export default function Home() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [polygon, setPolygon] = useState<Polygon | null>(null);
 
+  const { data: restaurants, isLoading, error } = useGetRestaurants(polygon);
+  console.log(polygon);
   useEffect(() => {
     if (mapLoaded && mapRef.current) {
       // 현재 위치를 가져오는 함수
@@ -41,6 +49,31 @@ export default function Home() {
             position: markerPosition,
           });
           marker.setMap(map);
+
+          window.kakao.maps.event.addListener(map, "idle", () => {
+            const bounds = map.getBounds();
+            const sw = bounds.getSouthWest();
+            const ne = bounds.getNorthEast();
+
+            setPolygon({
+              firstCoordinate: {
+                latitude: roundTo7Decimals(sw.getLat()),
+                longitude: roundTo7Decimals(sw.getLng()),
+              },
+              secondCoordinate: {
+                latitude: roundTo7Decimals(sw.getLat()),
+                longitude: roundTo7Decimals(ne.getLng()),
+              },
+              thirdCoordinate: {
+                latitude: roundTo7Decimals(ne.getLat()),
+                longitude: roundTo7Decimals(ne.getLng()),
+              },
+              fourthCoordinate: {
+                latitude: roundTo7Decimals(ne.getLat()),
+                longitude: roundTo7Decimals(sw.getLng()),
+              },
+            });
+          });
         } catch (error) {
           console.error("Error getting current position:", error);
           // 위치 정보를 가져오는 데 실패한 경우, 기본 위치 사용
