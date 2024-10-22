@@ -265,7 +265,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
     return (
       <div className="flex">
         {/* 메인 사이드바 */}
-        <div className="w-64 h-screen bg-gray-800 text-white p-4 fixed left-0 top-0 z-20">
+        <div className="w-64 h-screen bg-gray-800 text-white p-4 fixed left-0 top-0 z-20 overflow-y-auto">
           <RestaurantListView
             restaurants={restaurants}
             onRestaurantSelect={handleRestaurantSelect}
@@ -276,7 +276,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
         {/* 중첩 사이드바 */}
         <div
           className={`w-80 h-screen bg-gray-700 text-white p-6 fixed left-64 top-0 
-            transition-transform duration-300 ease-in-out z-10
+            transition-transform duration-300 ease-in-out z-10 overflow-y-auto
             ${selectedRestaurant ? "translate-x-0" : "-translate-x-full"}`}
         >
           {selectedRestaurant && (
