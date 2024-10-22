@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { BaseResponse } from "@/types/apiResponse";
 import { Restaurant, Polygon } from "@/types/restaurant";
 import { client } from "@/apis/core/client";
-import { QUERY_KEYS } from "@/constants/routeURL";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 
 const getRestaurants = async (polygon: Polygon): Promise<Restaurant[]> => {
   const latitudes = [
@@ -22,20 +22,19 @@ const getRestaurants = async (polygon: Polygon): Promise<Restaurant[]> => {
     url: "/restaurant/polygon",
     params: { latitudes, longitudes },
   });
-  return response.data ?? [];
+  if (!response || !response.data) {
+    return [];
+  }
+
+  return response.data;
 };
 
 export const useGetRestaurants = (
   polygon: Polygon | null
 ): UseQueryResult<Restaurant[], Error> => {
   return useQuery<Restaurant[], Error>({
-    queryKey: [QUERY_KEYS.RESTAURENT.ALL, polygon],
-    queryFn: () => {
-      if (!polygon) {
-        return Promise.resolve([]);
-      }
-      return getRestaurants(polygon!);
-    },
+    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon],
+    queryFn: () => getRestaurants(polygon!),
     enabled: !!polygon,
     staleTime: 1000 * 60 * 5,
   });

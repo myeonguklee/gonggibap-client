@@ -18,7 +18,6 @@ export default function Home() {
   const debouncedPolygon = useDebounce(polygon, 1000);
 
   const { data: restaurants } = useGetRestaurants(debouncedPolygon);
-  console.log(restaurants);
 
   useEffect(() => {
     if (mapLoaded && mapRef.current) {
