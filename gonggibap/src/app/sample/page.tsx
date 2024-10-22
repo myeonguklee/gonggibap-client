@@ -19,6 +19,30 @@ const sampleData: Restaurant[] = [
           price: 12000,
           description: "부드러운 히레 부위로 만든 돈까스",
         },
+        {
+          id: 2,
+          name: "히레 돈까스",
+          price: 12000,
+          description: "부드러운 히레 부위로 만든 돈까스",
+        },
+        {
+          id: 3,
+          name: "히레 돈까스",
+          price: 12000,
+          description: "부드러운 히레 부위로 만든 돈까스",
+        },
+        {
+          id: 4,
+          name: "히레 돈까스",
+          price: 12000,
+          description: "부드러운 히레 부위로 만든 돈까스",
+        },
+        {
+          id: 5,
+          name: "히레 돈까스",
+          price: 12000,
+          description: "부드러운 히레 부위로 만든 돈까스",
+        },
         // ... more menu items
       ],
       reviews: [
@@ -29,6 +53,34 @@ const sampleData: Restaurant[] = [
           content: "돈까스가 정말 맛있어요!",
           date: "2024-03-15",
         },
+        {
+          id: 2,
+          userName: "김맛있",
+          rating: 5,
+          content: "돈까스가 정말 맛있어요!",
+          date: "2024-03-15",
+        },
+        {
+          id: 3,
+          userName: "김맛있",
+          rating: 5,
+          content: "돈까스가 정말 맛있어요!",
+          date: "2024-03-15",
+        },
+        {
+          id: 4,
+          userName: "김맛있",
+          rating: 5,
+          content: "돈까스가 정말 맛있어요!",
+          date: "2024-03-15",
+        },
+        {
+          id: 5,
+          userName: "김맛있",
+          rating: 5,
+          content: "돈까스가 정말 맛있어요!",
+          date: "2024-03-15",
+        },        
         // ... more reviews
       ],
     },
