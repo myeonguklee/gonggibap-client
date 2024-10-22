@@ -22,10 +22,6 @@ const getRestaurants = async (polygon: Polygon): Promise<Restaurant[]> => {
     url: "/restaurant/polygon",
     params: { latitudes, longitudes },
   });
-  if (!response || !response.data) {
-    return [];
-  }
-
   return response.data;
 };
 

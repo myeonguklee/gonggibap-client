@@ -19,7 +19,8 @@ export default function Home() {
 
   // 레스토랑 마커 업데이트를 위한 useEffect
   useEffect(() => {
-    if (!mapInstanceRef.current || !restaurants) return;
+    if (!mapInstanceRef.current || !restaurants || restaurants.length < 1)
+      return;
 
     // 기존 마커들 제거
     markersRef.current.forEach((marker) => marker.setMap(null));
