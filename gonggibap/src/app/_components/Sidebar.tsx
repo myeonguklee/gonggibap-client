@@ -27,13 +27,21 @@ const Sidebar = () => {
   }, []);
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    setStartY(e.touches[0].clientY);
-    setCurrentY(e.touches[0].clientY);
-    setIsDragging(true);
+    // 드래그 핸들에서만 드래그 동작 시작
+    if ((e.target as HTMLElement).closest('.drag-handle')) {
+      setStartY(e.touches[0].clientY);
+      setCurrentY(e.touches[0].clientY);
+      setIsDragging(true);
+    }
   };
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    e.preventDefault(); // 스크롤 방지
+    if (!isDragging) return;
+    
+    // full 상태가 아닐 때만 preventDefault 호출
+    if (mobilePosition !== 'full') {
+      e.preventDefault();
+    }
     setCurrentY(e.touches[0].clientY);
   };
 
