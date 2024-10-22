@@ -5,11 +5,6 @@ import Script from "next/script";
 import { Polygon } from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
 import { useDebounce } from "@/hooks/useDebounce";
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
 
 const roundTo7Decimals = (value: number) => {
   return parseFloat(value.toFixed(7));
@@ -22,11 +17,8 @@ export default function Home() {
 
   const debouncedPolygon = useDebounce(polygon, 1000);
 
-  const {
-    data: restaurants,
-    isLoading,
-    error,
-  } = useGetRestaurants(debouncedPolygon);
+  const { data: restaurants } = useGetRestaurants(debouncedPolygon);
+  console.log(restaurants);
 
   useEffect(() => {
     if (mapLoaded && mapRef.current) {
@@ -48,6 +40,7 @@ export default function Home() {
             center: new window.kakao.maps.LatLng(lat, lng),
             level: 3,
           };
+          if (!mapRef.current) return;
           const map = new window.kakao.maps.Map(mapRef.current, options);
 
           // 현재 위치에 마커 추가
@@ -82,8 +75,9 @@ export default function Home() {
             });
           });
         } catch (error) {
-          console.error("Error getting current position:", error);
+          console.error(error);
           // 위치 정보를 가져오는 데 실패한 경우, 기본 위치 사용
+          if (!mapRef.current) return;
           const options = {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667),
             level: 3,
