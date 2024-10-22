@@ -6,10 +6,6 @@ import { Polygon } from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
 import { useDebounce } from "@/hooks/useDebounce";
 
-const roundTo7Decimals = (value: number) => {
-  return parseFloat(value.toFixed(7));
-};
-
 export default function Home() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -98,20 +94,20 @@ export default function Home() {
 
             setPolygon({
               firstCoordinate: {
-                latitude: roundTo7Decimals(sw.getLat()),
-                longitude: roundTo7Decimals(sw.getLng()),
+                latitude: sw.getLat(),
+                longitude: sw.getLng(),
               },
               secondCoordinate: {
-                latitude: roundTo7Decimals(sw.getLat()),
-                longitude: roundTo7Decimals(ne.getLng()),
+                latitude: sw.getLat(),
+                longitude: ne.getLng(),
               },
               thirdCoordinate: {
-                latitude: roundTo7Decimals(ne.getLat()),
-                longitude: roundTo7Decimals(ne.getLng()),
+                latitude: ne.getLat(),
+                longitude: ne.getLng(),
               },
               fourthCoordinate: {
-                latitude: roundTo7Decimals(ne.getLat()),
-                longitude: roundTo7Decimals(sw.getLng()),
+                latitude: ne.getLat(),
+                longitude: sw.getLng(),
               },
             });
           });
