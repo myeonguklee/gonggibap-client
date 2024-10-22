@@ -22,7 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def app = docker.build("${DOCKER_HUB_REPO}:latest", ".")
+                    def app = docker.build("${DOCKER_HUB_REPO}:latest", "./gonggibap")
                 }
             }
         }
