@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { Polygon } from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
+import { useDebounce } from "@/hooks/useDebounce";
 declare global {
   interface Window {
     kakao: any;
@@ -19,8 +20,14 @@ export default function Home() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [polygon, setPolygon] = useState<Polygon | null>(null);
 
-  const { data: restaurants, isLoading, error } = useGetRestaurants(polygon);
-  console.log(polygon);
+  const debouncedPolygon = useDebounce(polygon, 1000);
+
+  const {
+    data: restaurants,
+    isLoading,
+    error,
+  } = useGetRestaurants(debouncedPolygon);
+
   useEffect(() => {
     if (mapLoaded && mapRef.current) {
       // 현재 위치를 가져오는 함수

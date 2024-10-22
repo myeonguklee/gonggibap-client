@@ -22,7 +22,7 @@ const getRestaurants = async (polygon: Polygon): Promise<Restaurant[]> => {
     url: "/restaurant/polygon",
     params: { latitudes, longitudes },
   });
-  return response.data;
+  return response.data ?? [];
 };
 
 export const useGetRestaurants = (
@@ -30,7 +30,13 @@ export const useGetRestaurants = (
 ): UseQueryResult<Restaurant[], Error> => {
   return useQuery<Restaurant[], Error>({
     queryKey: [QUERY_KEYS.RESTAURENT.ALL, polygon],
-    queryFn: () => getRestaurants(polygon!),
+    queryFn: () => {
+      if (!polygon) {
+        return Promise.resolve([]);
+      }
+      return getRestaurants(polygon!);
+    },
     enabled: !!polygon,
+    staleTime: 1000 * 60 * 5,
   });
 };
