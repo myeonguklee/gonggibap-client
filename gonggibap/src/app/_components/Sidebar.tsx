@@ -214,12 +214,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
   };
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).closest(".drag-handle")) {
-      setStartY(e.touches[0].clientY);
-      setCurrentY(e.touches[0].clientY);
-      setIsDragging(true);
-    }
+    setStartY(e.touches[0].clientY);
+    setCurrentY(e.touches[0].clientY);
+    setIsDragging(true);
   };
+
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     if (!isDragging) return;
