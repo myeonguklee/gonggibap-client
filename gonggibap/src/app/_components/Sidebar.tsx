@@ -232,18 +232,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
   const handleTouchEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
-
+  
     const diff = startY - currentY;
     const threshold = 30;
-
+  
     if (Math.abs(diff) < threshold) return;
-
+  
+    const contentElement = document.querySelector(".mobile-content") as HTMLElement;
+    const isScrolledToTop = contentElement.scrollTop === 0;
+  
     if (diff > 0) {
       if (mobilePosition === "peek") setMobilePosition("half");
       else if (mobilePosition === "half") setMobilePosition("full");
     } else {
-      if (mobilePosition === "full") setMobilePosition("half");
-      else if (mobilePosition === "half") setMobilePosition("peek");
+      if (mobilePosition === "full" && isScrolledToTop) {
+        setMobilePosition("half");
+      } else if (mobilePosition === "half") {
+        setMobilePosition("peek");
+      }
     }
   };
 
@@ -309,7 +315,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
       {/* 스크롤 가능한 콘텐츠 영역 */}
       <div
         className={`
-        overflow-y-auto h-[calc(100%-1.5rem)] p-4
+        overflow-y-auto h-[calc(100%-1.5rem)] p-4 mobile-content
         ${mobilePosition === "full" ? "touch-auto" : "touch-none"}
       `}
       >
