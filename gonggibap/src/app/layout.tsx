@@ -20,7 +20,21 @@ export const metadata: Metadata = {
   openGraph: {
     title: "공기밥",
     description: "공무원 업무추진비로 검증된 맛집을 찾아보세요",
-    images: ["/images/ogImage.png"],
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/images/ogImage.png`,
+        width: 1200,
+        height: 630,
+        alt: "공기밥 - 공무원 맛집 추천",
+      },
+    ],
+    type: "website",
+    locale: "ko_KR",
+    url: process.env.NEXT_PUBLIC_CLIENT_URL,
+    siteName: "공기밥",
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
