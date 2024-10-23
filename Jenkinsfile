@@ -52,7 +52,7 @@ pipeline {
                                     docker rm client || true
                                     docker ps --filter "publish=4000" --format "{{.ID}}" | xargs -r docker stop
                                     docker ps --filter "publish=4000" --format "{{.ID}}" | xargs -r docker rm
-                                    docker run -d --name front --network ${NETWORK_NAME} -p 4000:4000 ${DOCKER_HUB_REPO}:latest
+                                    docker run -d --name client --network ${NETWORK_NAME} -p 4000:4000 ${DOCKER_HUB_REPO}:latest
                                 """,
                                 remoteDirectory: '/home/ubuntu', // 원격 디렉토리
                                 removePrefix: ''
