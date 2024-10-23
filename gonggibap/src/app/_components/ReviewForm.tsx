@@ -36,11 +36,9 @@ export const ReviewForm = () => {
                 key={star}
                 type="button"
                 onClick={() => handleStarClick(star)}
-                className={`p-1 w-8 h-8 rounded ${
-                  selectedStars >= star ? "bg-yellow-400" : "bg-gray-300"
-                }`}
+                className={`p-1 w-8 h-8`}
               >
-                ★
+                <span className={`${selectedStars >= star ? "text-yellow-400":"text-gray-100"}`}>★</span>
               </button>
             ))}
           </div>
@@ -61,7 +59,7 @@ export const ReviewForm = () => {
                 <button
                   type="button"
                   onClick={() => handleRemoveImage(index)}
-                  className="absolute -top-2 -right-2 bg-gray-800 rounded-full p-1 text-white"
+                  className="absolute -top-2 -right-2 dark:bg-gray-800 dark:sm:bg-gray-700 rounded-full p-1"
                 >
                   ✕
                 </button>
@@ -69,8 +67,8 @@ export const ReviewForm = () => {
             ))}
 
             {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center bg-gray-700 rounded cursor-pointer hover:bg-gray-600">
-                <span className="text-xs text-white">사진 추가</span>
+              <label className="w-20 h-20 flex-col-center bg-gray-50 md:dark:bg-gray-800 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-600">
+                <span className="text-xs">사진 추가</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -89,7 +87,7 @@ export const ReviewForm = () => {
           <label className="block text-sm font-medium">리뷰 작성</label>
           <textarea
             placeholder="음식과 서비스는 어떠셨나요? (최소 10자 이상)"
-            className="w-full h-32 px-3 py-2 bg-gray-700 text-white rounded-lg resize-none"
+            className="w-full h-32 px-3 py-2 bg-gray-50 md:dark:bg-gray-800 dark:bg-gray-700 rounded-lg resize-none"
           />
           {/* <p className="text-red-500 text-xs">리뷰는 최소 10자 이상 작성해주세요.</p> */}
         </div>
@@ -97,13 +95,13 @@ export const ReviewForm = () => {
         <div className="flex gap-3">
           <button
             type="submit"
-            className="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900"
           >
             리뷰 등록
           </button>
           <button
             type="button"
-            className="flex-1 py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+            className="flex-1 py-2 px-4 bg-gray-200 text-gray-400 rounded-lg hover:bg-gray-100"
           >
             취소
           </button>

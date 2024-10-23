@@ -26,14 +26,14 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       {isMobile ? (
         <button
           onClick={onBack}
-          className="mb-4 px-2 py-1 text-sm rounded bg-gray-700 hover:bg-gray-600"
+          className="mb-4 px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
         >
           ← 목록으로
         </button>
       ) : (
         <button
           onClick={onClose}
-          className="absolute right-0 top-0 p-2 rounded-full hover:bg-gray-600"
+          className="absolute right-0 top-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
           aria-label="닫기"
         >
           ✕
@@ -42,17 +42,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
       <div>
         <h2 className="text-xl font-bold mb-2">{restaurant.name}</h2>
-        <div className="space-y-2 text-gray-300">
+        <div className="space-y-2">
           <p>⭐ {restaurant.rating}</p>
           <p>📍 {restaurant.details.address}</p>
           <p>🕒 {restaurant.details.openingHours}</p>
           <p>📞 {restaurant.details.phoneNumber}</p>
-          <button
-            onClick={onClickWriteReview}
-            className={`p-3  rounded-lg ${
-              isMobile ? "bg-gray-700" : "bg-gray-800"
-            }`}
-          >
+          <button onClick={onClickWriteReview} className={`p-2 rounded-lg text-white bg-[#FF7058]  ${isMobile?("dark:bg-gray-700"):("dark:bg-gray-800")}`}>
             리뷰 작성하기
           </button>
         </div>
@@ -66,7 +61,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             <h3 className="text-lg font-bold mb-3">메뉴</h3>
             <div className="space-y-3">
               {restaurant.details.menu.map((item) => (
-                <div key={item.id} className="p-3 bg-gray-700 rounded-lg">
+                <div key={item.id} className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none">
                   <div className="flex-between">
                     <span className="font-medium">{item.name}</span>
                     <span>{item.price.toLocaleString()}원</span>
@@ -81,7 +76,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
             <div className="space-y-3">
               {restaurant.details.reviews.map((review) => (
-                <div key={review.id} className="p-3 bg-gray-700 rounded-lg">
+                <div key={review.id} className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none">
                   <div className="flex-between mb-2">
                     <span className="font-medium">{review.userName}</span>
                     <span className="text-yellow-400">
