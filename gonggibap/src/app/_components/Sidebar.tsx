@@ -137,7 +137,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
       onTouchEnd={handleTouchEnd}
     >
       {/* 드래그 핸들 */}
-      <div className="w-full h-6 flex justify-center items-center touch-none drag-handle">
+      <div className="w-full h-6 touch-none drag-handle flex-center">
         <div className="w-10 h-1 bg-gray-600 rounded-full"></div>
       </div>
 

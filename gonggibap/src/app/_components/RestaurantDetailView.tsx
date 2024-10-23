@@ -67,7 +67,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             <div className="space-y-3">
               {restaurant.details.menu.map((item) => (
                 <div key={item.id} className="p-3 bg-gray-700 rounded-lg">
-                  <div className="flex justify-between">
+                  <div className="flex-between">
                     <span className="font-medium">{item.name}</span>
                     <span>{item.price.toLocaleString()}원</span>
                   </div>
@@ -82,7 +82,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             <div className="space-y-3">
               {restaurant.details.reviews.map((review) => (
                 <div key={review.id} className="p-3 bg-gray-700 rounded-lg">
-                  <div className="flex justify-between mb-2">
+                  <div className="flex-between mb-2">
                     <span className="font-medium">{review.userName}</span>
                     <span className="text-yellow-400">
                       {"⭐".repeat(review.rating)}

@@ -22,7 +22,7 @@ export const ReviewForm = () => {
 
   return (
     <div className="p-4 space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex-between-center">
         <h2 className="text-xl font-bold">리뷰 작성하기</h2>
       </div>
 
@@ -69,7 +69,7 @@ export const ReviewForm = () => {
             ))}
 
             {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex flex-col items-center justify-center bg-gray-700 rounded cursor-pointer hover:bg-gray-600">
+              <label className="w-20 h-20 flex-col-center bg-gray-700 rounded cursor-pointer hover:bg-gray-600">
                 <span className="text-xs text-white">사진 추가</span>
                 <input
                   type="file"

@@ -24,7 +24,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 : "hover:bg-gray-700"
             }`}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex-between-center">
             <div>
               <h3 className="font-bold">{restaurant.name}</h3>
               <p className="text-sm text-gray-300">{restaurant.category}</p>
