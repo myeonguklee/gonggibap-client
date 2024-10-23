@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer, ToastContainerProps } from "react-toastify";
+import { ThemeProvider } from "next-themes";
 
 export const Provider = ({
   children,
@@ -35,12 +36,14 @@ export const Provider = ({
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <ToastContainer {...toastConfig} />
-      {process.env.NODE_ENV === "development" && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <ToastContainer {...toastConfig} />
+        {process.env.NODE_ENV === "development" && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
