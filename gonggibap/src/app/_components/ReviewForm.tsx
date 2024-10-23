@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const ReviewForm = () => {
-  const [selectedStars, setSelectedStars] = useState<number>(0); // 별점 선택 상태 관리
-  const [uploadedImages, setUploadedImages] = useState<File[]>([]); // 이미지 업로드 상태 관리
+export const ReviewForm = () => {
+  const [selectedStars, setSelectedStars] = useState<number>(0);
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 
   const handleStarClick = (star: number) => {
     setSelectedStars(star);
@@ -112,5 +112,3 @@ const ReviewForm = () => {
     </div>
   );
 };
-
-export default ReviewForm;
