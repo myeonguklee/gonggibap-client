@@ -25,6 +25,7 @@ const getRestaurants = async (
     url: "/restaurants",
     params: { latitudes, longitudes, page },
   });
+
   return response.data;
 };
 
