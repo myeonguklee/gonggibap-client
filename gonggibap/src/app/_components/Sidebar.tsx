@@ -1,3 +1,5 @@
+
+
 // types.ts
 export type Restaurant = {
   id: number;
@@ -135,14 +137,17 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <p>📍 {restaurant.details.address}</p>
           <p>🕒 {restaurant.details.openingHours}</p>
           <p>📞 {restaurant.details.phoneNumber}</p>
-          <button onClick={onClickWriteReview}>리뷰 작성하기</button>
+          <button
+            onClick={onClickWriteReview}
+            className={`p-3  rounded-lg ${isMobile ? "bg-gray-700":"bg-gray-800"}`}
+          >
+            리뷰 작성하기
+          </button>
         </div>
       </div>
 
       {isWriting ? (
-        <div>
-          <h1>리뷰 폼 넣기</h1>
-        </div>
+        <ReviewForm />
       ) : (
         <>
           <div>
@@ -185,6 +190,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
 // components/Sidebar.tsx
 import React, { useState, useEffect, TouchEvent } from "react";
+import ReviewForm from "./ReviewForm";
 // import { Restaurant, MobilePosition, MobileView, MOBILE_VIEWS, MOBILE_BREAKPOINT } from '../types';
 // import { RestaurantListView } from './RestaurantListView';
 // import { RestaurantDetailView } from './RestaurantDetailView';
