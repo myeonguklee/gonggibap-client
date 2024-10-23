@@ -17,6 +17,10 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "공기밥",
   description: "맛집 추천 서비스",
+  openGraph: {
+    title: "공기밥",
+    description: "공무원 업무추진비로 검증된 맛집을 찾아보세요",
+  },
 };
 
 export default function RootLayout({

@@ -13,13 +13,16 @@ export default function Home() {
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
   const markersRef = useRef<kakao.maps.Marker[]>([]);
 
-  const debouncedPolygon = useDebounce(polygon, 1000);
+  const debouncedPolygon = useDebounce(polygon, 500);
 
-  const { data: restaurants } = useGetRestaurants(debouncedPolygon);
-
+  const { data: restaurants } = useGetRestaurants(debouncedPolygon, 0);
   // 레스토랑 마커 업데이트를 위한 useEffect
   useEffect(() => {
-    if (!mapInstanceRef.current || !restaurants || restaurants.length < 1)
+    if (
+      !mapInstanceRef.current ||
+      !restaurants ||
+      restaurants.restaurantResponses.length < 1
+    )
       return;
 
     // 기존 마커들 제거
@@ -27,10 +30,10 @@ export default function Home() {
     markersRef.current = [];
 
     // 새로운 마커들 생성
-    restaurants.forEach((restaurant) => {
+    restaurants.restaurantResponses.forEach((restaurant) => {
       const markerPosition = new window.kakao.maps.LatLng(
-        restaurant.latitude,
-        restaurant.longitude
+        restaurant.restaurantLatitude,
+        restaurant.restaurantLongitude
       );
       if (!mapInstanceRef.current) {
         return;
@@ -40,12 +43,11 @@ export default function Home() {
         map: mapInstanceRef.current,
       });
 
-      // 마커 클릭 이벤트 (필요한 경우)
+      // 마커 클릭 이벤트 (일단 임시로 제목이랑 빈도수만 뜨게)
       window.kakao.maps.event.addListener(marker, "click", () => {
         // 마커 클릭시 실행할 코드
-        // 예: 인포윈도우 표시
         const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="padding:5px;">${restaurant.restaurantName}</div>`,
+          content: `<div style="padding:5px;">${restaurant.restaurantName}:${restaurant.visitCount}</div>`,
         });
         if (!mapInstanceRef.current) {
           return;
@@ -114,7 +116,7 @@ export default function Home() {
           });
         } catch (error) {
           console.error(error);
-          // 위치 정보를 가져오는 데 실패한 경우, 기본 위치 사용
+          // 위치 정보를 가져오는 데 실패한 경우, 카카오본사
           if (!mapRef.current) return;
           const options = {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667),

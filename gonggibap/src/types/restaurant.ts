@@ -1,12 +1,19 @@
+export interface GetRestaurantsResponse {
+  totalPages: number;
+  restaurantResponses: Restaurant[];
+}
+
 export interface Restaurant {
-  id: number;
+  restaurantId: number;
   restaurantName: string;
-  link: string;
-  category: string;
-  address: string;
-  roadAddress: string;
-  latitude: number;
-  longitude: number;
+  restaurantLink: string;
+  restaurantCategory: string;
+  restaurantAddress: string;
+  restaurantRoadAddress: string;
+  restaurantLatitude: number;
+  restaurantLongitude: number;
+  publicOfficeId: number;
+  visitCount: number;
 }
 
 export interface Coordinate {
