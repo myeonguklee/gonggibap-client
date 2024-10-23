@@ -104,6 +104,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   isMobile,
   onBack,
 }) => {
+  const [isWriting, setIsWriting] = useState<boolean>(false);
+  // 토글하는 함수
+  const onClickWriteReview = () => setIsWriting((prev) => !prev);
+
   return (
     <div className="space-y-6">
       {/* 모바일일 때는 뒤로가기, 웹일 때는 닫기 버튼 */}
@@ -131,41 +135,50 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <p>📍 {restaurant.details.address}</p>
           <p>🕒 {restaurant.details.openingHours}</p>
           <p>📞 {restaurant.details.phoneNumber}</p>
+          <button onClick={onClickWriteReview}>리뷰 작성하기</button>
         </div>
       </div>
 
-      <div>
-        <h3 className="text-lg font-bold mb-3">메뉴</h3>
-        <div className="space-y-3">
-          {restaurant.details.menu.map((item) => (
-            <div key={item.id} className="p-3 bg-gray-700 rounded-lg">
-              <div className="flex justify-between">
-                <span className="font-medium">{item.name}</span>
-                <span>{item.price.toLocaleString()}원</span>
-              </div>
-              <p className="text-sm text-gray-400">{item.description}</p>
-            </div>
-          ))}
+      {isWriting ? (
+        <div>
+          <h1>리뷰 폼 넣기</h1>
         </div>
-      </div>
+      ) : (
+        <>
+          <div>
+            <h3 className="text-lg font-bold mb-3">메뉴</h3>
+            <div className="space-y-3">
+              {restaurant.details.menu.map((item) => (
+                <div key={item.id} className="p-3 bg-gray-700 rounded-lg">
+                  <div className="flex justify-between">
+                    <span className="font-medium">{item.name}</span>
+                    <span>{item.price.toLocaleString()}원</span>
+                  </div>
+                  <p className="text-sm text-gray-400">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div>
-        <h3 className="text-lg font-bold mb-3">리뷰</h3>
-        <div className="space-y-3">
-          {restaurant.details.reviews.map((review) => (
-            <div key={review.id} className="p-3 bg-gray-700 rounded-lg">
-              <div className="flex justify-between mb-2">
-                <span className="font-medium">{review.userName}</span>
-                <span className="text-yellow-400">
-                  {"⭐".repeat(review.rating)}
-                </span>
-              </div>
-              <p className="text-sm mb-1">{review.content}</p>
-              <p className="text-xs text-gray-400">{review.date}</p>
+          <div>
+            <h3 className="text-lg font-bold mb-3">리뷰</h3>
+            <div className="space-y-3">
+              {restaurant.details.reviews.map((review) => (
+                <div key={review.id} className="p-3 bg-gray-700 rounded-lg">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-medium">{review.userName}</span>
+                    <span className="text-yellow-400">
+                      {"⭐".repeat(review.rating)}
+                    </span>
+                  </div>
+                  <p className="text-sm mb-1">{review.content}</p>
+                  <p className="text-xs text-gray-400">{review.date}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -219,7 +232,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
     setIsDragging(true);
   };
 
-
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     if (!isDragging) return;
 
@@ -232,15 +244,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
   const handleTouchEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
-  
+
     const diff = startY - currentY;
     const threshold = 30;
-  
+
     if (Math.abs(diff) < threshold) return;
-  
-    const contentElement = document.querySelector(".mobile-content") as HTMLElement;
+
+    const contentElement = document.querySelector(
+      ".mobile-content"
+    ) as HTMLElement;
     const isScrolledToTop = contentElement.scrollTop === 0;
-  
+
     if (diff > 0) {
       if (mobilePosition === "peek") setMobilePosition("half");
       else if (mobilePosition === "half") setMobilePosition("full");
