@@ -1,5 +1,6 @@
-'use client';
-import {Restaurant, Sidebar} from "@/app/_components/Sidebar"
+"use client";
+import { Sidebar } from "@/app/_components/Sidebar";
+import { Restaurant } from "@/types/sidebar";
 
 const sampleData: Restaurant[] = [
   {
@@ -80,7 +81,7 @@ const sampleData: Restaurant[] = [
           rating: 5,
           content: "돈까스가 정말 맛있어요!",
           date: "2024-03-15",
-        },        
+        },
         // ... more reviews
       ],
     },
@@ -89,13 +90,10 @@ const sampleData: Restaurant[] = [
 ];
 
 export default function SamplePage() {
-
   return (
     <div className="min-h-screen">
       <Sidebar restaurants={sampleData} />
-      <div>
-        샘플페이지
-      </div>
+      <div>샘플페이지</div>
     </div>
   );
-};
+}
