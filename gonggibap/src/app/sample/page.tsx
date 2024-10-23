@@ -1,6 +1,7 @@
 "use client";
 import { Sidebar } from "@/app/_components/Sidebar";
 import { Restaurant } from "@/types/sidebar";
+import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 
 const sampleData: Restaurant[] = [
   {
@@ -93,7 +94,8 @@ export default function SamplePage() {
   return (
     <div className="min-h-screen">
       <Sidebar restaurants={sampleData} />
-      <div>샘플페이지</div>
+      <ThemeToggleBtn />
+      <div className="text-black dark:text-white">샘플페이지</div>
     </div>
   );
 }
