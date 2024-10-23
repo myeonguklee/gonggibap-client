@@ -2,8 +2,8 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Moon } from "./Moon";
-import { Sun } from "./Sun";
+import { Moon } from "@/app/_components/Moon";
+import { Sun } from "@/app/_components/Sun";
 
 export function ThemeToggleBtn() {
   const [mounted, setMounted] = useState(false);
