@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "공기밥",
     description: "공무원 업무추진비로 검증된 맛집을 찾아보세요",
+    images: ["/images/ogImage.png"],
   },
 };
 
