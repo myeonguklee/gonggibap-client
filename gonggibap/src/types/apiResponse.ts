@@ -1,6 +1,9 @@
 export interface BaseResponse<T> {
   success: boolean;
-  status: number;
-  message: string;
   data: T;
+}
+
+export interface ErrorResponse {
+  success: boolean;
+  errror: string;
 }
