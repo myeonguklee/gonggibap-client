@@ -31,7 +31,7 @@ export const ReviewForm = () => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">별점</label>
           <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((star) => (
+            {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
               <button
                 key={star}
                 type="button"
