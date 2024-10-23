@@ -28,8 +28,11 @@ pipeline {
         }
 
         stage('Push to Docker Hub') {
+
             steps {
-                script {
+                configFileProvider([
+                    configFile(fileId: '63e3d136-2078-4d39-bebc-d3ac94865f4e', targetLocation: '.env')
+                ]) {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS_ID}") {
                         def app = docker.image("${DOCKER_HUB_REPO}:latest")
                         app.push()
