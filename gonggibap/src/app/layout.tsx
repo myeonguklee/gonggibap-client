@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { RootProvider } from "@/providers";
+import { GoogleAnalytics } from "@/app/_components/GoogleAnalytics";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -45,11 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     // 다크모드 전환시 깜빡임 방지를 위해 suppressHydrationWarning 추가
-    <html lang="kr" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          {children}
+          <GoogleAnalytics />
+        </RootProvider>
       </body>
     </html>
   );
