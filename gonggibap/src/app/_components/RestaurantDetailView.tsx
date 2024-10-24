@@ -54,7 +54,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       </div>
 
       {isWriting ? (
-        <ReviewForm />
+        <ReviewForm onClickWriteReview={onClickWriteReview}/>
       ) : (
         <>
           <div>
