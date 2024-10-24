@@ -8,8 +8,8 @@ export interface Restaurant {
   restaurantName: string;
   restaurantLink: string;
   restaurantCategory: string;
-  restaurantAddress: string;
-  restaurantRoadAddress: string;
+  restaurantAddressName: string;
+  restaurantRoadAddressName: string;
   restaurantLatitude: number;
   restaurantLongitude: number;
   publicOfficeId: number;
