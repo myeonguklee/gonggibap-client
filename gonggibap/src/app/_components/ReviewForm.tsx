@@ -25,9 +25,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({onClickWriteReview}) => {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="space-y-6">
       <div className="flex-between-center">
-        <h2 className="text-xl font-bold">리뷰 작성하기</h2>
+        <h2 className="text-xl font-bold">리뷰 작성</h2>
       </div>
 
       <form className="space-y-6">

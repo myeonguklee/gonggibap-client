@@ -47,21 +47,32 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <p>📍 {restaurant.details.address}</p>
           <p>🕒 {restaurant.details.openingHours}</p>
           <p>📞 {restaurant.details.phoneNumber}</p>
-          <button onClick={onClickWriteReview} className={`p-2 rounded-lg text-white bg-[#FF7058]  ${isMobile?("dark:bg-gray-700"):("dark:bg-gray-800")}`}>
-            리뷰 작성하기
-          </button>
         </div>
       </div>
 
       {isWriting ? (
-        <ReviewForm onClickWriteReview={onClickWriteReview}/>
+        <ReviewForm onClickWriteReview={onClickWriteReview} />
       ) : (
         <>
           <div>
+            <div className="flex justify-end mb-3">
+              <button
+                onClick={onClickWriteReview}
+                className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
+                  isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
+                }`}
+              >
+                리뷰 작성
+              </button>
+            </div>
+
             <h3 className="text-lg font-bold mb-3">메뉴</h3>
             <div className="space-y-3">
               {restaurant.details.menu.map((item) => (
-                <div key={item.id} className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none">
+                <div
+                  key={item.id}
+                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                >
                   <div className="flex-between">
                     <span className="font-medium">{item.name}</span>
                     <span>{item.price.toLocaleString()}원</span>
@@ -76,7 +87,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
             <div className="space-y-3">
               {restaurant.details.reviews.map((review) => (
-                <div key={review.id} className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none">
+                <div
+                  key={review.id}
+                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                >
                   <div className="flex-between mb-2">
                     <span className="font-medium">{review.userName}</span>
                     <span className="text-yellow-400">
