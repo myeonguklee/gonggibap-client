@@ -1,5 +1,6 @@
 import { useState, TouchEvent as ReactTouchEvent, useRef, useEffect } from "react";
-import { MobilePosition, MobileView, Restaurant } from "@/types/sidebar";
+import { MobilePosition, MobileView } from "@/types/sidebar";
+import { Restaurant } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
@@ -112,7 +113,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 
+      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 z-10
         rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
         ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
@@ -133,7 +134,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
           <RestaurantListView
             restaurants={restaurants}
             onRestaurantSelect={handleRestaurantSelect}
-            selectedRestaurantId={selectedRestaurant?.id}
+            selectedRestaurantId={selectedRestaurant?.restaurantId}
           />
         ) : (
           selectedRestaurant && (

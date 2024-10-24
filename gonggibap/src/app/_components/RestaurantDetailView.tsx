@@ -1,6 +1,6 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
-import { Restaurant } from "@/types/sidebar";
+import { Restaurant } from "@/types/restaurant";
 import { ReviewForm } from "@/app/_components/ReviewForm";
 
 type RestaurantDetailViewProps = {
@@ -41,12 +41,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       )}
 
       <div>
-        <h2 className="text-xl font-bold mb-2">{restaurant.name}</h2>
+        <h2 className="text-xl font-bold mb-2">{restaurant.restaurantName}</h2>
         <div className="space-y-2">
-          <p>⭐ {restaurant.rating}</p>
-          <p>📍 {restaurant.details.address}</p>
-          <p>🕒 {restaurant.details.openingHours}</p>
-          <p>📞 {restaurant.details.phoneNumber}</p>
+          <p>⭐ {restaurant.visitCount}</p>
+          <p>📍 {restaurant.restaurantRoadAddressName}</p>
+          <p>🕒 openingHours</p>
+          <p>📞 phoneNumber</p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             </div>
 
             <h3 className="text-lg font-bold mb-3">메뉴</h3>
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               {restaurant.details.menu.map((item) => (
                 <div
                   key={item.id}
@@ -80,12 +80,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                   <p className="text-sm text-gray-400">{item.description}</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           <div>
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               {restaurant.details.reviews.map((review) => (
                 <div
                   key={review.id}
@@ -101,7 +101,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                   <p className="text-xs text-gray-400">{review.date}</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </>
       )}

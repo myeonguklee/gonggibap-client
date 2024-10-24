@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Restaurant } from "@/types/sidebar";
+import { Restaurant } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
@@ -16,7 +16,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ restaurants }) =
         <RestaurantListView
           restaurants={restaurants}
           onRestaurantSelect={setSelectedRestaurant}
-          selectedRestaurantId={selectedRestaurant?.id}
+          selectedRestaurantId={selectedRestaurant?.restaurantId}
         />
       </div>
 

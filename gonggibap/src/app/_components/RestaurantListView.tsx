@@ -1,4 +1,4 @@
-import { Restaurant } from '@/types/sidebar';
+import { Restaurant } from "@/types/restaurant";
 
 type RestaurantListViewProps = {
   restaurants: Restaurant[];
@@ -15,27 +15,32 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
     <div className="space-y-4">
       {restaurants.map((restaurant) => (
         <button
-          key={restaurant.id}
+          key={restaurant.restaurantId}
           onClick={() => onRestaurantSelect(restaurant)}
           className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
             ${
-              selectedRestaurantId === restaurant.id
+              selectedRestaurantId === restaurant.restaurantId
                 ? "bg-gray-100 dark:bg-gray-700"
                 : "hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
         >
-          <div className="flex-between-center">
-            <div>
-              <h3 className="font-bold">{restaurant.name}</h3>
-              <p className="text-sm ">{restaurant.category}</p>
+          <div className=" flex-between-center">
+            <div className="flex-col gap-1">
+              <h3 className="font-bold">
+                {restaurant.restaurantName}
+              </h3>
+              <p className="text-sm">
+                {restaurant.restaurantCategory}
+              </p>
             </div>
             <div className="text-right">
-              <div className="text-yellow-400">
-                {"⭐".repeat(restaurant.rating)}
-              </div>
-              <p className="text-sm">{restaurant.distance}</p>
+              <div className="text-yellow-400">⭐{restaurant.visitCount}</div>
             </div>
           </div>
+
+          <p className="text-gray-400 text-xs text-single-line ">
+            {restaurant.restaurantRoadAddressName}
+          </p>
         </button>
       ))}
     </div>

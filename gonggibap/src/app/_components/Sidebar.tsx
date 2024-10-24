@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Restaurant } from '@/types/sidebar';
+import { Restaurant } from '@/types/restaurant';
 import { MOBILE_BREAKPOINT } from "@/constants/sidebar";
 import { MobileSidebar } from "@/app/_components/MobileSidebar";
 import { DesktopSidebar } from "@/app/_components/DesktopSidebar";
