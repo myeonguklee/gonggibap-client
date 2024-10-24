@@ -5,25 +5,38 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import { useAuthStore } from "@/store/useAuthStore";
+import { getUserInfo } from "@/apis/user";
 import { routeURL } from "@/constants/routeURL";
 
 export function AuthContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { setAccessToken } = useAuthStore();
+  const { setAccessToken, setUserInfo } = useAuthStore();
 
   useEffect(() => {
+    const fetchUserAndRedirect = async (accessToken: string) => {
+      try {
+        const userInfo = await getUserInfo();
+        setUserInfo(userInfo);
+        setAccessToken(accessToken);
+        toast.success("로그인에 성공했습니다.");
+        router.push(routeURL.home);
+      } catch (error) {
+        console.error("사용자 정보 조회 실패:", error);
+        toast.error("사용자 정보 조회에 실패했습니다.");
+        router.push(routeURL.login);
+      }
+    };
+
     // url에서 accessToken 가져오기
     const accessToken = searchParams.get("accessToken");
     if (accessToken) {
-      setAccessToken(accessToken);
-      toast.success("로그인에 성공했습니다.");
-      router.push(routeURL.home);
+      fetchUserAndRedirect(accessToken);
     } else {
       toast.error("로그인에 실패했습니다.");
       router.push(routeURL.login);
     }
-  }, [searchParams, setAccessToken, router]);
+  }, [searchParams, setAccessToken, setUserInfo, router]);
 
   return (
     <main className="flex items-center justify-center h-screen">
