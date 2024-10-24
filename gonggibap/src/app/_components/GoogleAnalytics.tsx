@@ -1,61 +1,83 @@
 'use client';
 
-import ReactGA from 'react-ga4';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 
-type EventProps = {
-  category: string;
-  action: string;
-  label?: string;
-  value?: number;
-};
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 
-export const logEvent = ({ category, action, label, value }: EventProps) => {
-  ReactGA.event({
-    category,
-    action,
-    label,
-    value,
-  });
-};
-
-export const logPageView = (page: string) => {
-  ReactGA.send({ hitType: "pageview", page });
-};
-
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
+// gtag 타입 정의
+declare global {
+  interface Window {
+    gtag: (
+      command: 'config' | 'event',
+      targetId: string,
+      config?: Record<string, any>
+    ) => void;
+    dataLayer: any[];
+  }
+}
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    ReactGA.initialize(GA_MEASUREMENT_ID!);
-  }, []);
+    if (pathname && GA_ID) {
+      pageview(pathname);
+    }
+  }, [pathname]);
 
-  useEffect(() => {
-    const url = pathname + searchParams.toString();
-    ReactGA.send({ hitType: "pageview", page: url });
-  }, [pathname, searchParams]);
+  // GA_ID가 없으면 아무것도 렌더링하지 않음
+  if (!GA_ID) {
+    return null;
+  }
 
-  return null;
+  // 페이지뷰 추적 함수
+  const pageview = (path: string) => {
+    window?.gtag?.('config', GA_ID, {
+      page_path: path,
+    });
+  };
+
+  return (
+    <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
+    </>
+  );
 }
 
-// 차후 도메인 등록 후 layout에 <GoogleAnalytics /> 추가
+// 이벤트 추적을 위한 타입 정의
+interface EventProps {
+  action: string;
+  category?: string;
+  label?: string;
+  value?: number;
+}
 
-// export default function SearchButton() {
-//   const handleSearch = () => {
-//     // 검색 로직
-    
-//     // 이벤트 추적
-//     logEvent({
-//       category: 'Search',
-//       action: 'Click',
-//       label: 'Restaurant Search',
-//       value: 1
-//     });
-//   };
-
-//   return <button onClick={handleSearch}>검색</button>;
-// }
+// 이벤트 추적을 위한 유틸리티 함수
+export const event = ({ action, category, label, value }: EventProps) => {
+  if (!GA_ID) return;
+  
+  window?.gtag?.('event', action, {
+    event_category: category,
+    event_label: label,
+    value: value,
+  });
+};

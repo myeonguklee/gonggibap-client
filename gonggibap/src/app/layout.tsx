@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { RootProvider } from "@/providers";
+import { GoogleAnalytics } from "@/app/_components/GoogleAnalytics";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -49,7 +50,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          {children}
+          <GoogleAnalytics />{" "}
+        </RootProvider>
       </body>
     </html>
   );
