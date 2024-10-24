@@ -78,7 +78,10 @@ pipeline {
                         git config --global user.email "thswltjr11@gmail.com"
                         git config --global user.name "sonjiseokk"
 
+                        rm -rf S11P31C204
+
                         # Clone GitLab repository
+                        
                         git clone https://${GITLAB_USERNAME}:${GITLAB_PASSWORD}@lab.ssafy.com/s11-final/S11P31C204.git
                         cd S11P31C204
 
@@ -104,8 +107,27 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs()
+        success {
+            script {
+                def Author_ID = sh(script: "git show -s --pretty=%an", returnStdout: true).trim()
+                def Author_Name = sh(script: "git show -s --pretty=%ae", returnStdout: true).trim()
+                mattermostSend(color: 'good',
+                message: "빌드 성공: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${Author_ID}(${Author_Name})\n(<${env.BUILD_URL}|Details>)",
+                endpoint: 'https://meeting.ssafy.com/hooks/e61kngw88idn8gtrxuwafbxy3y',
+                channel: 'GongGiBap-Jenkins')
+            }
+        }
+        failure {
+            script {
+                withEnv(["LANG=en_US.UTF-8"]) {
+                    def Author_ID = sh(script: "git show -s --pretty=%an", returnStdout: true).trim()
+                    def Author_Name = sh(script: "git show -s --pretty=%ae", returnStdout: true).trim()
+                    mattermostSend(color: 'danger',
+                    message: "빌드 실패: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${Author_ID}(${Author_Name})\n(<${env.BUILD_URL}|Details>)",
+                    endpoint: 'https://meeting.ssafy.com/hooks/e61kngw88idn8gtrxuwafbxy3y',
+                    channel: 'GongGiBap-Jenkins')
+                }
+            }
         }
     }
 }
