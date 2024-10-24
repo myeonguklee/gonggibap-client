@@ -65,6 +65,11 @@ const config: Config = {
             display: "none",
           },
         },
+        ".text-single-line": {
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
       });
     }),
   ],
