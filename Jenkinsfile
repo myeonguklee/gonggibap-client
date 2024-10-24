@@ -50,6 +50,7 @@ pipeline {
                             sshTransfer(
                                 sourceFiles: '', // 파일 전송이 필요 없으므로 빈 문자열
                                 execCommand: """
+                                    docker image prune -a -f
                                     docker pull ${DOCKER_HUB_REPO}:latest
                                     docker stop client || true
                                     docker rm client || true
