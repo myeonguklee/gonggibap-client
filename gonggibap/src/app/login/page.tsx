@@ -8,7 +8,7 @@ export default function LoginPage() {
 
   const handleGitHubLogin = (): void => {
     setIsLoading(true);
-    window.location.href = `${process.env.NEXT_PUBLIC_CLIENT_URL}/oauth2/authorization/kakao`;
+    window.location.href = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/kakao`;
   };
 
   return (
