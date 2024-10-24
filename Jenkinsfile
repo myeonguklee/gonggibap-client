@@ -22,7 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    configFileProvider([configFile(fileId: '63e3d136-2078-4d39-bebc-d3ac94865f4e', targetLocation: 'gonggibap/.env')]) {
+                    configFileProvider([configFile(fileId: '7a5d7d98-ac9f-4166-8b8f-4ade51ea57d6', targetLocation: 'gonggibap/.env')]) {
                         // Dockerfile이 /gonggibap에 있으므로 해당 디렉토리에서 빌드
                         def app = docker.build("${DOCKER_HUB_REPO}:latest", "./gonggibap")
                     }
