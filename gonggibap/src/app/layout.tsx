@@ -46,13 +46,13 @@ export default function RootLayout({
 }>) {
   return (
     // 다크모드 전환시 깜빡임 방지를 위해 suppressHydrationWarning 추가
-    <html lang="kr" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RootProvider>
           {children}
-          <GoogleAnalytics />{" "}
+          <GoogleAnalytics />
         </RootProvider>
       </body>
     </html>
