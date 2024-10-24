@@ -6,15 +6,26 @@ import { usePathname } from 'next/navigation';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 
-// gtag 타입 정의
+// gtag 타입 정의를 더 구체적으로 수정
 declare global {
   interface Window {
     gtag: (
       command: 'config' | 'event',
       targetId: string,
-      config?: Record<string, any>
+      // Record<string, any> 대신 더 구체적인 타입 정의
+      config?: {
+        page_path?: string;
+        event_category?: string;
+        event_label?: string;
+        value?: number;
+        [key: string]: unknown;  // 기타 가능한 속성들을 위한 인덱스 시그니처
+      }
     ) => void;
-    dataLayer: any[];
+    // any[] 대신 구체적인 타입 정의
+    dataLayer: Array<{
+      event?: string;
+      [key: string]: unknown;
+    }>;
   }
 }
 
@@ -27,12 +38,10 @@ export function GoogleAnalytics() {
     }
   }, [pathname]);
 
-  // GA_ID가 없으면 아무것도 렌더링하지 않음
   if (!GA_ID) {
     return null;
   }
 
-  // 페이지뷰 추적 함수
   const pageview = (path: string) => {
     window?.gtag?.('config', GA_ID, {
       page_path: path,
@@ -63,7 +72,6 @@ export function GoogleAnalytics() {
   );
 }
 
-// 이벤트 추적을 위한 타입 정의
 interface EventProps {
   action: string;
   category?: string;
@@ -71,7 +79,6 @@ interface EventProps {
   value?: number;
 }
 
-// 이벤트 추적을 위한 유틸리티 함수
 export const event = ({ action, category, label, value }: EventProps) => {
   if (!GA_ID) return;
   
