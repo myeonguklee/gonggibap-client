@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { Polygon } from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
+import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
+import { Sidebar } from "@/app/_components/Sidebar";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function Home() {
@@ -136,6 +138,7 @@ export default function Home() {
 
   return (
     <>
+      <Sidebar restaurants={restaurants?.restaurantResponses || []} />
       <Script
         strategy="afterInteractive"
         type="text/javascript"
@@ -143,6 +146,7 @@ export default function Home() {
         onLoad={onKakaoMapLoad}
       />
       <div ref={mapRef} className="w-screen h-screen" />
+      <ThemeToggleBtn />
     </>
   );
 }
