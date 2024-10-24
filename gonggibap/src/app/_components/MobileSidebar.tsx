@@ -1,4 +1,4 @@
-import { useState, TouchEvent } from "react";
+import { useState, TouchEvent as ReactTouchEvent, useRef, useEffect } from "react";
 import { MobilePosition, MobileView, Restaurant } from "@/types/sidebar";
 import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
@@ -6,16 +6,45 @@ import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 type MobileSidebarProps = {
   restaurants: Restaurant[];
 };
-
-export const MobileSidebar: React.FC<MobileSidebarProps> = ({ restaurants }) => {
+export const MobileSidebar: React.FC<MobileSidebarProps> = ({
+  restaurants,
+}) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
-  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
+  const [selectedRestaurant, setSelectedRestaurant] =
+    useState<Restaurant | null>(null);
   const [touchState, setTouchState] = useState({
     startY: 0,
     currentY: 0,
-    isDragging: false
+    isDragging: false,
   });
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = sidebarRef.current;
+    if (!element) return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!touchState.isDragging) return;
+      if (position !== "full") {
+        e.preventDefault();
+      }
+    };
+
+    // TouchEvent 타입을 명시적으로 처리
+    const touchMoveHandler: EventListener = (e: Event) => {
+      if (e instanceof TouchEvent) {
+        handleTouchMove(e);
+      }
+    };
+
+    element.addEventListener("touchmove", touchMoveHandler, { passive: false });
+
+    return () => {
+      element.removeEventListener("touchmove", touchMoveHandler);
+    };
+  }, [touchState.isDragging, position]);
 
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -29,20 +58,17 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({ restaurants }) => 
     setPosition("half");
   };
 
-  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (e: ReactTouchEvent<HTMLDivElement>) => {
     setTouchState({
       startY: e.touches[0].clientY,
       currentY: e.touches[0].clientY,
-      isDragging: true
+      isDragging: true,
     });
   };
 
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (e: ReactTouchEvent<HTMLDivElement>) => {
     if (!touchState.isDragging) return;
-    if (position !== "full") {
-      e.preventDefault();
-    }
-    setTouchState(prev => ({ ...prev, currentY: e.touches[0].clientY }));
+    setTouchState((prev) => ({ ...prev, currentY: e.touches[0].clientY }));
   };
 
   const handleTouchEnd = () => {
@@ -50,16 +76,18 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({ restaurants }) => 
 
     const diff = touchState.startY - touchState.currentY;
     const threshold = 30;
-    const contentElement = document.querySelector(".mobile-content") as HTMLElement;
+    const contentElement = document.querySelector(
+      ".mobile-content"
+    ) as HTMLElement;
     const isScrolledToTop = contentElement?.scrollTop === 0;
 
     if (Math.abs(diff) < threshold) {
-      setTouchState(prev => ({ ...prev, isDragging: false }));
+      setTouchState((prev) => ({ ...prev, isDragging: false }));
       return;
     }
 
     if (diff > 0) {
-      setPosition(prev => {
+      setPosition((prev) => {
         if (prev === "peek") return "half";
         if (prev === "half") return "full";
         return prev;
@@ -72,17 +100,18 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({ restaurants }) => 
       }
     }
 
-    setTouchState(prev => ({ ...prev, isDragging: false }));
+    setTouchState((prev) => ({ ...prev, isDragging: false }));
   };
 
   const positionToHeightClass = {
     peek: "h-24",
     half: "h-1/2",
-    full: "h-[85vh]"
+    full: "h-[85vh]",
   };
 
   return (
     <div
+      ref={sidebarRef}
       className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 
         rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
         ${positionToHeightClass[position]}`}

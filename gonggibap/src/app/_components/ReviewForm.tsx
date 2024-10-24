@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-export const ReviewForm = () => {
+type ReviewFormProps = {
+  onClickWriteReview: () => void;
+};
+
+export const ReviewForm: React.FC<ReviewFormProps> = ({onClickWriteReview}) => {
   const [selectedStars, setSelectedStars] = useState<number>(0);
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 
@@ -21,9 +25,9 @@ export const ReviewForm = () => {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="space-y-6">
       <div className="flex-between-center">
-        <h2 className="text-xl font-bold">리뷰 작성하기</h2>
+        <h2 className="text-xl font-bold">리뷰 작성</h2>
       </div>
 
       <form className="space-y-6">
@@ -38,7 +42,7 @@ export const ReviewForm = () => {
                 onClick={() => handleStarClick(star)}
                 className={`p-1 w-8 h-8`}
               >
-                <span className={`${selectedStars >= star ? "text-yellow-400":"text-gray-100"}`}>★</span>
+                <span className={`${selectedStars >= star ? "text-yellow-400":"text-gray-300"} hover:text-gray-400`}>★</span>
               </button>
             ))}
           </div>
@@ -67,7 +71,7 @@ export const ReviewForm = () => {
             ))}
 
             {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center bg-gray-50 md:dark:bg-gray-800 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-600">
+              <label className="w-20 h-20 flex-col-center bg-gray-100 md:dark:bg-gray-800 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-900">
                 <span className="text-xs">사진 추가</span>
                 <input
                   type="file"
@@ -87,7 +91,7 @@ export const ReviewForm = () => {
           <label className="block text-sm font-medium">리뷰 작성</label>
           <textarea
             placeholder="음식과 서비스는 어떠셨나요? (최소 10자 이상)"
-            className="w-full h-32 px-3 py-2 bg-gray-50 md:dark:bg-gray-800 dark:bg-gray-700 rounded-lg resize-none"
+            className="w-full h-32 px-3 py-2 bg-gray-100 md:dark:bg-gray-800 dark:bg-gray-700 rounded-lg resize-none"
           />
           {/* <p className="text-red-500 text-xs">리뷰는 최소 10자 이상 작성해주세요.</p> */}
         </div>
@@ -102,6 +106,7 @@ export const ReviewForm = () => {
           <button
             type="button"
             className="flex-1 py-2 px-4 bg-gray-200 text-gray-400 rounded-lg hover:bg-gray-100"
+            onClick={onClickWriteReview}
           >
             취소
           </button>
