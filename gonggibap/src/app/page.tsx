@@ -47,7 +47,7 @@ export default function Home() {
       window.kakao.maps.event.addListener(marker, "click", () => {
         // 마커 클릭시 실행할 코드
         const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="padding:5px;">${restaurant.restaurantName}:${restaurant.visitCount}</div>`,
+          content: `<div class="text-black p-5">${restaurant.restaurantName}:${restaurant.visitCount}</div>`,
         });
         if (!mapInstanceRef.current) {
           return;
