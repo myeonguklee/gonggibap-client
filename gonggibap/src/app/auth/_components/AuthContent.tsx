@@ -16,9 +16,9 @@ export function AuthContent() {
   useEffect(() => {
     const fetchUserAndRedirect = async (accessToken: string) => {
       try {
+        setAccessToken(accessToken);
         const userInfo = await getUserInfo();
         setUserInfo(userInfo);
-        setAccessToken(accessToken);
         toast.success("로그인에 성공했습니다.");
         router.push(routeURL.home);
       } catch (error) {
