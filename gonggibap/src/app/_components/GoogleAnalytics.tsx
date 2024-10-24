@@ -42,6 +42,8 @@ export function GoogleAnalytics() {
   return null;
 }
 
+// 차후 도메인 등록 후 layout에 <GoogleAnalytics /> 추가
+
 // export default function SearchButton() {
 //   const handleSearch = () => {
 //     // 검색 로직
