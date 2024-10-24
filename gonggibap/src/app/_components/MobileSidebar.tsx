@@ -83,7 +83,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({ restaurants }) => 
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full bg-gray-800 text-white 
+      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 
         rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
         ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}

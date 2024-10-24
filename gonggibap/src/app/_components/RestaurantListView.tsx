@@ -17,23 +17,23 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         <button
           key={restaurant.id}
           onClick={() => onRestaurantSelect(restaurant)}
-          className={`w-full text-left p-4 rounded-lg transition-colors
+          className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
             ${
               selectedRestaurantId === restaurant.id
-                ? "bg-gray-700 text-white"
-                : "hover:bg-gray-700"
+                ? "bg-gray-100 dark:bg-gray-700"
+                : "hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
         >
           <div className="flex-between-center">
             <div>
               <h3 className="font-bold">{restaurant.name}</h3>
-              <p className="text-sm text-gray-300">{restaurant.category}</p>
+              <p className="text-sm ">{restaurant.category}</p>
             </div>
             <div className="text-right">
               <div className="text-yellow-400">
                 {"⭐".repeat(restaurant.rating)}
               </div>
-              <p className="text-sm text-gray-300">{restaurant.distance}</p>
+              <p className="text-sm">{restaurant.distance}</p>
             </div>
           </div>
         </button>
