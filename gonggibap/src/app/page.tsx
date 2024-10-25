@@ -18,6 +18,7 @@ export default function Home() {
   const debouncedPolygon = useDebounce(polygon, 500);
 
   const { data: restaurants } = useGetRestaurants(debouncedPolygon, 0);
+
   // 레스토랑 마커 업데이트를 위한 useEffect
   useEffect(() => {
     if (

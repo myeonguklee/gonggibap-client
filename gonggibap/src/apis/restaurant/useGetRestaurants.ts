@@ -1,5 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { BaseResponse } from "@/types/apiResponse";
+import { AxiosError } from "axios";
+import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
 import { GetRestaurantsResponse, Polygon } from "@/types/restaurant";
 import { client } from "@/apis/core/client";
 import { QUERY_KEYS } from "@/constants/queryKeys";
@@ -32,8 +33,8 @@ const getRestaurants = async (
 export const useGetRestaurants = (
   polygon: Polygon | null,
   page: number
-): UseQueryResult<GetRestaurantsResponse, Error> => {
-  return useQuery<GetRestaurantsResponse, Error>({
+): UseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
+  return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
     queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon],
     queryFn: () => getRestaurants(polygon!, page),
     enabled: !!polygon,
