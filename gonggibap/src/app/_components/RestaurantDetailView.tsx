@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { ReviewForm } from "@/app/_components/ReviewForm";
+import { useGetReviews } from "@/apis/review";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
@@ -19,6 +20,8 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   const [isWriting, setIsWriting] = useState<boolean>(false);
   // 리뷰 작성 폼 토글
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
+
+  const { data: reviews } = useGetReviews(restaurant.restaurantId);
 
   return (
     <div className="space-y-6">
@@ -67,23 +70,33 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
           <div>
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
-            {/* <div className="space-y-3">
-              {restaurant.details.reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
-                >
-                  <div className="flex-between mb-2">
-                    <span className="font-medium">{review.userName}</span>
-                    <span className="text-yellow-400">
-                      {"⭐".repeat(review.rating)}
-                    </span>
+            <div className="space-y-3">
+              {reviews &&
+                reviews.map((review) => (
+                  <div
+                    key={review.reviewId}
+                    className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                  >
+                    <div className="flex-between mb-2">
+                      <span className="font-medium">{review.userName}</span>
+                      <span className="text-yellow-400">
+                        {"⭐".repeat(Math.round(review.point))}
+                      </span>
+                    </div>
+                    <p className="text-sm mb-1">{review.content}</p>
+                    <p className="text-xs text-gray-400">{review.date}</p>
+                    {review.imageUrls &&
+                      review.imageUrls.map((url) => (
+                        <img
+                          key={url}
+                          src={url}
+                          alt="리뷰 이미지"
+                          className="w-20 h-20 object-cover rounded-lg"
+                        />
+                      ))}
                   </div>
-                  <p className="text-sm mb-1">{review.content}</p>
-                  <p className="text-xs text-gray-400">{review.date}</p>
-                </div>
-              ))}
-            </div> */}
+                ))}
+            </div>
           </div>
         </>
       )}

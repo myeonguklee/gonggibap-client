@@ -7,8 +7,7 @@ import { AxiosError } from "axios";
 
 const getReviews = async (restaurantId: number): Promise<Review[]> => {
   const response = await client.get<BaseResponse<Review[]>>({
-    url: "reviews",
-    params: { restaurantId },
+    url: `reviews/restaurant/${restaurantId}`,
   });
   return response.data;
 };
