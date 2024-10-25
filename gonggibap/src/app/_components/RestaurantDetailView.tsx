@@ -21,7 +21,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   // 리뷰 작성 폼 토글
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
 
-  const { data: reviews, isLoading } = useGetReviews(restaurant.restaurantId);
+  const { data: reviews } = useGetReviews(restaurant.restaurantId);
 
   return (
     <div className="space-y-6">
@@ -54,7 +54,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       </div>
 
       {isWriting ? (
-        <ReviewForm onClickWriteReview={onClickWriteReview} />
+        <ReviewForm
+          restaurantId={restaurant.restaurantId}
+          onClickWriteReview={onClickWriteReview}
+        />
       ) : (
         <>
           <div className="flex justify-end mb-3">
@@ -71,7 +74,6 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div>
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
             <div className="space-y-3">
-              {isLoading && <div>로딩중...</div>}
               {reviews?.length ? (
                 reviews.map((review) => (
                   <div
