@@ -54,33 +54,15 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         <ReviewForm onClickWriteReview={onClickWriteReview} />
       ) : (
         <>
-          <div>
-            <div className="flex justify-end mb-3">
-              <button
-                onClick={onClickWriteReview}
-                className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
-                  isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
-                }`}
-              >
-                리뷰 작성
-              </button>
-            </div>
-
-            <h3 className="text-lg font-bold mb-3">메뉴</h3>
-            {/* <div className="space-y-3">
-              {restaurant.details.menu.map((item) => (
-                <div
-                  key={item.id}
-                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
-                >
-                  <div className="flex-between">
-                    <span className="font-medium">{item.name}</span>
-                    <span>{item.price.toLocaleString()}원</span>
-                  </div>
-                  <p className="text-sm text-gray-400">{item.description}</p>
-                </div>
-              ))}
-            </div> */}
+          <div className="flex justify-end mb-3">
+            <button
+              onClick={onClickWriteReview}
+              className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
+                isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
+              }`}
+            >
+              리뷰 작성
+            </button>
           </div>
 
           <div>
