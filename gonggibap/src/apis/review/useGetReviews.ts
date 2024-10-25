@@ -1,7 +1,25 @@
-const getReviews = async(): Promise<void> => {
-  // Review 조회 로직
-}
+import { Review } from "@/types/review";
+import { client } from "../core/client";
+import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/queryKeys";
+import { AxiosError } from "axios";
 
-export const useGetReviews = (): () => void => {
-  return getReviews;
+const getReviews = async (restaurantId: number): Promise<Review[]> => {
+  const response = await client.get<BaseResponse<Review[]>>({
+    url: "reviews",
+    params: { restaurantId },
+  });
+  return response.data;
+};
+
+export const useGetReviews = (
+  restaurantId: number
+): UseQueryResult<Review[], AxiosError<ErrorResponse>> => {
+  return useQuery<Review[], AxiosError<ErrorResponse>>({
+    queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
+    queryFn: () => getReviews(restaurantId),
+    enabled: !!restaurantId,
+    staleTime: 1000 * 60 * 5,
+  });
 };
