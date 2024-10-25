@@ -21,7 +21,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   // 리뷰 작성 폼 토글
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
 
-  const { data: reviews } = useGetReviews(restaurant.restaurantId);
+  const { data: reviews, isLoading } = useGetReviews(restaurant.restaurantId);
 
   return (
     <div className="space-y-6">
@@ -71,31 +71,39 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div>
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
             <div className="space-y-3">
-              {reviews &&
+              {isLoading && <div>로딩중...</div>}
+              {reviews?.length ? (
                 reviews.map((review) => (
                   <div
                     key={review.reviewId}
                     className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
                   >
                     <div className="flex-between mb-2">
-                      <span className="font-medium">{review.userName}</span>
-                      <span className="text-yellow-400">
+                      <p className="font-medium">{review.userName}</p>
+                      <p className="text-yellow-400">
                         {"⭐".repeat(Math.round(review.point))}
-                      </span>
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      {review.imageUrls &&
+                        review.imageUrls.map((url) => (
+                          <img
+                            key={url}
+                            src={url}
+                            alt="리뷰 이미지"
+                            className="w-20 h-20 object-cover rounded-lg"
+                          />
+                        ))}
                     </div>
                     <p className="text-sm mb-1">{review.content}</p>
                     <p className="text-xs text-gray-400">{review.date}</p>
-                    {review.imageUrls &&
-                      review.imageUrls.map((url) => (
-                        <img
-                          key={url}
-                          src={url}
-                          alt="리뷰 이미지"
-                          className="w-20 h-20 object-cover rounded-lg"
-                        />
-                      ))}
                   </div>
-                ))}
+                ))
+              ) : (
+                <>
+                  <div>작성된 리뷰가 없습니다.</div>
+                </>
+              )}
             </div>
           </div>
         </>
