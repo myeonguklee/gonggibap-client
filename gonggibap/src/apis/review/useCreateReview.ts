@@ -30,15 +30,13 @@ const createReview = async ({
     });
   }
 
-  const response = await client.post<BaseResponse<void>>({
+  await client.post<BaseResponse<void>>({
     url: "reviews",
     data: formData,
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
-  console.log('Create Response:', response);
-  return response.data;
 };
 
 export const useCreateReview = (): UseMutationResult<
