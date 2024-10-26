@@ -7,12 +7,18 @@ type DesktopSidebarProps = {
   restaurants: Restaurant[];
 };
 
-export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ restaurants }) => {
-  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
+export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
+  restaurants,
+}) => {
+  const [selectedRestaurant, setSelectedRestaurant] =
+    useState<Restaurant | null>(null);
 
   return (
     <div className="flex">
-      <div className="w-64 h-screen bg-white dark:bg-gray-800 p-4 fixed left-0 top-0 z-20 overflow-y-auto">
+      <div
+        className="w-64 h-screen bg-white dark:bg-gray-800 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
+        role="navigation"
+      >
         <RestaurantListView
           restaurants={restaurants}
           onRestaurantSelect={setSelectedRestaurant}
@@ -20,10 +26,12 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ restaurants }) =
         />
       </div>
 
-      <div
+      <section
         className={`w-80 h-screen bg-white dark:bg-gray-700 p-6 fixed left-64 top-0 
           transition-transform duration-300 ease-in-out z-10 overflow-y-auto
           ${selectedRestaurant ? "translate-x-0" : "-translate-x-full"}`}
+          aria-label="레스토랑 상세 정보"
+          aria-hidden={!selectedRestaurant}
       >
         {selectedRestaurant && (
           <RestaurantDetailView
@@ -31,7 +39,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ restaurants }) =
             onClose={() => setSelectedRestaurant(null)}
           />
         )}
-      </div>
+      </section>
     </div>
   );
 };

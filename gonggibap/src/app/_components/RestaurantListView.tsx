@@ -34,34 +34,41 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   };
 
   return (
-    <div className="space-y-4">
+    <ul className="space-y-4">
       {restaurants.map((restaurant) => (
-        <button
-          key={restaurant.restaurantId}
-          onClick={() => handleRestaurantSelect(restaurant)}
-          className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
+        <li key={restaurant.restaurantId}>
+          <button
+            onClick={() => handleRestaurantSelect(restaurant)}
+            className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
             ${
               selectedRestaurantId === restaurant.restaurantId
                 ? "bg-gray-100 dark:bg-gray-700"
                 : "hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
-        >
-          <div className=" flex-between-center">
-            <div className="flex-col gap-1">
-              <h3 className="font-bold">{restaurant.restaurantName}</h3>
-              <p className="text-sm">{restaurant.restaurantCategory}</p>
+          >
+            <div className=" flex-between-center">
+              <div className="flex-col gap-1">
+                <h3 className="font-bold">{restaurant.restaurantName}</h3>
+                <p className="text-sm">
+                  <span className="sr-only">카테고리: </span>
+                  {restaurant.restaurantCategory}
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="text-yellow-400">
+                  <span className="sr-only">방문 횟수: </span>⭐
+                  {restaurant.visitCount}
+                </div>
+              </div>
             </div>
-            <div className="text-right">
-              <div className="text-yellow-400">⭐{restaurant.visitCount}</div>
-            </div>
-          </div>
 
-          <p className="text-gray-400 text-xs text-single-line ">
-            {restaurant.restaurantRoadAddressName}
-          </p>
-        </button>
+            <address className="text-gray-400 text-xs text-single-line ">
+              {restaurant.restaurantRoadAddressName}
+            </address>
+          </button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
