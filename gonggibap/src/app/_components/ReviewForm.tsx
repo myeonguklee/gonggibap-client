@@ -81,6 +81,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         },
         onError: (error) => {
           toast.error("리뷰 등록에 실패했습니다");
+          console.error(error);
         },
       }
     );

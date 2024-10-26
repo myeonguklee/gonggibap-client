@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { ReviewForm } from "@/app/_components/ReviewForm";
-import { useGetReviews } from "@/apis/review";
+import { useDeleteReview, useGetReviews } from "@/apis/review";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
@@ -20,9 +23,27 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   const [isWriting, setIsWriting] = useState<boolean>(false);
   // 리뷰 작성 폼 토글
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
+  const queryClient = useQueryClient();
 
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
-
+  const deleteReviewMutation = useDeleteReview();
+  const onDeleteReview = (reviewId: number) => {
+    deleteReviewMutation.mutate(reviewId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [
+            QUERY_KEYS.REVIEW.DETAIL(restaurant.restaurantId),
+            restaurant.restaurantId,
+          ],
+        });
+        toast.success("리뷰가 삭제되었습니다.");
+      },
+      onError: (error) => {
+        toast.error("리뷰 삭제에 실패했습니다.");
+        console.error(error);
+      }
+    });
+  };
   return (
     <div className="space-y-6">
       {/* 모바일일 때는 뒤로가기, 웹일 때는 닫기 버튼 */}
@@ -99,6 +120,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     </div>
                     <p className="text-sm mb-1">{review.content}</p>
                     <p className="text-xs text-gray-400">{review.date}</p>
+                    <button onClick={()=>onDeleteReview(review.reviewId)}>삭제</button>
                   </div>
                 ))
               ) : (
