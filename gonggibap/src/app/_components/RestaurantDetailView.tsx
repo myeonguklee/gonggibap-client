@@ -1,7 +1,7 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -12,14 +12,12 @@ import { QUERY_KEYS } from "@/constants/queryKeys";
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
   onClose?: () => void; // 웹 닫기 버튼
-  isMobile?: boolean;
   onBack?: () => void; // 모바일 뒤로가기 버튼
 };
 
 export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   restaurant,
   onClose,
-  isMobile,
   onBack,
 }) => {
   const auth = useAuthStore();
@@ -47,22 +45,20 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   return (
     <div className="space-y-6">
       {/* 모바일일 때는 뒤로가기, 웹일 때는 닫기 버튼 */}
-      {isMobile ? (
-        <button
-          onClick={onBack}
-          className="mb-4 px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
-        >
-          ← 목록으로
-        </button>
-      ) : (
-        <button
-          onClick={onClose}
-          className="absolute right-0 top-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
-          aria-label="닫기"
-        >
-          ✕
-        </button>
-      )}
+      <button
+        onClick={onClose}
+        className="hidden md:block absolute right-0 top-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
+        aria-label="닫기"
+      >
+        ✕
+      </button>
+
+      <button
+        onClick={onBack}
+        className="block md:hidden mb-4 px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
+      >
+        ← 목록으로
+      </button>
 
       <div>
         <h2 className="text-xl font-bold mb-2">{restaurant.restaurantName}</h2>
@@ -84,9 +80,8 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div className="flex justify-end mb-3">
             <button
               onClick={onClickWriteReview}
-              className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
-                isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
-              }`}
+              className="p-2 rounded-lg text-white bg-[#FF7058] text-right
+                dark:bg-gray-700 md:dark:bg-gray-800"
             >
               리뷰 작성
             </button>
@@ -121,10 +116,16 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     <p className="text-sm mb-1">{review.content}</p>
                     <p className="text-xs text-gray-400">{review.date}</p>
                     {review.userId === auth.userInfo?.id && (
-                      <button onClick={() => onDeleteReview(review.reviewId)}
-                      disabled={deleteReviewMutation.isPending}
-                      className={`${deleteReviewMutation.isPending ? 'opacity-50 cursor-not-allowed':''}`}>
-                        <Trash2 size={16}/>
+                      <button
+                        onClick={() => onDeleteReview(review.reviewId)}
+                        disabled={deleteReviewMutation.isPending}
+                        className={`${
+                          deleteReviewMutation.isPending
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
+                        }`}
+                      >
+                        <Trash2 size={16} />
                       </button>
                     )}
                   </div>
