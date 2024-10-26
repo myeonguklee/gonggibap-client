@@ -1,6 +1,7 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Trash2 } from 'lucide-react';
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -123,7 +124,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                       <button onClick={() => onDeleteReview(review.reviewId)}
                       disabled={deleteReviewMutation.isPending}
                       className={`${deleteReviewMutation.isPending ? 'opacity-50 cursor-not-allowed':''}`}>
-                        {deleteReviewMutation.isPending ? '삭제 중...' : '삭제'}
+                        <Trash2 size={16}/>
                       </button>
                     )}
                   </div>
