@@ -141,7 +141,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             <RestaurantDetailView
               restaurant={selectedRestaurant}
               onBack={handleBackToList}
-              isMobile={true}
             />
           )
         )}

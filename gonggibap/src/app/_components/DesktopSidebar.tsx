@@ -29,7 +29,6 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ restaurants }) =
           <RestaurantDetailView
             restaurant={selectedRestaurant}
             onClose={() => setSelectedRestaurant(null)}
-            isMobile={false}
           />
         )}
       </div>
