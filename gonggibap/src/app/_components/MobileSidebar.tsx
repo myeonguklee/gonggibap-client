@@ -1,4 +1,9 @@
-import { useState, TouchEvent as ReactTouchEvent, useRef, useEffect } from "react";
+import {
+  useState,
+  TouchEvent as ReactTouchEvent,
+  useRef,
+  useEffect,
+} from "react";
 import { MobilePosition, MobileView } from "@/types/sidebar";
 import { Restaurant } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/RestaurantListView";
@@ -119,8 +124,13 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      aria-label="모바일 메뉴"
     >
-      <div className="w-full h-6 touch-none drag-handle flex-center">
+      <div
+        className="w-full h-6 touch-none drag-handle flex-center"
+        role="button"
+        aria-label="스와이프로 메뉴 조절"
+      >
         <div className="w-10 h-1 bg-gray-600 rounded-full" />
       </div>
 
