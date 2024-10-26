@@ -37,7 +37,7 @@ const createReview = async ({
       "Content-Type": "multipart/form-data",
     },
   });
-
+  console.log('Create Response:', response);
   return response.data;
 };
 
