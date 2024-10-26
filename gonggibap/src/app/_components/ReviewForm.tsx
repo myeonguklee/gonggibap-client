@@ -47,10 +47,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const newImages = Array.from(files).slice(0, 3); // 최대 3장까지 업로드 가능
-      setUploadedImages(newImages);
-      setValue("images", newImages);
+      const newImages = Array.from(files);
+      const remainingSlots = 3 - uploadedImages.length;
+      
+      if (newImages.length > remainingSlots) {
+        toast.warning(`최대 ${remainingSlots}장 업로드할 수 있습니다`);
+      }
+
+      // 남은 슬롯만큼만 이미지를 추가
+      const imagesToAdd = newImages.slice(0, remainingSlots);
+      const updatedImages = [...uploadedImages, ...imagesToAdd];
+      setUploadedImages(updatedImages);
+      setValue("images", updatedImages);
     }
+    // 같은 파일을 다시 선택할 수 있도록 input 값을 초기화
+    event.target.value = "";
   };
 
   const handleRemoveImage = (index: number) => {
@@ -62,6 +73,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const onSubmit = handleSubmit((data) => {
     if (data.point === 0) {
       toast.error("별점을 선택해주세요");
+      return;
     }
 
     createReviewMutation.mutate(
@@ -154,7 +166,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               </label>
             )}
           </div>
-          <p className="text-xs text-gray-400">최대 3장까지 업로드 가능</p>
+          <p className="text-xs text-gray-400">
+            {`현재 ${uploadedImages.length}/3장 업로드됨`}
+          </p>
         </div>
 
         {/* Review content */}
