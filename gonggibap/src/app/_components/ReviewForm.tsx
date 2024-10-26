@@ -21,19 +21,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   onClickWriteReview,
 }) => {
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
-  
+
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ReviewFormData>({
     defaultValues: {
       content: "",
       point: 0,
-      images: []
-    }
+      images: [],
+    },
   });
 
   const createReviewMutation = useCreateReview();
@@ -69,13 +69,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         restaurantId,
         content: data.content,
         point: data.point,
-        images: uploadedImages
+        images: uploadedImages,
       },
       {
         onSuccess: () => {
           toast.success("리뷰가 등록되었습니다");
           queryClient.invalidateQueries({
-            queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)]
+            queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
           });
           onClickWriteReview(); // 성공 시 폼 닫기
         },
@@ -105,7 +105,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 onClick={() => handleStarClick(star)}
                 className={`p-1 w-8 h-8`}
               >
-                <span className={`${point >= star ? "text-yellow-400" : "text-gray-300"} hover:text-gray-400`}>★</span>
+                <span
+                  className={`${
+                    point >= star ? "text-yellow-400" : "text-gray-300"
+                  } hover:text-gray-400`}
+                >
+                  ★
+                </span>
               </button>
             ))}
           </div>
@@ -172,18 +178,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
         <div className="flex gap-3">
           <button
-            type="submit"
-            disabled={createReviewMutation.isPending}
-            className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900 disabled:opacity-50"
-          >
-            {createReviewMutation.isPending ? "등록 중..." : "리뷰 등록"}
-          </button>
-          <button
             type="button"
             className="flex-1 py-2 px-4 bg-gray-200 text-gray-400 rounded-lg hover:bg-gray-100"
             onClick={onClickWriteReview}
           >
             취소
+          </button>
+
+          <button
+            type="submit"
+            disabled={createReviewMutation.isPending}
+            className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900 disabled:opacity-50"
+          >
+            {createReviewMutation.isPending ? "등록 중..." : "리뷰 등록"}
           </button>
         </div>
       </form>

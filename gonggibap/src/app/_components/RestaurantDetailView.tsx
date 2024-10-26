@@ -120,8 +120,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     <p className="text-sm mb-1">{review.content}</p>
                     <p className="text-xs text-gray-400">{review.date}</p>
                     {review.userId === auth.userInfo?.id && (
-                      <button onClick={() => onDeleteReview(review.reviewId)}>
-                        삭제
+                      <button onClick={() => onDeleteReview(review.reviewId)}
+                      disabled={deleteReviewMutation.isPending}
+                      className={`${deleteReviewMutation.isPending ? 'opacity-50 cursor-not-allowed':''}`}>
+                        {deleteReviewMutation.isPending ? '삭제 중...' : '삭제'}
                       </button>
                     )}
                   </div>
