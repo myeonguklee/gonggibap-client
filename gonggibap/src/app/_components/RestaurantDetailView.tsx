@@ -1,7 +1,13 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { Trash2 } from 'lucide-react';
+import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
+import { useAuthStore } from "@/store/useAuthStore";
 import { ReviewForm } from "@/app/_components/ReviewForm";
+import { useDeleteReview, useGetReviews } from "@/apis/review";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
@@ -16,10 +22,28 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   isMobile,
   onBack,
 }) => {
+  const auth = useAuthStore();
+  const queryClient = useQueryClient();
+  const { data: reviews } = useGetReviews(restaurant.restaurantId);
+  const deleteReviewMutation = useDeleteReview();
   const [isWriting, setIsWriting] = useState<boolean>(false);
-  // 리뷰 작성 폼 토글
+
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
 
+  const onDeleteReview = (reviewId: number) => {
+    deleteReviewMutation.mutate(reviewId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurant.restaurantId)],
+        });
+        toast.success("리뷰가 삭제되었습니다.");
+      },
+      onError: (error) => {
+        toast.error("리뷰 삭제에 실패했습니다.");
+        console.error(error);
+      },
+    });
+  };
   return (
     <div className="space-y-6">
       {/* 모바일일 때는 뒤로가기, 웹일 때는 닫기 버튼 */}
@@ -51,57 +75,66 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       </div>
 
       {isWriting ? (
-        <ReviewForm onClickWriteReview={onClickWriteReview} />
+        <ReviewForm
+          restaurantId={restaurant.restaurantId}
+          onClickWriteReview={onClickWriteReview}
+        />
       ) : (
         <>
-          <div>
-            <div className="flex justify-end mb-3">
-              <button
-                onClick={onClickWriteReview}
-                className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
-                  isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
-                }`}
-              >
-                리뷰 작성
-              </button>
-            </div>
-
-            <h3 className="text-lg font-bold mb-3">메뉴</h3>
-            {/* <div className="space-y-3">
-              {restaurant.details.menu.map((item) => (
-                <div
-                  key={item.id}
-                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
-                >
-                  <div className="flex-between">
-                    <span className="font-medium">{item.name}</span>
-                    <span>{item.price.toLocaleString()}원</span>
-                  </div>
-                  <p className="text-sm text-gray-400">{item.description}</p>
-                </div>
-              ))}
-            </div> */}
+          <div className="flex justify-end mb-3">
+            <button
+              onClick={onClickWriteReview}
+              className={`p-2 rounded-lg text-white bg-[#FF7058] text-right ${
+                isMobile ? "dark:bg-gray-700" : "dark:bg-gray-800"
+              }`}
+            >
+              리뷰 작성
+            </button>
           </div>
 
           <div>
             <h3 className="text-lg font-bold mb-3">리뷰</h3>
-            {/* <div className="space-y-3">
-              {restaurant.details.reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
-                >
-                  <div className="flex-between mb-2">
-                    <span className="font-medium">{review.userName}</span>
-                    <span className="text-yellow-400">
-                      {"⭐".repeat(review.rating)}
-                    </span>
+            <div className="space-y-3">
+              {reviews?.length ? (
+                reviews.map((review) => (
+                  <div
+                    key={review.reviewId}
+                    className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                  >
+                    <div className="flex-between mb-2">
+                      <p className="font-medium">{review.userName}</p>
+                      <p className="text-yellow-400">
+                        {"⭐".repeat(Math.round(review.point))}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      {review.imageUrls &&
+                        review.imageUrls.map((url) => (
+                          <img
+                            key={url}
+                            src={url}
+                            alt="리뷰 이미지"
+                            className="w-20 h-20 object-cover rounded-lg"
+                          />
+                        ))}
+                    </div>
+                    <p className="text-sm mb-1">{review.content}</p>
+                    <p className="text-xs text-gray-400">{review.date}</p>
+                    {review.userId === auth.userInfo?.id && (
+                      <button onClick={() => onDeleteReview(review.reviewId)}
+                      disabled={deleteReviewMutation.isPending}
+                      className={`${deleteReviewMutation.isPending ? 'opacity-50 cursor-not-allowed':''}`}>
+                        <Trash2 size={16}/>
+                      </button>
+                    )}
                   </div>
-                  <p className="text-sm mb-1">{review.content}</p>
-                  <p className="text-xs text-gray-400">{review.date}</p>
-                </div>
-              ))}
-            </div> */}
+                ))
+              ) : (
+                <>
+                  <div>작성된 리뷰가 없습니다.</div>
+                </>
+              )}
+            </div>
           </div>
         </>
       )}
