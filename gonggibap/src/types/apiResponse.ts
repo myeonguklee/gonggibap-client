@@ -5,5 +5,5 @@ export interface BaseResponse<T> {
 
 export interface ErrorResponse {
   success: boolean;
-  errror: string;
+  error: string;
 }
