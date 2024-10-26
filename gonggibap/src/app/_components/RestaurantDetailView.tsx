@@ -1,10 +1,11 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
-import { Restaurant } from "@/types/restaurant";
-import { ReviewForm } from "@/app/_components/ReviewForm";
-import { useDeleteReview, useGetReviews } from "@/apis/review";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
+import { Restaurant } from "@/types/restaurant";
+import { useAuthStore } from "@/store/useAuthStore";
+import { ReviewForm } from "@/app/_components/ReviewForm";
+import { useDeleteReview, useGetReviews } from "@/apis/review";
 import { QUERY_KEYS } from "@/constants/queryKeys";
 
 type RestaurantDetailViewProps = {
@@ -20,28 +21,26 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   isMobile,
   onBack,
 }) => {
-  const [isWriting, setIsWriting] = useState<boolean>(false);
-  // 리뷰 작성 폼 토글
-  const onClickWriteReview = () => setIsWriting((prev) => !prev);
+  const auth = useAuthStore();
   const queryClient = useQueryClient();
-
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
   const deleteReviewMutation = useDeleteReview();
+  const [isWriting, setIsWriting] = useState<boolean>(false);
+
+  const onClickWriteReview = () => setIsWriting((prev) => !prev);
+
   const onDeleteReview = (reviewId: number) => {
     deleteReviewMutation.mutate(reviewId, {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [
-            QUERY_KEYS.REVIEW.DETAIL(restaurant.restaurantId),
-            restaurant.restaurantId,
-          ],
+          queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurant.restaurantId)],
         });
         toast.success("리뷰가 삭제되었습니다.");
       },
       onError: (error) => {
         toast.error("리뷰 삭제에 실패했습니다.");
         console.error(error);
-      }
+      },
     });
   };
   return (
@@ -120,7 +119,11 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     </div>
                     <p className="text-sm mb-1">{review.content}</p>
                     <p className="text-xs text-gray-400">{review.date}</p>
-                    <button onClick={()=>onDeleteReview(review.reviewId)}>삭제</button>
+                    {review.userId === auth.userInfo?.id && (
+                      <button onClick={() => onDeleteReview(review.reviewId)}>
+                        삭제
+                      </button>
+                    )}
                   </div>
                 ))
               ) : (
