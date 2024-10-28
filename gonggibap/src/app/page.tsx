@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <>
-      <Sidebar restaurants={restaurants?.content || []} />
+      {restaurants && <Sidebar restaurants={restaurants?.content} />}
       <Script
         strategy="afterInteractive"
         type="text/javascript"
