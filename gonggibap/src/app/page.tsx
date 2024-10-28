@@ -2,11 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-import {
-  Polygon,
-  Restaurant,
-  GetRestaurantsResponse,
-} from "@/types/restaurant";
+import { Polygon, Restaurant } from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/Sidebar";
