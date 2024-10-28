@@ -1,6 +1,6 @@
 export interface GetRestaurantsResponse {
   totalPages: number;
-  restaurantResponses: Restaurant[];
+  content: Restaurant[];
 }
 
 export interface Restaurant {

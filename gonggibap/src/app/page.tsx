@@ -25,9 +25,9 @@ export default function Home() {
 
   // 레스토랑 데이터 업데이트를 위한 useEffect
   useEffect(() => {
-    if (!restaurants?.restaurantResponses) return;
-    setRestaurantData(restaurants.restaurantResponses);
-  }, [restaurants?.restaurantResponses]);
+    if (!restaurants?.content) return;
+    setRestaurantData(restaurants.content);
+  }, [restaurants?.content]);
 
   // 클러스터 스타일 정의
   const getClusterStyles = () => [
@@ -267,7 +267,7 @@ export default function Home() {
 
   return (
     <>
-      <Sidebar restaurants={restaurants?.restaurantResponses || []} />
+      <Sidebar restaurants={restaurants?.content || []} />
       <Script
         strategy="afterInteractive"
         type="text/javascript"
