@@ -45,25 +45,24 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   };
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <button
-          onClick={onClose}
-          className="hidden md:block px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
-          aria-label="닫기"
-        >
-          ✕
-        </button>
-
-        <button
-          onClick={onBack}
-          className="block md:hidden mb-4 px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
-        >
-          ← 목록으로
-        </button>
-      </div>
-
       <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-bold">{restaurant.restaurantName}</h2>
+        <div className="flex-between-center">
+          <h2 className="text-xl font-bold">{restaurant.restaurantName}</h2>
+          <button
+            onClick={onClose}
+            className="hidden md:block px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
+            aria-label="닫기"
+          >
+            ✕
+          </button>
+          <button
+            onClick={onBack}
+            className="block md:hidden px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
+            aria-label="뒤로 가기"
+          >
+            X
+          </button>
+        </div>
         {/* <dl className="flex flex-col gap-4"> */}
         <dl className="flex flex-col gap-2">
           <div className="flex gap-2">
