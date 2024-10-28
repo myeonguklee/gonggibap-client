@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Script from "next/script";
-import { Polygon, Restaurant } from "@/types/restaurant";
+import { Polygon } from "@/types/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/Sidebar";
 import { useMapMarkers } from "@/hooks/useMapMarkers";
@@ -13,7 +13,6 @@ import { MdRefresh, MdGpsFixed } from "react-icons/md";
 
 export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);
-  const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
 
   const { data: restaurants } = useGetRestaurants(polygon, 0);
 
@@ -33,14 +32,9 @@ export default function Home() {
 
   const { clearMarkers: clearMapMarkers } = useMapMarkers({
     map: mapInstance,
-    restaurants: restaurantData,
+    restaurants: restaurants?.content || [],
     cluster,
   });
-
-  useEffect(() => {
-    if (!restaurants?.content) return;
-    setRestaurantData(restaurants.content);
-  }, [restaurants?.content]);
 
   return (
     <>
