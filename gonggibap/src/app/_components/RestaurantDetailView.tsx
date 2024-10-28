@@ -86,7 +86,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div>
             <dt className="sr-only">전화번호</dt>
             <dd className="flex items-center gap-1">
-              <Phone size="1rem" /> phoneNumber
+              <Phone size="1rem" /> {restaurant.phone}
             </dd>
           </div>
           <div>
