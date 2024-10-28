@@ -43,7 +43,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
     });
   };
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-4">
       <div className="relative">
         <button
           onClick={onClose}
@@ -63,7 +63,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
       <div>
         <h2 className="text-xl font-bold mb-2">{restaurant.restaurantName}</h2>
-        <dl className="space-y-2">
+        <dl className="flex flex-col gap-2">
           <div>
             <dt className="sr-only">방문 횟수</dt>
             <dd>⭐ {restaurant.visitCount}</dd>
@@ -92,7 +92,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex justify-end mb-3">
+          <div className="flex justify-end">
             <button
               onClick={onClickWriteReview}
               className="p-2 rounded-lg text-white bg-[#FF7058] text-right
@@ -103,15 +103,15 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-3">리뷰</h3>
+            <h3 className="text-lg font-bold">리뷰</h3>
             {reviews?.length ? (
-              <ul className="space-y-3">
+              <ul className="flex flex-col gap-1">
                 {reviews.map((review) => (
                   <li
                     key={review.reviewId}
-                    className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                    className="flex flex-col gap-1 p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
                   >
-                    <div className="flex-between mb-2">
+                    <div className="flex-between">
                       <p className="font-medium">{review.userName}</p>
                       <p className="text-yellow-400">
                         {"⭐".repeat(Math.round(review.point))}
@@ -131,7 +131,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                       </div>
                     )}
 
-                    <p className="text-sm mb-1">{review.content}</p>
+                    <p className="text-sm">{review.content}</p>
                     <time className="text-xs text-gray-400 block">
                       {review.date}
                     </time>

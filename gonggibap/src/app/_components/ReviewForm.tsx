@@ -100,14 +100,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   });
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-4">
       <div className="flex-between-center">
         <h2 className="text-xl font-bold">리뷰 작성</h2>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {/* Rating selection */}
-        <fieldset className="space-y-2">
+        <fieldset className="flex flex-col gap-2">
           <legend className="block text-sm font-medium">별점</legend>
           <div className="flex gap-1">
             {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
@@ -136,7 +136,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </fieldset>
 
         {/* Image upload */}
-        <fieldset className="space-y-2">
+        <fieldset className="flex flex-col gap-2">
           <legend className="block text-sm font-medium">사진 첨부</legend>
           <div className="flex gap-2">
             {uploadedImages.map((image, index) => (
@@ -177,7 +177,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </fieldset>
 
         {/* Review content */}
-        <fieldset className="space-y-2">
+        <fieldset className="flex flex-col gap-2">
           <legend className="block text-sm font-medium">리뷰 작성</legend>
           <textarea
             {...register("content", {

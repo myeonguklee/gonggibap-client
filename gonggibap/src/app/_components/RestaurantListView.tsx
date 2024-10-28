@@ -34,7 +34,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   };
 
   return (
-    <ul className="space-y-4">
+    <ul className="flex flex-col gap-2">
       {restaurants.map((restaurant) => (
         <li key={restaurant.restaurantId}>
           <button
