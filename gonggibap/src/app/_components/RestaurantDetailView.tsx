@@ -45,10 +45,8 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   };
 
   const handleMoveToKakaoMap = () => {
-    window.open(
-      `https://place.map.kakao.com/${restaurant.restaurantLink}`
-    );
-  }
+    window.open(`https://place.map.kakao.com/${restaurant.restaurantLink}`);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -93,7 +91,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div>
             <dt className="sr-only">전화번호</dt>
             <dd className="flex items-center gap-1">
-              <Phone size="1rem" /> {restaurant.phone}
+              <Phone size="1rem" />{" "}
+              {restaurant.phone
+                ? restaurant.phone
+                : "등록된 전화번호가 없습니다."}
             </dd>
           </div>
           <div>
