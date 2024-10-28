@@ -1,7 +1,8 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Trash2 } from "lucide-react";
+import Image from "next/image";
+import { Trash2, Footprints, Star, MapPin, Phone } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -44,10 +45,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   };
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative">
+      <div>
         <button
           onClick={onClose}
-          className="hidden md:block absolute right-0 top-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
+          className="hidden md:block px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
           aria-label="닫기"
         >
           ✕
@@ -61,24 +62,43 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         </button>
       </div>
 
-      <div>
-        <h2 className="text-xl font-bold mb-2">{restaurant.restaurantName}</h2>
+      <div className="flex flex-col gap-2">
+        <h2 className="text-xl font-bold">{restaurant.restaurantName}</h2>
+        {/* <dl className="flex flex-col gap-4"> */}
         <dl className="flex flex-col gap-2">
-          <div>
+          <div className="flex gap-2">
             <dt className="sr-only">방문 횟수</dt>
-            <dd>⭐ {restaurant.visitCount}</dd>
+            <dd className="flex gap-1">
+              <Footprints /> {restaurant.visitCount}
+            </dd>
+            <dt className="sr-only">음식점 평점</dt>
+            <dd className="flex gap-1">
+              <Star /> 평점
+            </dd>
           </div>
           <div>
             <dt className="sr-only">주소</dt>
-            <dd>📍 {restaurant.restaurantRoadAddressName}</dd>
-          </div>
-          <div>
-            <dt className="sr-only">영업시간</dt>
-            <dd>🕒 openingHours</dd>
+            <dd className="flex gap-1">
+              <MapPin /> {restaurant.restaurantRoadAddressName}
+            </dd>
           </div>
           <div>
             <dt className="sr-only">전화번호</dt>
-            <dd>📞 phoneNumber</dd>
+            <dd className="flex gap-1">
+              <Phone /> phoneNumber
+            </dd>
+          </div>
+          <div>
+            <dt className="sr-only">상세정보 웹사이트</dt>
+            <dd className="flex gap-1">
+              <Image
+                src="/images/kakaomap.png"
+                alt="카카오맵"
+                width={24}
+                height={24}
+                className="cursor-pointer"
+              />
+            </dd>
           </div>
         </dl>
       </div>
@@ -102,10 +122,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             </button>
           </div>
 
-          <div>
+          <div className="flex flex-col gap-2">
             <h3 className="text-lg font-bold">리뷰</h3>
             {reviews?.length ? (
-              <ul className="flex flex-col gap-1">
+              <ul className="flex flex-col gap-4">
                 {reviews.map((review) => (
                   <li
                     key={review.reviewId}
@@ -156,7 +176,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                 ))}
               </ul>
             ) : (
-              <p>작성된 리뷰가 없습니다.</p>
+              <p className="text-center">작성된 리뷰가 없습니다.</p>
             )}
           </div>
         </>
