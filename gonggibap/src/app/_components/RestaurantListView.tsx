@@ -64,8 +64,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 <div className="flex items-center gap-1">
                   <span className="sr-only">음식점 평점</span>
                   <Star size="1rem" />
-                  {/* 평점 나오면 가랑끼우기 */}
-                  <p className="text-base">평점</p>
+                  {restaurant.pointAvg ? (restaurant.pointAvg):("-")}
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="sr-only">방문 횟수: </span>

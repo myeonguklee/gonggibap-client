@@ -68,7 +68,8 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           <div className="flex gap-4">
             <dt className="sr-only">음식점 평점</dt>
             <dd className="flex items-center gap-1">
-              <Star size="1rem" /> 평점
+              <Star size="1rem" />
+              {restaurant.pointAvg ? (restaurant.pointAvg):("-")}
             </dd>
 
             <dt className="sr-only">방문 횟수</dt>
