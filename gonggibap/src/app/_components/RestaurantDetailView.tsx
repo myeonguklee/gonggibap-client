@@ -29,7 +29,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
 
-  const onDeleteReview = (reviewId: number) => {
+  const handleDeleteReview = (reviewId: number) => {
     deleteReviewMutation.mutate(reviewId, {
       onSuccess: () => {
         queryClient.invalidateQueries({
@@ -160,7 +160,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     {review.userId === auth.userInfo?.id && (
                       <div>
                         <button
-                          onClick={() => onDeleteReview(review.reviewId)}
+                          onClick={() => handleDeleteReview(review.reviewId)}
                           disabled={deleteReviewMutation.isPending}
                           className={`${
                             deleteReviewMutation.isPending
