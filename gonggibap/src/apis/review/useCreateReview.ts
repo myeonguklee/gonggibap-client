@@ -19,7 +19,6 @@ const createReview = async ({
   const formData = new FormData();
 
   // required
-  formData.append("restaurantId", restaurantId.toString());
   formData.append("content", content);
   formData.append("point", point.toString());
 
@@ -31,7 +30,7 @@ const createReview = async ({
   }
 
   await client.post<BaseResponse<void>>({
-    url: "reviews",
+    url: `reviews/restaurant/${restaurantId}`,
     data: formData,
     headers: {
       "Content-Type": "multipart/form-data",
@@ -42,8 +41,7 @@ const createReview = async ({
 export const useCreateReview = (): UseMutationResult<
   void,
   AxiosError<ErrorResponse>,
-  CreateReviewDTO,
-  unknown
+  CreateReviewDTO
 > => {
   return useMutation({
     mutationFn: createReview,
