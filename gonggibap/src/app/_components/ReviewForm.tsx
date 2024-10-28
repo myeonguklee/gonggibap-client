@@ -49,7 +49,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     const files = event.target.files;
     if (files) {
       const newImages = Array.from(files);
-      const remainingSlots = 3 - uploadedImages.length;
+      const remainingSlots = 4 - uploadedImages.length;
 
       if (newImages.length > remainingSlots) {
         toast.warning(`최대 ${remainingSlots}장 업로드할 수 있습니다`);
@@ -102,27 +102,22 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-bold">리뷰 작성</h2>
-
-      <form onSubmit={onSubmit} className="flex flex-col gap-10">
+      <h2 className="sr-only">리뷰 작성</h2>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {/* Rating selection */}
         <fieldset>
-          <legend className="block text-sm font-medium">별점</legend>
-          <div className="flex gap-2">
+          <legend className="hidden">별점</legend>
+          <div className="flex-center gap-2">
             {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
               <button
                 key={star}
                 type="button"
                 onClick={() => handleStarClick(star)}
-                className={`p-1 w-8 h-8`}
+                className={`text-4xl hover:text-gray-400
+                    ${point >= star ? "text-yellow-400" : "text-gray-300"} `}
                 aria-label={`${star}점`}
               >
-                <span
-                  className={`text-3xl hover:text-gray-400
-                    ${point >= star ? "text-yellow-400" : "text-gray-300"} `}
-                >
-                  ★
-                </span>
+                ★
               </button>
             ))}
           </div>
@@ -135,14 +130,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
         {/* Image upload */}
         <fieldset>
-          <legend className="block text-sm font-medium">사진 첨부</legend>
+          <legend className="hidden">사진 첨부</legend>
           <div className="flex gap-2">
             {uploadedImages.map((image, index) => (
               <div key={index} className="relative">
                 <img
                   src={URL.createObjectURL(image)}
                   alt={`업로드 이미지 ${index + 1}`}
-                  className="w-20 h-20 object-cover rounded"
+                  className="w-full h-20 object-cover rounded"
                 />
                 <button
                   type="button"
@@ -155,9 +150,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               </div>
             ))}
 
-            {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center rounded cursor-pointer bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800  hover:bg-gray-200 dark:hover:bg-gray-900">
-                <span className="text-xs">사진 추가</span>
+            {uploadedImages.length < 4 && (
+              <label className="w-full h-20 flex-col-center rounded cursor-pointer bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800  hover:bg-gray-200 dark:hover:bg-gray-900">
+                <span className="w-full h-full flex-center text-xs">
+                  사진 추가
+                </span>
                 <input
                   type="file"
                   accept="image/*"
@@ -170,13 +167,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             )}
           </div>
           <small className="text-xs text-gray-400">
-            {`현재 ${uploadedImages.length}/3장 업로드됨`}
+            {`현재 ${uploadedImages.length}/4장 업로드됨`}
           </small>
         </fieldset>
 
         {/* Review content */}
         <fieldset>
-          <legend className="block text-sm font-medium">리뷰 작성</legend>
+          <legend className="hidden">리뷰 작성</legend>
           <textarea
             {...register("content", {
               required: "리뷰를 작성해주세요",
