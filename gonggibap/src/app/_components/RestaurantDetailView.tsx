@@ -1,8 +1,8 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
-import { toast } from "react-toastify";
 import Image from "next/image";
 import { Trash2, Footprints, Star, MapPin, Phone } from "lucide-react";
+import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
