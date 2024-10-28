@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-import { Polygon } from "@/types/restaurant";
+import {
+  Polygon,
+  Restaurant,
+  GetRestaurantsResponse,
+} from "@/types/restaurant";
 import { useGetRestaurants } from "@/apis/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/Sidebar";
@@ -16,8 +20,8 @@ export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
   const markersRef = useRef<kakao.maps.Marker[]>([]);
-  const clusterRef = useRef<any>(null);
-  const [restaurantData, setRestaurantData] = useState<any[]>([]);
+  const clusterRef = useRef<kakao.maps.MarkerClusterer | null>(null);
+  const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
 
   const debouncedPolygon = useDebounce(polygon, 500);
   const { data: restaurants } = useGetRestaurants(debouncedPolygon, 0);
