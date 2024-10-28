@@ -8,6 +8,7 @@ import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/Sidebar";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
+import { useMapMarkers } from "@/hooks/useMapMarkers";
 import { MdRefresh, MdGpsFixed } from "react-icons/md";
 
 export default function Home() {
@@ -15,13 +16,17 @@ export default function Home() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
-  const markersRef = useRef<kakao.maps.Marker[]>([]);
   const clusterRef = useRef<kakao.maps.MarkerClusterer | null>(null);
   const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
 
   const debouncedPolygon = useDebounce(polygon, 500);
   const { data: restaurants } = useGetRestaurants(debouncedPolygon, 0);
   const { getCurrentLocation } = useCurrentLocation();
+  const { clearMarkers } = useMapMarkers({
+    map: mapInstanceRef.current,
+    restaurants: restaurantData,
+    cluster: clusterRef.current,
+  });
 
   // 레스토랑 데이터 업데이트를 위한 useEffect
   useEffect(() => {
@@ -124,80 +129,6 @@ export default function Home() {
     }
   }, [mapLoaded]);
 
-  // 마커 이미지 생성 함수
-  const createMarkerImage = (number: number) => {
-    const svg = `<svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- 그림자 효과 -->
-      <defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
-        </filter>
-      </defs>
-      <!-- 흰색 테두리 마커 -->
-      <path d="M18 0C8.07 0 0 8.07 0 18C0 31.5 18 48 18 48C18 48 36 31.5 36 18C36 8.07 27.93 0 18 0Z" 
-        fill="white"
-        filter="url(#shadow)"
-      />
-      <!-- 내부 주황색 마커 -->
-      <path d="M18 2C9.17 2 2 9.17 2 18C2 29.5 18 44 18 44C18 44 34 29.5 34 18C34 9.17 26.83 2 18 2Z" 
-        fill="#FF7058"
-      />
-      <!-- 숫자 -->
-      <text 
-        x="50%" 
-        y="43%" 
-        text-anchor="middle" 
-        dy=".3em" 
-        fill="white" 
-        font-size="16"
-        font-family="Arial, sans-serif"
-        font-weight="bold"
-      >${number}</text>
-    </svg>`;
-
-    const markerSize = new window.kakao.maps.Size(36, 48);
-    const markerOption = { offset: new window.kakao.maps.Point(18, 48) };
-
-    return new window.kakao.maps.MarkerImage(
-      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg),
-      markerSize,
-      markerOption
-    );
-  };
-
-  // 마커 생성을 위한 useEffect
-  useEffect(() => {
-    if (
-      !mapInstanceRef.current ||
-      restaurantData.length < 1 ||
-      !clusterRef.current
-    )
-      return;
-
-    // 마커가 없을 때만 새로 생성
-    if (markersRef.current.length === 0) {
-      const newMarkers = restaurantData.map((restaurant, index) => {
-        const markerPosition = new window.kakao.maps.LatLng(
-          restaurant.restaurantLatitude,
-          restaurant.restaurantLongitude
-        );
-
-        const markerImage = createMarkerImage(index + 1);
-
-        const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
-          image: markerImage,
-        });
-
-        markersRef.current.push(marker);
-        return marker;
-      });
-
-      // 클러스터에 마커들 추가
-      clusterRef.current.addMarkers(newMarkers);
-    }
-  }, [restaurantData]);
-
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
     if (!mapInstanceRef.current) return;
@@ -228,10 +159,7 @@ export default function Home() {
     });
 
     // 기존 클러스터 제거
-    clusterRef.current?.clear();
-    // 기존 마커들 제거
-    markersRef.current.forEach((marker) => marker.setMap(null));
-    markersRef.current = [];
+    clearMarkers();
   };
 
   const moveToCurrentLocation = async () => {
