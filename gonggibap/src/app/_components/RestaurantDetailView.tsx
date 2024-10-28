@@ -1,7 +1,8 @@
 // components/RestaurantDetailView.tsx
 import { useState } from "react";
+import Image from "next/image";
+import { Trash2, Footprints, Star, MapPin, Phone } from "lucide-react";
 import { toast } from "react-toastify";
-import { Trash2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -28,7 +29,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
   const onClickWriteReview = () => setIsWriting((prev) => !prev);
 
-  const onDeleteReview = (reviewId: number) => {
+  const handleDeleteReview = (reviewId: number) => {
     deleteReviewMutation.mutate(reviewId, {
       onSuccess: () => {
         queryClient.invalidateQueries({
@@ -42,43 +43,72 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       },
     });
   };
+
+  const handleMoveToKakaoMap = () => {
+    window.open(`https://place.map.kakao.com/${restaurant.restaurantLink}`);
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="relative">
-        <button
-          onClick={onClose}
-          className="hidden md:block absolute right-0 top-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
-          aria-label="닫기"
-        >
-          ✕
-        </button>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <div className="flex-between-center">
+          <h2 className="text-xl font-bold">{restaurant.restaurantName}</h2>
+          <button
+            onClick={onClose}
+            className="hidden md:block px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
+            aria-label="닫기"
+          >
+            ✕
+          </button>
+          <button
+            onClick={onBack}
+            className="block md:hidden px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
+            aria-label="뒤로 가기"
+          >
+            X
+          </button>
+        </div>
+        {/* <dl className="flex flex-col gap-4"> */}
+        <dl className="flex flex-col gap-2">
+          <div className="flex gap-4">
+            <dt className="sr-only">음식점 평점</dt>
+            <dd className="flex items-center gap-1 text-yellow-400">
+              <Star size="1rem" />
+              {restaurant.pointAvg ? restaurant.pointAvg : "-"}
+            </dd>
 
-        <button
-          onClick={onBack}
-          className="block md:hidden mb-4 px-2 py-1 text-sm rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 border dark:border-none"
-        >
-          ← 목록으로
-        </button>
-      </div>
-
-      <div>
-        <h2 className="text-xl font-bold mb-2">{restaurant.restaurantName}</h2>
-        <dl className="space-y-2">
-          <div>
             <dt className="sr-only">방문 횟수</dt>
-            <dd>⭐ {restaurant.visitCount}</dd>
+            <dd className="flex items-center gap-1 text-[#FF9A00]">
+              <Footprints size="1rem" /> {restaurant.visitCount}
+            </dd>
           </div>
           <div>
             <dt className="sr-only">주소</dt>
-            <dd>📍 {restaurant.restaurantRoadAddressName}</dd>
-          </div>
-          <div>
-            <dt className="sr-only">영업시간</dt>
-            <dd>🕒 openingHours</dd>
+            <dd className="flex items-center gap-1">
+              <MapPin size="1rem" /> {restaurant.restaurantRoadAddressName}
+            </dd>
           </div>
           <div>
             <dt className="sr-only">전화번호</dt>
-            <dd>📞 phoneNumber</dd>
+            <dd className="flex items-center gap-1">
+              <Phone size="1rem" />{" "}
+              {restaurant.phone
+                ? restaurant.phone
+                : "등록된 전화번호가 없습니다."}
+            </dd>
+          </div>
+          <div>
+            <dt className="sr-only">상세정보 웹사이트</dt>
+            <dd className="flex gap-1">
+              <Image
+                src="/images/kakaomap.png"
+                alt="카카오맵"
+                width={24}
+                height={24}
+                className="cursor-pointer"
+                onClick={handleMoveToKakaoMap}
+              />
+            </dd>
           </div>
         </dl>
       </div>
@@ -92,7 +122,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         </div>
       ) : (
         <>
-          <div className="flex justify-end mb-3">
+          <div className="flex justify-end">
             <button
               onClick={onClickWriteReview}
               className="p-2 rounded-lg text-white bg-[#FF7058] text-right
@@ -102,16 +132,16 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             </button>
           </div>
 
-          <div>
-            <h3 className="text-lg font-bold mb-3">리뷰</h3>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-lg font-bold">리뷰</h3>
             {reviews?.length ? (
-              <ul className="space-y-3">
+              <ul className="flex flex-col gap-4">
                 {reviews.map((review) => (
                   <li
                     key={review.reviewId}
-                    className="p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                    className="flex flex-col gap-1 p-3 dark:bg-gray-700 md:dark:bg-gray-800 rounded-lg border dark:border-none"
                   >
-                    <div className="flex-between mb-2">
+                    <div className="flex-between">
                       <p className="font-medium">{review.userName}</p>
                       <p className="text-yellow-400">
                         {"⭐".repeat(Math.round(review.point))}
@@ -131,7 +161,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                       </div>
                     )}
 
-                    <p className="text-sm mb-1">{review.content}</p>
+                    <p className="text-sm">{review.content}</p>
                     <time className="text-xs text-gray-400 block">
                       {review.date}
                     </time>
@@ -139,7 +169,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     {review.userId === auth.userInfo?.id && (
                       <div>
                         <button
-                          onClick={() => onDeleteReview(review.reviewId)}
+                          onClick={() => handleDeleteReview(review.reviewId)}
                           disabled={deleteReviewMutation.isPending}
                           className={`${
                             deleteReviewMutation.isPending
@@ -156,7 +186,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                 ))}
               </ul>
             ) : (
-              <p>작성된 리뷰가 없습니다.</p>
+              <p className="text-center">작성된 리뷰가 없습니다.</p>
             )}
           </div>
         </>

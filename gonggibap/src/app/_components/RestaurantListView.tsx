@@ -1,3 +1,4 @@
+import { Footprints, Star } from "lucide-react";
 import { Restaurant } from "@/types/restaurant";
 import { event } from "@/app/_components/GoogleAnalytics";
 
@@ -34,35 +35,46 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   };
 
   return (
-    <ul className="space-y-4">
-      {restaurants.map((restaurant) => (
+    <ul className="flex flex-col gap-2">
+      {restaurants.length === 0 && (
+        <p className="text-center">검색된 식당이 없습니다.</p>
+      )}
+      {restaurants.map((restaurant, index) => (
         <li key={restaurant.restaurantId}>
           <button
             onClick={() => handleRestaurantSelect(restaurant)}
-            className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
+            className={`w-full text-left flex flex-col gap-2 p-4 rounded-lg transition-colors dark:bg-gray-700 border dark:border-none
             ${
               selectedRestaurantId === restaurant.restaurantId
-                ? "bg-gray-100 dark:bg-gray-700"
-                : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "bg-gray-100 dark:bg-gray-900"
+                : "hover:bg-gray-100 dark:hover:bg-gray-900"
             }`}
           >
-            <div className=" flex-between-center">
-              <div className="flex-col gap-1">
-                <h3 className="font-bold">{restaurant.restaurantName}</h3>
+            <div className="w-full flex-between-center">
+              <div className="flex flex-col gap-2">
+                <h3 className="text-base font-bold">
+                  {index + 1}. {restaurant.restaurantName}
+                </h3>
                 <p className="text-sm">
-                  <span className="sr-only">카테고리: </span>
+                  <span className="sr-only">음식점 카테고리</span>
                   {restaurant.restaurantCategory}
                 </p>
               </div>
-              <div className="text-right">
-                <div className="text-yellow-400">
-                  <span className="sr-only">방문 횟수: </span>⭐
-                  {restaurant.visitCount}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-1 text-yellow-400">
+                  <span className="sr-only">음식점 평점</span>
+                  <Star size="1rem" />
+                  {restaurant.pointAvg ? (restaurant.pointAvg):("-")}
+                </div>
+                <div className="flex items-center gap-1 text-[#FF9A00]">
+                  <span className="sr-only">방문 횟수: </span>
+                  <Footprints size="1rem" />
+                  <p className="text-base">{restaurant.visitCount}</p>
                 </div>
               </div>
             </div>
 
-            <address className="text-gray-400 text-xs text-single-line ">
+            <address className="text-gray-400 text-xs text-single-line not-italic">
               {restaurant.restaurantRoadAddressName}
             </address>
           </button>

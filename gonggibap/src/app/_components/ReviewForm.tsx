@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useCreateReview } from "@/apis/review";
+import { X } from "lucide-react";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCreateReview } from "@/apis/review";
 import { QUERY_KEYS } from "@/constants/queryKeys";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -20,8 +22,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   restaurantId,
   onClickWriteReview,
 }) => {
-  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
-
+  const { isLogin } = useAuthStore();
   const {
     register,
     handleSubmit,
@@ -39,6 +40,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const createReviewMutation = useCreateReview();
   const point = watch("point");
   const queryClient = useQueryClient();
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 
   const handleStarClick = (star: number) => {
     setValue("point", star);
@@ -48,7 +50,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     const files = event.target.files;
     if (files) {
       const newImages = Array.from(files);
-      const remainingSlots = 3 - uploadedImages.length;
+      const remainingSlots = 4 - uploadedImages.length;
 
       if (newImages.length > remainingSlots) {
         toast.warning(`최대 ${remainingSlots}장 업로드할 수 있습니다`);
@@ -100,31 +102,24 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex-between-center">
-        <h2 className="text-xl font-bold">리뷰 작성</h2>
-      </div>
-
-      <form onSubmit={onSubmit} className="space-y-6">
+    <div className="relative">
+    <div className="flex flex-col gap-4">
+      <h2 className="sr-only">리뷰 작성</h2>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {/* Rating selection */}
-        <fieldset className="space-y-2">
-          <legend className="block text-sm font-medium">별점</legend>
-          <div className="flex gap-1">
+        <fieldset>
+          <legend className="hidden">별점</legend>
+          <div className="flex-center gap-2">
             {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
               <button
                 key={star}
                 type="button"
                 onClick={() => handleStarClick(star)}
-                className={`p-1 w-8 h-8`}
+                className={`text-4xl hover:text-gray-400
+                    ${point >= star ? "text-yellow-400" : "text-gray-300"} `}
                 aria-label={`${star}점`}
               >
-                <span
-                  className={`${
-                    point >= star ? "text-yellow-400" : "text-gray-300"
-                  } hover:text-gray-400`}
-                >
-                  ★
-                </span>
+                ★
               </button>
             ))}
           </div>
@@ -136,30 +131,32 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </fieldset>
 
         {/* Image upload */}
-        <fieldset className="space-y-2">
-          <legend className="block text-sm font-medium">사진 첨부</legend>
+        <fieldset>
+          <legend className="hidden">사진 첨부</legend>
           <div className="flex gap-2">
             {uploadedImages.map((image, index) => (
               <div key={index} className="relative">
                 <img
                   src={URL.createObjectURL(image)}
                   alt={`업로드 이미지 ${index + 1}`}
-                  className="w-20 h-20 object-cover rounded"
+                  className="w-full h-20 object-cover rounded"
                 />
                 <button
                   type="button"
                   onClick={() => handleRemoveImage(index)}
-                  className="absolute -top-2 -right-2 dark:bg-gray-800 dark:sm:bg-gray-700 rounded-full p-1"
+                  className="absolute -top-1 -right-1 bg-white dark:bg-gray-800 md:dark:bg-gray-700 rounded p-1"
                   aria-label={`이미지 ${index + 1} 삭제`}
                 >
-                  ✕
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             ))}
 
-            {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center bg-gray-100 md:dark:bg-gray-800 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-900">
-                <span className="text-xs">사진 추가</span>
+            {uploadedImages.length < 4 && (
+              <label className="w-full h-20 flex-col-center rounded cursor-pointer bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800  hover:bg-gray-200 dark:hover:bg-gray-900">
+                <span className="w-full h-full flex-center text-xs">
+                  사진 추가
+                </span>
                 <input
                   type="file"
                   accept="image/*"
@@ -172,13 +169,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             )}
           </div>
           <small className="text-xs text-gray-400">
-            {`현재 ${uploadedImages.length}/3장 업로드됨`}
+            {`현재 ${uploadedImages.length}/4장 업로드됨`}
           </small>
         </fieldset>
 
         {/* Review content */}
-        <fieldset className="space-y-2">
-          <legend className="block text-sm font-medium">리뷰 작성</legend>
+        <fieldset>
+          <legend className="hidden">리뷰 작성</legend>
           <textarea
             {...register("content", {
               required: "리뷰를 작성해주세요",
@@ -215,6 +212,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           </button>
         </div>
       </form>
+    </div>
+          {/* Login Overlay */}
+          {!isLogin && (
+        <div className="absolute inset-0 bg-black/50 flex-center rounded-lg backdrop-blur-sm">
+          <div className="text-center">
+            <p className="text-white mb-4">리뷰를 작성하려면 로그인이 필요합니다</p>
+            <a
+              href="/login"
+              className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
+            >
+              로그인하기
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
