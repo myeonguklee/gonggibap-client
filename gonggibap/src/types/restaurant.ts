@@ -6,6 +6,7 @@ export interface GetRestaurantsResponse {
 export interface Restaurant {
   restaurantId: number;
   restaurantName: string;
+  phone: string;
   restaurantLink: string;
   restaurantCategory: string;
   restaurantDetailCategory: string;
@@ -15,6 +16,7 @@ export interface Restaurant {
   restaurantLongitude: number;
   publicOfficeId: number;
   visitCount: number;
+  pointAvg: number | null;
 }
 
 export interface Coordinate {
