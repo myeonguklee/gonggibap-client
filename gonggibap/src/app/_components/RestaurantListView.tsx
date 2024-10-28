@@ -61,12 +61,12 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 </p>
               </div>
               <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 text-yellow-400">
                   <span className="sr-only">음식점 평점</span>
                   <Star size="1rem" />
                   {restaurant.pointAvg ? (restaurant.pointAvg):("-")}
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 text-[#FF9A00]">
                   <span className="sr-only">방문 횟수: </span>
                   <Footprints size="1rem" />
                   <p className="text-base">{restaurant.visitCount}</p>
