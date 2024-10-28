@@ -52,7 +52,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           >
             <div className="w-full flex-between-center">
               <div className="flex flex-col gap-2">
-                <h3 className="font-bold">
+                <h3 className="text-base font-bold">
                   {index + 1}. {restaurant.restaurantName}
                 </h3>
                 <p className="text-sm">
@@ -60,16 +60,16 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                   {restaurant.restaurantCategory}
                 </p>
               </div>
-              <div className="text-right flex flex-col gap-1">
+              <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-1">
                   <span className="sr-only">음식점 평점</span>
-                  <Star size={16} />
+                  <Star size="1rem" />
                   {/* 평점 나오면 가랑끼우기 */}
                   <p className="text-base">평점</p>
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="sr-only">방문 횟수: </span>
-                  <Footprints size={16} />
+                  <Footprints size="1rem" />
                   <p className="text-base">{restaurant.visitCount}</p>
                 </div>
               </div>

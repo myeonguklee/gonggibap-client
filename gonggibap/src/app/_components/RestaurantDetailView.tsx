@@ -65,26 +65,27 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         </div>
         {/* <dl className="flex flex-col gap-4"> */}
         <dl className="flex flex-col gap-2">
-          <div className="flex gap-2">
-            <dt className="sr-only">방문 횟수</dt>
-            <dd className="flex gap-1">
-              <Footprints /> {restaurant.visitCount}
-            </dd>
+          <div className="flex gap-4">
             <dt className="sr-only">음식점 평점</dt>
-            <dd className="flex gap-1">
-              <Star /> 평점
+            <dd className="flex items-center gap-1">
+              <Star size="1rem" /> 평점
+            </dd>
+
+            <dt className="sr-only">방문 횟수</dt>
+            <dd className="flex items-center gap-1">
+              <Footprints size="1rem" /> {restaurant.visitCount}
             </dd>
           </div>
           <div>
             <dt className="sr-only">주소</dt>
-            <dd className="flex gap-1">
-              <MapPin /> {restaurant.restaurantRoadAddressName}
+            <dd className="flex items-center gap-1">
+              <MapPin size="1rem" /> {restaurant.restaurantRoadAddressName}
             </dd>
           </div>
           <div>
             <dt className="sr-only">전화번호</dt>
-            <dd className="flex gap-1">
-              <Phone /> phoneNumber
+            <dd className="flex items-center gap-1">
+              <Phone size="1rem" /> phoneNumber
             </dd>
           </div>
           <div>
