@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useCreateReview } from "@/apis/review";
-import { toast } from "react-toastify";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/constants/queryKeys";
 import { X } from "lucide-react";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { useCreateReview } from "@/apis/review";
+import { QUERY_KEYS } from "@/constants/queryKeys";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -21,8 +22,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   restaurantId,
   onClickWriteReview,
 }) => {
-  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
-
+  const { isLogin } = useAuthStore();
   const {
     register,
     handleSubmit,
@@ -40,6 +40,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   const createReviewMutation = useCreateReview();
   const point = watch("point");
   const queryClient = useQueryClient();
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 
   const handleStarClick = (star: number) => {
     setValue("point", star);
@@ -101,6 +102,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   });
 
   return (
+    <div className="relative">
     <div className="flex flex-col gap-4">
       <h2 className="sr-only">리뷰 작성</h2>
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -210,6 +212,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           </button>
         </div>
       </form>
+    </div>
+          {/* Login Overlay */}
+          {!isLogin && (
+        <div className="absolute inset-0 bg-black/50 flex-center rounded-lg backdrop-blur-sm">
+          <div className="text-center">
+            <p className="text-white mb-4">리뷰를 작성하려면 로그인이 필요합니다</p>
+            <a
+              href="/login"
+              className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
+            >
+              로그인하기
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
