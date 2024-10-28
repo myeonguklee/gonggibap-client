@@ -102,11 +102,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex-between-center">
-        <h2 className="text-xl font-bold">리뷰 작성</h2>
-      </div>
+      <h2 className="font-bold">리뷰 작성</h2>
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <form onSubmit={onSubmit} className="flex flex-col gap-10">
         {/* Rating selection */}
         <fieldset>
           <legend className="block text-sm font-medium">별점</legend>
@@ -153,13 +151,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                   aria-label={`이미지 ${index + 1} 삭제`}
                 >
                   <X className="w-4 h-4" />
-
                 </button>
               </div>
             ))}
 
             {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-900">
+              <label className="w-20 h-20 flex-col-center rounded cursor-pointer bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800  hover:bg-gray-200 dark:hover:bg-gray-900">
                 <span className="text-xs">사진 추가</span>
                 <input
                   type="file"
