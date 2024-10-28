@@ -75,7 +75,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
               </div>
             </div>
 
-            <address className="text-gray-400 text-xs text-single-line ">
+            <address className="text-gray-400 text-xs text-single-line not-italic">
               {restaurant.restaurantRoadAddressName}
             </address>
           </button>
