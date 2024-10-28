@@ -4,6 +4,7 @@ import { useCreateReview } from "@/apis/review";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/queryKeys";
+import { X } from "lucide-react";
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -107,9 +108,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
         {/* Rating selection */}
-        <fieldset className="flex flex-col gap-2">
+        <fieldset>
           <legend className="block text-sm font-medium">별점</legend>
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
               <button
                 key={star}
@@ -119,9 +120,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 aria-label={`${star}점`}
               >
                 <span
-                  className={`${
-                    point >= star ? "text-yellow-400" : "text-gray-300"
-                  } hover:text-gray-400`}
+                  className={`text-3xl hover:text-gray-400
+                    ${point >= star ? "text-yellow-400" : "text-gray-300"} `}
                 >
                   ★
                 </span>
@@ -136,7 +136,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </fieldset>
 
         {/* Image upload */}
-        <fieldset className="flex flex-col gap-2">
+        <fieldset>
           <legend className="block text-sm font-medium">사진 첨부</legend>
           <div className="flex gap-2">
             {uploadedImages.map((image, index) => (
@@ -149,16 +149,17 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 <button
                   type="button"
                   onClick={() => handleRemoveImage(index)}
-                  className="absolute -top-2 -right-2 dark:bg-gray-800 dark:sm:bg-gray-700 rounded-full p-1"
+                  className="absolute -top-1 -right-1 bg-white dark:bg-gray-800 md:dark:bg-gray-700 rounded p-1"
                   aria-label={`이미지 ${index + 1} 삭제`}
                 >
-                  ✕
+                  <X className="w-4 h-4" />
+
                 </button>
               </div>
             ))}
 
             {uploadedImages.length < 3 && (
-              <label className="w-20 h-20 flex-col-center bg-gray-100 md:dark:bg-gray-800 dark:bg-gray-700 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-900">
+              <label className="w-20 h-20 flex-col-center bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-900">
                 <span className="text-xs">사진 추가</span>
                 <input
                   type="file"
@@ -177,7 +178,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
         </fieldset>
 
         {/* Review content */}
-        <fieldset className="flex flex-col gap-2">
+        <fieldset>
           <legend className="block text-sm font-medium">리뷰 작성</legend>
           <textarea
             {...register("content", {
