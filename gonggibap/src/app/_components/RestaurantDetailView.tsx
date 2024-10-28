@@ -43,6 +43,13 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       },
     });
   };
+
+  const handleMoveToKakaoMap = () => {
+    window.open(
+      `https://place.map.kakao.com/${restaurant.restaurantLink}`
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
@@ -98,6 +105,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                 width={24}
                 height={24}
                 className="cursor-pointer"
+                onClick={handleMoveToKakaoMap}
               />
             </dd>
           </div>
