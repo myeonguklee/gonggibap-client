@@ -109,7 +109,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                 {reviews.map((review) => (
                   <li
                     key={review.reviewId}
-                    className="flex flex-col gap-1 p-3 dark:bg-gray-700 rounded-lg border dark:border-none"
+                    className="flex flex-col gap-1 p-3 dark:bg-gray-700 md:dark:bg-gray-800 rounded-lg border dark:border-none"
                   >
                     <div className="flex-between">
                       <p className="font-medium">{review.userName}</p>

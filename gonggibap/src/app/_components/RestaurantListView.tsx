@@ -40,11 +40,11 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         <li key={restaurant.restaurantId}>
           <button
             onClick={() => handleRestaurantSelect(restaurant)}
-            className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-none
+            className={`w-full text-left p-4 rounded-lg transition-colors bg-gray-700 border dark:border-none
             ${
               selectedRestaurantId === restaurant.restaurantId
-                ? "bg-gray-100 dark:bg-gray-700"
-                : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                ? "bg-gray-100 dark:bg-gray-900"
+                : "hover:bg-gray-100 dark:hover:bg-gray-900"
             }`}
           >
             <div className=" flex-between-center">
