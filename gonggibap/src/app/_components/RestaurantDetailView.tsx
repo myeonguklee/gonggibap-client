@@ -67,13 +67,13 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         <dl className="flex flex-col gap-2">
           <div className="flex gap-4">
             <dt className="sr-only">음식점 평점</dt>
-            <dd className="flex items-center gap-1">
+            <dd className="flex items-center gap-1 text-yellow-400">
               <Star size="1rem" />
-              {restaurant.pointAvg ? (restaurant.pointAvg):("-")}
+              {restaurant.pointAvg ? restaurant.pointAvg : "-"}
             </dd>
 
             <dt className="sr-only">방문 횟수</dt>
-            <dd className="flex items-center gap-1">
+            <dd className="flex items-center gap-1 text-[#FF9A00]">
               <Footprints size="1rem" /> {restaurant.visitCount}
             </dd>
           </div>
