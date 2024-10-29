@@ -14,7 +14,7 @@ const createReview = async ({
   restaurantId,
   content,
   point,
-  images,
+  images = [],
 }: CreateReviewDTO): Promise<void> => {
   const formData = new FormData();
 
@@ -22,12 +22,11 @@ const createReview = async ({
   formData.append("content", content);
   formData.append("point", point.toString());
 
-  // optional
-  if (images && images.length > 0) {
-    images.forEach((image) => {
-      formData.append("images", image);
-    });
-  }
+  // images는 항상 배열이므로 (undefined가 될 수 없음)
+  // 바로 forEach 실행
+  images.forEach((image) => {
+    formData.append("images", image);
+  });
 
   await client.post<BaseResponse<void>>({
     url: `reviews/restaurant/${restaurantId}`,
