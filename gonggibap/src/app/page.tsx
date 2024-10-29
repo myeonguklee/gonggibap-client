@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Script from "next/script";
-import { Polygon } from "@/types/restaurant";
+import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/Sidebar";
+import { CategoryFilter } from "@/app/_components/CategoryFilter";
 import { useMapMarkers } from "@/hooks/useMapMarkers";
 import { useKakaoMap } from "@/hooks/useKakaoMap";
 import { useMapCluster } from "@/hooks/useMapCluster";
@@ -16,8 +17,10 @@ export default function Home() {
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
     number | null
   >(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<RestaurantDetailCategory>(null);
 
-  const { data: restaurants } = useGetRestaurants(polygon, 0);
+  const { data: restaurants } = useGetRestaurants(polygon, 0, selectedCategory);
 
   const handleRestaurantSelect = (id: number | null) => {
     setSelectedRestaurantId(id);
@@ -60,6 +63,11 @@ export default function Home() {
 
   return (
     <>
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        isDetailOpen={selectedRestaurantId !== null}
+      />
       <Sidebar
         restaurants={restaurants?.content}
         totalPages={restaurants?.totalPages}
