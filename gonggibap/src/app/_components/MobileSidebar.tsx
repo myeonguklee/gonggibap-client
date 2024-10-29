@@ -62,7 +62,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   useEffect(() => {
     if (selectedRestaurantId) {
       setView("detail");
-      setPosition("full");
+      setPosition("half");
     } else {
       setView("list");
       setPosition("peek");
