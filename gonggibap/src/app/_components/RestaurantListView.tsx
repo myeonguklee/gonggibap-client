@@ -3,8 +3,7 @@ import { Footprints, Star, Coffee, Utensils, MapPinned } from "lucide-react";
 import { Restaurant } from "@/types/restaurant";
 import { event } from "@/app/_components/GoogleAnalytics";
 import { Pagination } from "@/app/_components/Pagination";
-import { RestaurantsSkeleton } from "@/app/_components/RestaurantsSkeleton";
-import { MapPinLoading } from "./MapPinLoading";
+import { MapPinLoading } from "@/app/_components/MapPinLoading";
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
