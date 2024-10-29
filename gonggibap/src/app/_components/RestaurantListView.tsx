@@ -6,9 +6,9 @@ import { Pagination } from "@/app/_components/Pagination";
 
 type RestaurantListViewProps = {
   restaurants: Restaurant[];
-  onRestaurantSelect: (restaurant: Restaurant) => void;
-  selectedRestaurantId?: number;
   totalPages: number;
+  selectedRestaurantId: number | null;
+  onRestaurantSelect: (id: number | null) => void;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
@@ -42,7 +42,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
     });
 
     // 기존 선택 핸들러 호출
-    onRestaurantSelect(restaurant);
+    onRestaurantSelect(restaurant.restaurantId);
   };
 
   return (

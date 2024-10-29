@@ -12,22 +12,27 @@ import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 type MobileSidebarProps = {
   restaurants: Restaurant[];
   totalPages: number;
+  selectedRestaurantId: number | null;
+  onRestaurantSelect: (id: number | null) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
   totalPages,
+  selectedRestaurantId,
+  onRestaurantSelect,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
-  const [selectedRestaurant, setSelectedRestaurant] =
-    useState<Restaurant | null>(null);
   const [touchState, setTouchState] = useState({
     startY: 0,
     currentY: 0,
     isDragging: false,
   });
-
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const selectedRestaurant = restaurants.find(
+    (r) => r.restaurantId === selectedRestaurantId
+  );
 
   useEffect(() => {
     const element = sidebarRef.current;
@@ -54,15 +59,15 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     };
   }, [touchState.isDragging, position]);
 
-  const handleRestaurantSelect = (restaurant: Restaurant) => {
-    setSelectedRestaurant(restaurant);
+  const handleRestaurantSelect = (restaurantId: number | null) => {
+    onRestaurantSelect(restaurantId);
     setView("detail");
     setPosition("full");
   };
 
   const handleBackToList = () => {
     setView("list");
-    setSelectedRestaurant(null);
+    onRestaurantSelect(null);
     setPosition("half");
   };
 
@@ -145,9 +150,9 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
         {view === "list" ? (
           <RestaurantListView
             restaurants={restaurants}
-            onRestaurantSelect={handleRestaurantSelect}
-            selectedRestaurantId={selectedRestaurant?.restaurantId}
             totalPages={totalPages}
+            selectedRestaurantId={selectedRestaurantId}
+            onRestaurantSelect={handleRestaurantSelect}
           />
         ) : (
           selectedRestaurant && (

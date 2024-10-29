@@ -48,9 +48,9 @@ export default function Home() {
       {restaurants && (
         <Sidebar
           restaurants={restaurants?.content}
+          totalPages={restaurants?.totalPages}
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={handleRestaurantSelect}
-          totalPages={restaurants?.totalPages}
         />
       )}
       <Script

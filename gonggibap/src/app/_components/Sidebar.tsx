@@ -18,10 +18,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <nav aria-label="사이드바">
       <div className="hidden md:block" aria-label="데스크톱 사이드바">
-        <DesktopSidebar restaurants={restaurants} totalPages={totalPages} />
+        <DesktopSidebar
+          restaurants={restaurants}
+          totalPages={totalPages}
+          selectedRestaurantId={selectedRestaurantId}
+          onRestaurantSelect={onRestaurantSelect}
+        />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">
-        <MobileSidebar restaurants={restaurants} totalPages={totalPages} />
+        <MobileSidebar
+          restaurants={restaurants}
+          totalPages={totalPages}
+          selectedRestaurantId={selectedRestaurantId}
+          onRestaurantSelect={onRestaurantSelect}
+        />
       </div>
     </nav>
   );
