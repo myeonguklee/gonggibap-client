@@ -62,7 +62,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
             }`}
             >
                 <div className="w-full flex flex-col gap-2">
-                  <h3 className="font-bold">
+                  <h3 className="font-bold text-single-line">
                     {index + 1}. {restaurant.restaurantName}
                   </h3>
                   <div className="flex gap-3">
@@ -75,7 +75,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                       )}
                       {restaurant.restaurantDetailCategory}
                     </div>
-                    <address className="flex items-center gap-1 not-italic">
+                    <address className="flex items-center gap-1 not-italic text-single-line">
                       <MapPinned size="1rem" />
                       {restaurant.restaurantRoadAddressName
                         .split(" ")
