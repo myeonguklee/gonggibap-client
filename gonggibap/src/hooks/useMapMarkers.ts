@@ -1,65 +1,73 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { Restaurant } from "@/types/restaurant";
-
-const MARKER_SVG_TEMPLATE = `
-<svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
-    </filter>
-  </defs>
-  <path d="M18 0C8.07 0 0 8.07 0 18C0 31.5 18 48 18 48C18 48 36 31.5 36 18C36 8.07 27.93 0 18 0Z" 
-    fill="white"
-    filter="url(#shadow)"
-  />
-  <path d="M18 2C9.17 2 2 9.17 2 18C2 29.5 18 44 18 44C18 44 34 29.5 34 18C34 9.17 26.83 2 18 2Z" 
-    fill="#FF7058"
-  />
-  <text 
-    x="50%" 
-    y="43%" 
-    text-anchor="middle" 
-    dy=".3em" 
-    fill="white" 
-    font-size="16"
-    font-family="Arial, sans-serif"
-    font-weight="bold"
-  >\${number}</text>
-</svg>`;
-
-const MARKER_SIZE = {
-  width: 36,
-  height: 48,
-};
-
-const MARKER_OFFSET = {
-  x: 18,
-  y: 48,
-};
+import {
+  MARKER_TEMPLATES,
+  MARKER_DIMENSIONS,
+  MARKER_Z_INDEX,
+} from "@/constants/marker";
 
 interface MarkerProps {
   map: kakao.maps.Map | null;
   restaurants: Restaurant[];
   cluster: kakao.maps.MarkerClusterer | null;
+  selectedRestaurantId: number | null;
+  onRestaurantSelect: (id: number | null) => void;
 }
 
-export const useMapMarkers = ({ map, restaurants, cluster }: MarkerProps) => {
+export const useMapMarkers = ({
+  map,
+  restaurants,
+  cluster,
+  selectedRestaurantId,
+  onRestaurantSelect,
+}: MarkerProps) => {
   const markersRef = useRef<kakao.maps.Marker[]>([]);
 
-  const clearMarkersAndCluster = () => {
+  const clearMarkersAndCluster = useCallback(() => {
     cluster?.clear();
     markersRef.current.forEach((marker) => marker.setMap(null));
     markersRef.current = [];
-  };
-
+  }, [cluster]);
+  // 기본 마커 스타일
   const createMarkerImage = (number: number) => {
-    const svg = MARKER_SVG_TEMPLATE.replace("${number}", number.toString());
+    const svg = MARKER_TEMPLATES.DEFAULT.replace(
+      "${number}",
+      number.toString()
+    );
     const markerSize = new window.kakao.maps.Size(
-      MARKER_SIZE.width,
-      MARKER_SIZE.height
+      MARKER_DIMENSIONS.DEFAULT.size.width,
+      MARKER_DIMENSIONS.DEFAULT.size.height
     );
     const markerOption = {
-      offset: new window.kakao.maps.Point(MARKER_OFFSET.x, MARKER_OFFSET.y),
+      offset: new window.kakao.maps.Point(
+        MARKER_DIMENSIONS.DEFAULT.offset.x,
+        MARKER_DIMENSIONS.DEFAULT.offset.y
+      ),
+    };
+
+    return new window.kakao.maps.MarkerImage(
+      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg),
+      markerSize,
+      markerOption
+    );
+  };
+
+  // 선택된 마커 스타일
+  const createSelectedMarkerImage = (number: number) => {
+    const svg = MARKER_TEMPLATES.SELECTED.replace(
+      "${number}",
+      number.toString()
+    );
+
+    const markerSize = new window.kakao.maps.Size(
+      MARKER_DIMENSIONS.SELECTED.size.width,
+      MARKER_DIMENSIONS.SELECTED.size.height
+    );
+    const markerOption = {
+      offset: new window.kakao.maps.Point(
+        MARKER_DIMENSIONS.SELECTED.offset.x,
+        MARKER_DIMENSIONS.SELECTED.offset.y
+      ),
     };
 
     return new window.kakao.maps.MarkerImage(
@@ -84,17 +92,46 @@ export const useMapMarkers = ({ map, restaurants, cluster }: MarkerProps) => {
           image: createMarkerImage(index + 1),
         });
 
+        // 마커에 restaurant 정보 저장(클릭 이벤트에서 사용)
+        // @ts-expect-error - kakao.maps.Marker type does not include restaurantId property
+        marker.restaurantId = restaurant.restaurantId;
+
+        // 클릭 이벤트 추가
+        window.kakao.maps.event.addListener(marker, "click", () => {
+          onRestaurantSelect(restaurant.restaurantId);
+        });
+
         markersRef.current.push(marker);
         return marker;
       });
 
       cluster.addMarkers(newMarkers);
     }
+    // 선택된 마커 스타일 변경
+    markersRef.current.forEach((marker, index) => {
+      // @ts-expect-error - kakao.maps.Marker type does not include restaurantId property
+      if (marker.restaurantId === selectedRestaurantId) {
+        // 선택된 마커는 다른 스타일 적용
+        marker.setImage(createSelectedMarkerImage(index + 1));
+        marker.setZIndex(MARKER_Z_INDEX.SELECTED);
+      } else {
+        // 선택되지 않은 마커는 기본 스타일
+        marker.setImage(createMarkerImage(index + 1));
+        marker.setZIndex(MARKER_Z_INDEX.DEFAULT);
+      }
+    });
 
     return () => {
       clearMarkersAndCluster();
     };
-  }, [map, restaurants, cluster]);
+  }, [
+    map,
+    restaurants,
+    cluster,
+    selectedRestaurantId,
+    onRestaurantSelect,
+    clearMarkersAndCluster,
+  ]);
 
   return {
     markers: markersRef.current,
