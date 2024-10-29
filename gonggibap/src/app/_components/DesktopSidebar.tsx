@@ -3,8 +3,8 @@ import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
 type DesktopSidebarProps = {
-  restaurants: Restaurant[];
-  totalPages: number;
+  restaurants?: Restaurant[];
+  totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 };
@@ -15,7 +15,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   selectedRestaurantId,
   onRestaurantSelect,
 }) => {
-  const selectedRestaurant = selectedRestaurantId
+  const selectedRestaurant = selectedRestaurantId && restaurants
     ? restaurants.find((r) => r.restaurantId === selectedRestaurantId)
     : null;
 

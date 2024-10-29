@@ -10,8 +10,8 @@ import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
 type MobileSidebarProps = {
-  restaurants: Restaurant[];
-  totalPages: number;
+  restaurants?: Restaurant[];
+  totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 };
@@ -30,7 +30,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   });
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const selectedRestaurant = restaurants.find(
+  const selectedRestaurant = restaurants?.find(
     (r) => r.restaurantId === selectedRestaurantId
   );
 
