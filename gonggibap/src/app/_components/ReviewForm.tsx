@@ -159,7 +159,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 </span>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/*,.jpg,.jpeg,.png,.gif,.heic,.heif,.webp"
                   multiple
                   onChange={handleImageUpload}
                   className="hidden"
