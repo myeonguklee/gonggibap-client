@@ -6,6 +6,7 @@ type RestaurantListViewProps = {
   restaurants: Restaurant[];
   onRestaurantSelect: (restaurant: Restaurant) => void;
   selectedRestaurantId?: number;
+  totalPpage: number;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
