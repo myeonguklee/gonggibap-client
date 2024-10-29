@@ -3,6 +3,7 @@ import { Footprints, Star, Coffee, Utensils, MapPinned } from "lucide-react";
 import { Restaurant } from "@/types/restaurant";
 import { event } from "@/app/_components/GoogleAnalytics";
 import { Pagination } from "@/app/_components/Pagination";
+import { RestaurantsSkeleton } from "@/app/_components/RestaurantsSkeleton";
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
@@ -46,7 +47,8 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
 
   return (
     <Fragment>
-      <ul className="flex flex-col gap-2">
+      <ul className="w-full flex flex-col gap-2">
+        {!restaurants && <RestaurantsSkeleton/>}
         {restaurants?.length === 0 && (
           <p className="text-center">검색된 식당이 없습니다.</p>
         )}
