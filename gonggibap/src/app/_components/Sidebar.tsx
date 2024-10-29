@@ -4,9 +4,15 @@ import { DesktopSidebar } from "@/app/_components/DesktopSidebar";
 
 type SidebarProps = {
   restaurants: Restaurant[];
+  selectedRestaurantId: number | null;
+  onRestaurantSelect: (id: number | null) => void;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ restaurants }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  restaurants,
+  selectedRestaurantId,
+  onRestaurantSelect,
+}) => {
   return (
     <nav aria-label="사이드바">
       <div className="hidden md:block" aria-label="데스크톱 사이드바">
