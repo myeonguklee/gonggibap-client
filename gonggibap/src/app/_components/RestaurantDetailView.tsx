@@ -1,7 +1,13 @@
-// components/RestaurantDetailView.tsx
 import { useState } from "react";
 import Image from "next/image";
-import { Trash2, Footprints, Star, MapPin, Phone } from "lucide-react";
+import {
+  Trash2,
+  Footprints,
+  Star,
+  MapPin,
+  Phone,
+  CircleUserRound,
+} from "lucide-react";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
@@ -12,8 +18,8 @@ import { QUERY_KEYS } from "@/constants/queryKeys";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
-  onClose?: () => void; // 웹 닫기 버튼
-  onBack?: () => void; // 모바일 뒤로가기 버튼
+  onClose?: () => void;
+  onBack?: () => void;
 };
 
 export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
@@ -48,6 +54,71 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
     window.open(`https://place.map.kakao.com/${restaurant.restaurantLink}`);
   };
 
+  const renderImages = (imageUrls: string[]) => {
+    switch (imageUrls.length) {
+      case 1:
+        return (
+          <div className="h-48">
+            <img
+              src={imageUrls[0]}
+              alt="리뷰 이미지"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        );
+      case 2:
+        return (
+          <div className="flex gap-2 h-48">
+            {imageUrls.map((url) => (
+              <img
+                key={url}
+                src={url}
+                alt="리뷰 이미지"
+                className="w-1/2 h-full object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        );
+      case 3:
+        return (
+          <div className="grid grid-cols-2 gap-2 h-48">
+            <img
+              src={imageUrls[0]}
+              alt="리뷰 이미지"
+              className="h-full w-full object-cover rounded-lg"
+            />
+            <div className="grid grid-rows-2 gap-2 h-full">
+              <img
+                src={imageUrls[1]}
+                alt="리뷰 이미지"
+                className="w-full h-full object-cover rounded-lg"
+              />
+              <img
+                src={imageUrls[2]}
+                alt="리뷰 이미지"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="grid grid-cols-2 gap-2 h-48">
+            {imageUrls.map((url) => (
+              <img
+                key={url}
+                src={url}
+                alt="리뷰 이미지"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
@@ -68,13 +139,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
             X
           </button>
         </div>
-        {/* <dl className="flex flex-col gap-4"> */}
         <dl className="flex flex-col gap-2">
           <div className="flex gap-4">
             <dt className="sr-only">음식점 평점</dt>
             <dd className="flex items-center gap-1 text-yellow-400">
               <Star size="1rem" />
-              {restaurant.pointAvg ? restaurant.pointAvg : "-"}
+              {restaurant.pointAvg ? restaurant.pointAvg.toFixed(1) : "-"}
             </dd>
 
             <dt className="sr-only">방문 횟수</dt>
@@ -99,15 +169,14 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           </div>
           <div>
             <dt className="sr-only">상세정보 웹사이트</dt>
-            <dd className="flex gap-1">
+            <dd className="flex gap-1 cursor-pointer" onClick={handleMoveToKakaoMap}>
               <Image
                 src="/images/kakaomap.png"
                 alt="카카오맵"
                 width={24}
                 height={24}
-                className="cursor-pointer"
-                onClick={handleMoveToKakaoMap}
               />
+              <p>카카오맵 상세정보</p>
             </dd>
           </div>
         </dl>
@@ -142,32 +211,24 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                     className="flex flex-col gap-1 p-3 dark:bg-gray-700 md:dark:bg-gray-800 rounded-lg border dark:border-none"
                   >
                     <div className="flex-between">
-                      <p className="font-medium">{review.userName}</p>
+                      <div className="flex-center gap-1">
+                        <CircleUserRound />
+                        <p className="font-bold">{review.userName}</p>
+                      </div>
                       <p className="text-yellow-400">
                         {"⭐".repeat(Math.round(review.point))}
                       </p>
                     </div>
 
-                    {review.imageUrls && (
-                      <div className="flex gap-2">
-                        {review.imageUrls.map((url) => (
-                          <img
-                            key={url}
-                            src={url}
-                            alt="리뷰 이미지"
-                            className="w-20 h-20 object-cover rounded-lg"
-                          />
-                        ))}
-                      </div>
-                    )}
+                    {review.imageUrls && renderImages(review.imageUrls)}
 
                     <p className="text-sm">{review.content}</p>
-                    <time className="text-xs text-gray-400 block">
-                      {review.date}
-                    </time>
+                    <div className="flex-between-center">
+                      <time className="text-xs text-gray-400 block">
+                        {review.date}
+                      </time>
 
-                    {review.userId === auth.userInfo?.id && (
-                      <div>
+                      {review.userId === auth.userInfo?.id && (
                         <button
                           onClick={() => handleDeleteReview(review.reviewId)}
                           disabled={deleteReviewMutation.isPending}
@@ -180,8 +241,8 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                         >
                           <Trash2 size={16} />
                         </button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
