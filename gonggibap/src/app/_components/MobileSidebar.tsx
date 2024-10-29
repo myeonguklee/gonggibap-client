@@ -59,11 +59,15 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     };
   }, [touchState.isDragging, position]);
 
-  const handleRestaurantSelect = (restaurantId: number | null) => {
-    onRestaurantSelect(restaurantId);
-    setView("detail");
-    setPosition("full");
-  };
+  useEffect(() => {
+    if (selectedRestaurantId) {
+      setView("detail");
+      setPosition("full");
+    } else {
+      setView("list");
+      setPosition("peek");
+    }
+  }, [selectedRestaurantId]);
 
   const handleBackToList = () => {
     setView("list");
@@ -152,7 +156,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             restaurants={restaurants}
             totalPages={totalPages}
             selectedRestaurantId={selectedRestaurantId}
-            onRestaurantSelect={handleRestaurantSelect}
+            onRestaurantSelect={onRestaurantSelect}
           />
         ) : (
           selectedRestaurant && (
