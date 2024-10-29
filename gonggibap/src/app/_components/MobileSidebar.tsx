@@ -10,8 +10,8 @@ import { RestaurantListView } from "@/app/_components/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
 type MobileSidebarProps = {
-  restaurants: Restaurant[];
-  totalPages: number;
+  restaurants?: Restaurant[];
+  totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 };
@@ -30,7 +30,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   });
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const selectedRestaurant = restaurants.find(
+  const selectedRestaurant = restaurants?.find(
     (r) => r.restaurantId === selectedRestaurantId
   );
 
@@ -59,11 +59,15 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     };
   }, [touchState.isDragging, position]);
 
-  const handleRestaurantSelect = (restaurantId: number | null) => {
-    onRestaurantSelect(restaurantId);
-    setView("detail");
-    setPosition("full");
-  };
+  useEffect(() => {
+    if (selectedRestaurantId) {
+      setView("detail");
+      setPosition("half");
+    } else {
+      setView("list");
+      setPosition("peek");
+    }
+  }, [selectedRestaurantId]);
 
   const handleBackToList = () => {
     setView("list");
@@ -152,7 +156,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             restaurants={restaurants}
             totalPages={totalPages}
             selectedRestaurantId={selectedRestaurantId}
-            onRestaurantSelect={handleRestaurantSelect}
+            onRestaurantSelect={onRestaurantSelect}
           />
         ) : (
           selectedRestaurant && (

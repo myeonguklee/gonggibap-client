@@ -3,8 +3,8 @@ import { MobileSidebar } from "@/app/_components/MobileSidebar";
 import { DesktopSidebar } from "@/app/_components/DesktopSidebar";
 
 type SidebarProps = {
-  restaurants: Restaurant[];
-  totalPages: number;
+  restaurants?: Restaurant[];
+  totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 };

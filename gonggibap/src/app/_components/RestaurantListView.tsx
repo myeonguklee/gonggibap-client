@@ -1,12 +1,13 @@
 import { Fragment, useState } from "react";
-import { Footprints, Star } from "lucide-react";
+import { Footprints, Star, Coffee, Utensils, MapPinned } from "lucide-react";
 import { Restaurant } from "@/types/restaurant";
 import { event } from "@/app/_components/GoogleAnalytics";
 import { Pagination } from "@/app/_components/Pagination";
+import { MapPinLoading } from "@/app/_components/MapPinLoading";
 
 type RestaurantListViewProps = {
-  restaurants: Restaurant[];
-  totalPages: number;
+  restaurants?: Restaurant[];
+  totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 };
@@ -18,7 +19,6 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   totalPages,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
   const handlePageChage = (page: number) => {
     setCurrentPage(page);
     // 페이지 변경에 따른 API 호출 등 로직
@@ -47,11 +47,12 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
 
   return (
     <Fragment>
-      <ul className="flex flex-col gap-2">
-        {restaurants.length === 0 && (
+      {!restaurants && <MapPinLoading />}
+      <ul className="w-full flex flex-col gap-2">
+        {restaurants?.length === 0 && (
           <p className="text-center">검색된 식당이 없습니다.</p>
         )}
-        {restaurants.map((restaurant, index) => (
+        {restaurants?.map((restaurant, index) => (
           <li key={restaurant.restaurantId}>
             <button
               onClick={() => handleRestaurantSelect(restaurant)}
@@ -62,41 +63,52 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 : "hover:bg-gray-100 dark:hover:bg-gray-900"
             }`}
             >
-              <div className="w-full flex-between-center">
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-bold">
-                    {index + 1}. {restaurant.restaurantName}
-                  </h3>
-                  <p className="text-sm">
+              <div className="w-full flex flex-col gap-2">
+                <h3 className="font-bold text-single-line">
+                  {index + 1}. {restaurant.restaurantName}
+                </h3>
+                <div className="flex gap-3">
+                  <div className="flex items-center gap-1">
                     <span className="sr-only">음식점 카테고리</span>
-                    {restaurant.restaurantCategory}
-                  </p>
+                    {restaurant.restaurantDetailCategory === "카페" ? (
+                      <Coffee size="1rem" />
+                    ) : (
+                      <Utensils size="1rem" />
+                    )}
+                    {restaurant.restaurantDetailCategory}
+                  </div>
+                  <address className="flex items-center gap-1 not-italic text-single-line">
+                    <MapPinned size="1rem" />
+                    {restaurant.restaurantRoadAddressName
+                      .split(" ")
+                      .slice(2)
+                      .join(" ")}
+                  </address>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-5">
+                  <div>
+                    <span className="sr-only">관련 구청</span>
+                    <p># {restaurant.publicOfficeName}</p>
+                  </div>
                   <div className="flex items-center gap-1 text-yellow-400">
                     <span className="sr-only">음식점 평점</span>
                     <Star size="1rem" />
-
                     {restaurant.pointAvg ? restaurant.pointAvg.toFixed(1) : "-"}
                   </div>
                   <div className="flex items-center gap-1 text-[#FF9A00]">
-                    <span className="sr-only">방문 횟수: </span>
+                    <span className="sr-only">방문 횟수</span>
                     <Footprints size="1rem" />
-                    <p className="text-base">{restaurant.visitCount}</p>
+                    <p>{restaurant.visitCount}</p>
                   </div>
                 </div>
               </div>
-
-              <address className="text-gray-400 text-xs text-single-line not-italic">
-                {restaurant.restaurantRoadAddressName}
-              </address>
             </button>
           </li>
         ))}
       </ul>
-      {restaurants.length > 0 && (
+      {restaurants && restaurants.length > 0 && (
         <Pagination
-          totalPages={totalPages}
+          totalPages={totalPages ? totalPages : 1}
           currentPage={currentPage}
           onPageChange={handlePageChage}
         />
