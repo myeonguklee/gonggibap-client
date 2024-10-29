@@ -5,12 +5,12 @@ import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
 type DesktopSidebarProps = {
   restaurants: Restaurant[];
-  totalPpage: number;
+  totalPages: number;
 };
 
 export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   restaurants,
-  totalPpage,
+  totalPages,
 }) => {
   const [selectedRestaurant, setSelectedRestaurant] =
     useState<Restaurant | null>(null);
@@ -25,7 +25,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           restaurants={restaurants}
           onRestaurantSelect={setSelectedRestaurant}
           selectedRestaurantId={selectedRestaurant?.restaurantId}
-          totalPpage={totalPpage}
+          totalPages={totalPages}
         />
       </div>
 

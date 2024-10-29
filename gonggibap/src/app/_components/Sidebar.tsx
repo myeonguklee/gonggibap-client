@@ -4,17 +4,17 @@ import { DesktopSidebar } from "@/app/_components/DesktopSidebar";
 
 type SidebarProps = {
   restaurants: Restaurant[];
-  totalPage: number;
+  totalPages: number;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ restaurants, totalPage }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ restaurants, totalPages }) => {
   return (
     <nav aria-label="사이드바">
       <div className="hidden md:block" aria-label="데스크톱 사이드바">
-        <DesktopSidebar restaurants={restaurants} totalPpage={totalPage} />
+        <DesktopSidebar restaurants={restaurants} totalPages={totalPages} />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">
-        <MobileSidebar restaurants={restaurants} totalPpage={totalPage}/>
+        <MobileSidebar restaurants={restaurants} totalPages={totalPages}/>
       </div>
     </nav>
   );

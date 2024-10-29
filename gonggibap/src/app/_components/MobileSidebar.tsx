@@ -11,11 +11,11 @@ import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
 
 type MobileSidebarProps = {
   restaurants: Restaurant[];
-  totalPpage: number;
+  totalPages: number;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
-  totalPpage,
+  totalPages,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
@@ -147,7 +147,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             restaurants={restaurants}
             onRestaurantSelect={handleRestaurantSelect}
             selectedRestaurantId={selectedRestaurant?.restaurantId}
-            totalPpage={totalPpage}
+            totalPages={totalPages}
           />
         ) : (
           selectedRestaurant && (
