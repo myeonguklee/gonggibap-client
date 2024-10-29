@@ -21,6 +21,19 @@ export default function Home() {
 
   const handleRestaurantSelect = (id: number | null) => {
     setSelectedRestaurantId(id);
+    // 선택된 식당 위치로 지도 이동
+    if (id && mapInstance && restaurants?.content) {
+      const selected = restaurants.content.find((r) => r.restaurantId === id);
+      if (selected) {
+        mapInstance.setCenter(
+          new kakao.maps.LatLng(
+            selected.restaurantLatitude,
+            selected.restaurantLongitude
+          )
+        );
+        mapInstance.setLevel(3);
+      }
+    }
   };
 
   const {
@@ -41,6 +54,8 @@ export default function Home() {
     map: mapInstance,
     restaurants: restaurants?.content || [],
     cluster,
+    selectedRestaurantId,
+    onRestaurantSelect: handleRestaurantSelect,
   });
 
   return (

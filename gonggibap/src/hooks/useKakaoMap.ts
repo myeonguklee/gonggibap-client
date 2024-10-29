@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Polygon } from "@/types/restaurant";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 
@@ -12,56 +12,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
   const { getCurrentLocation } = useCurrentLocation();
 
-  const initializeMap = async () => {
-    if (!mapRef.current) return;
-
-    try {
-      const { latitude: lat, longitude: lng } = await getCurrentLocation();
-      const options = {
-        center: new window.kakao.maps.LatLng(lat, lng),
-        level: 3,
-      };
-
-      const map = new window.kakao.maps.Map(mapRef.current, options);
-      mapInstanceRef.current = map;
-
-      // 현재 위치에 마커 추가
-      const markerPosition = new window.kakao.maps.LatLng(lat, lng);
-      const marker = new window.kakao.maps.Marker({
-        position: markerPosition,
-      });
-      marker.setMap(map);
-
-      handleSearch();
-    } catch (error) {
-      handleMapInitError(error);
-    }
-  };
-
-  const handleMapInitError = (error: unknown) => {
-    if (!mapRef.current) return;
-
-    if (error instanceof GeolocationPositionError) {
-      if (error.code === 1) {
-        alert("위치 권한을 허용해주세요");
-      }
-      if (error.code === 2) {
-        alert("위치를 가져올 수 없습니다");
-      }
-    }
-
-    // 기본 위치(강남구청)로 초기화
-    const options = {
-      center: new window.kakao.maps.LatLng(37.517139, 127.047523),
-      level: 3,
-    };
-    const map = new window.kakao.maps.Map(mapRef.current, options);
-    mapInstanceRef.current = map;
-
-    handleSearch();
-  };
-
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (!mapInstanceRef.current) return;
 
     const bounds = mapInstanceRef.current.getBounds();
@@ -85,9 +36,61 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
         longitude: sw.getLng(),
       },
     });
-  };
+  }, [onPolygonChange]);
 
-  const moveToCurrentLocation = async () => {
+  const handleMapInitError = useCallback(
+    (error: unknown) => {
+      if (!mapRef.current) return;
+
+      if (error instanceof GeolocationPositionError) {
+        if (error.code === 1) {
+          alert("위치 권한을 허용해주세요");
+        }
+        if (error.code === 2) {
+          alert("위치를 가져올 수 없습니다");
+        }
+      }
+
+      // 기본 위치(강남구청)로 초기화
+      const options = {
+        center: new window.kakao.maps.LatLng(37.517139, 127.047523),
+        level: 3,
+      };
+      const map = new window.kakao.maps.Map(mapRef.current, options);
+      mapInstanceRef.current = map;
+
+      handleSearch();
+    },
+    [handleSearch]
+  );
+
+  const initializeMap = useCallback(async () => {
+    if (!mapRef.current) return;
+
+    try {
+      const { latitude: lat, longitude: lng } = await getCurrentLocation();
+      const options = {
+        center: new window.kakao.maps.LatLng(lat, lng),
+        level: 3,
+      };
+
+      const map = new window.kakao.maps.Map(mapRef.current, options);
+      mapInstanceRef.current = map;
+
+      // 현재 위치에 마커 추가
+      const markerPosition = new window.kakao.maps.LatLng(lat, lng);
+      const marker = new window.kakao.maps.Marker({
+        position: markerPosition,
+      });
+      marker.setMap(map);
+
+      handleSearch();
+    } catch (error) {
+      handleMapInitError(error);
+    }
+  }, [getCurrentLocation, handleSearch, handleMapInitError]);
+
+  const moveToCurrentLocation = useCallback(async () => {
     try {
       const { latitude: lat, longitude: lng } = await getCurrentLocation();
 
@@ -106,7 +109,8 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
         }
       }
     }
-  };
+  }, [getCurrentLocation, handleSearch]);
+
   // 카카오맵 SDK 초기화 후 mapLoaded 상태 변경
   const onKakaoMapLoad = () => {
     window.kakao.maps.load(() => {
@@ -119,7 +123,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     if (mapLoaded) {
       initializeMap();
     }
-  }, [mapLoaded]);
+  }, [mapLoaded, initializeMap]);
 
   return {
     mapRef,
