@@ -94,11 +94,13 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           </li>
         ))}
       </ul>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChage}
-      />
+      {restaurants.length > 0 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChage}
+        />
+      )}
     </Fragment>
   );
 };
