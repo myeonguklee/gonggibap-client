@@ -220,7 +220,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
                       </p>
                     </div>
 
-                    {review.imageUrls && renderImages(review.imageUrls)}
+                    {review.imageUrls.length > 0 && renderImages(review.imageUrls)}
 
                     <p className="text-sm">{review.content}</p>
                     <div className="flex-between-center">
