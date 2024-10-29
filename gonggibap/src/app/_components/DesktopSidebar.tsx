@@ -34,7 +34,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       </div>
 
       <section
-        className={`w-96 h-[96%] bg-white dark:bg-gray-700 p-6 fixed left-[21rem] top-[2%] rounded-xl
+        className={`w-96 h-[96%] bg-white dark:bg-gray-700 p-4 fixed left-[21rem] top-[2%] rounded-xl
           transition-transform duration-300 ease-in-out z-10 overflow-y-auto
           ${selectedRestaurantId ? "translate-x-0" : "-translate-x-[25rem]"}`}
         aria-label="레스토랑 상세 정보"
