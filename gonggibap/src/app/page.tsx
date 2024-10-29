@@ -13,8 +13,15 @@ import { MdRefresh, MdGpsFixed } from "react-icons/md";
 
 export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState<
+    number | null
+  >(null);
 
   const { data: restaurants } = useGetRestaurants(polygon, 0);
+
+  const handleRestaurantSelect = (id: number | null) => {
+    setSelectedRestaurantId(id);
+  };
 
   const {
     mapRef,
@@ -38,7 +45,13 @@ export default function Home() {
 
   return (
     <>
-      {restaurants && <Sidebar restaurants={restaurants?.content} />}
+      {restaurants && (
+        <Sidebar
+          restaurants={restaurants?.content}
+          selectedRestaurantId={selectedRestaurantId}
+          onRestaurantSelect={handleRestaurantSelect}
+        />
+      )}
       <Script
         strategy="afterInteractive"
         type="text/javascript"
