@@ -146,7 +146,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             onCurrentLocation();
             onRestaurantSelect(null);
           }}
-          className="absolute -top-16 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+          className={`absolute -top-16 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none
+            ${position === "full" && "hidden"}`}
           aria-label="현재 위치로 이동"
         >
           <PiNavigationArrowBold className="w-6 h-6 text-gray-500 dark:text-gray-300 rotate-90" />
