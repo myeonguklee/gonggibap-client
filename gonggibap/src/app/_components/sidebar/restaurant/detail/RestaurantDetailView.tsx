@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
-import { ReviewForm } from "@/app/_components/ReviewForm";
+import { ReviewForm } from "@/app/_components/sidebar/review/ReviewForm";
 import { useDeleteReview, useGetReviews } from "@/apis/review";
 import { QUERY_KEYS } from "@/constants/queryKeys";
 

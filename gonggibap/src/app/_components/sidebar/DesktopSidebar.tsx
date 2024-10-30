@@ -1,6 +1,6 @@
 import { Restaurant } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/RestaurantListView";
-import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
+import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
+import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 
 type DesktopSidebarProps = {
   restaurants?: Restaurant[];
@@ -15,9 +15,10 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   selectedRestaurantId,
   onRestaurantSelect,
 }) => {
-  const selectedRestaurant = selectedRestaurantId && restaurants
-    ? restaurants.find((r) => r.restaurantId === selectedRestaurantId)
-    : null;
+  const selectedRestaurant =
+    selectedRestaurantId && restaurants
+      ? restaurants.find((r) => r.restaurantId === selectedRestaurantId)
+      : null;
 
   return (
     <div className="flex">
