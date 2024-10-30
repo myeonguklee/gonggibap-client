@@ -57,7 +57,7 @@ export const CategoryFilter = ({
   return (
     <div
       className={
-        "fixed left-1/2 -translate-x-1/2 top-4 md:top-4 z-10 transition-all duration-300"
+        "fixed left-1/2 -translate-x-1/2 md:left-[21rem] md:-translate-x-0 top-4 md:top-4 z-10 transition-all duration-300"
       }
     >
       <div className="flex items-center gap-2 p-2 overflow-x-auto">
