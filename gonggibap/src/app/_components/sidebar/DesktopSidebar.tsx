@@ -1,5 +1,5 @@
 import { Restaurant } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
+import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 
 type DesktopSidebarProps = {

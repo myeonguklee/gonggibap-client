@@ -1,9 +1,11 @@
 import { Fragment, useState } from "react";
-import { Footprints, Star, Coffee, Utensils, MapPinned } from "lucide-react";
 import { Restaurant } from "@/types/restaurant";
-import { event } from "@/app/_components/GoogleAnalytics";
 import { Pagination } from "@/app/_components/Pagination";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
+import {
+  RestaurantItem,
+  trackRestaurantSelection,
+} from "@/app/_components/sidebar/restaurant/list";
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
@@ -25,94 +27,39 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   };
 
   const handleRestaurantSelect = (restaurant: Restaurant) => {
-    // GA4 이벤트 발생, 기본적인 선택 이벤트
-    event({
-      action: "select_restaurant",
-      category: "engagement",
-      label: restaurant.restaurantName,
-      value: 1,
-    });
-
-    // 상세 정보가 포함된 커스텀 이벤트
-    event({
-      action: "view_restaurant_details",
-      category: "restaurant_interaction",
-      label: `${restaurant.restaurantCategory} | ${restaurant.restaurantName}`,
-      value: restaurant.visitCount,
-    });
-
-    // 기존 선택 핸들러 호출
+    // GA4 이벤트 추가
+    trackRestaurantSelection(restaurant);
+    // 기존 레스토랑 선택 핸들러 호출
     onRestaurantSelect(restaurant.restaurantId);
   };
 
+  // 로딩 스피너
+  if (!restaurants) return <MapPinLoading />;
+
+  // 조회된 식당이 없을 때
+  if (restaurants.length === 0) {
+    return <p className="text-center">검색된 식당이 없습니다.</p>;
+  }
+
   return (
     <Fragment>
-      {!restaurants && <MapPinLoading />}
       <ul className="w-full flex flex-col gap-2">
-        {restaurants?.length === 0 && (
-          <p className="text-center">검색된 식당이 없습니다.</p>
-        )}
         {restaurants?.map((restaurant, index) => (
           <li key={restaurant.restaurantId}>
-            <button
-              onClick={() => handleRestaurantSelect(restaurant)}
-              className={`w-full text-left flex flex-col gap-2 p-4 rounded-lg transition-colors dark:bg-gray-700 border dark:border-none
-            ${
-              selectedRestaurantId === restaurant.restaurantId
-                ? "bg-gray-100 dark:bg-gray-900"
-                : "hover:bg-gray-100 dark:hover:bg-gray-900"
-            }`}
-            >
-              <div className="w-full flex flex-col gap-2">
-                <h3 className="font-bold text-single-line">
-                  {index + 1}. {restaurant.restaurantName}
-                </h3>
-                <div className="flex gap-3">
-                  <div className="flex items-center gap-1">
-                    <span className="sr-only">음식점 카테고리</span>
-                    {restaurant.restaurantDetailCategory === "카페" ? (
-                      <Coffee size="1rem" />
-                    ) : (
-                      <Utensils size="1rem" />
-                    )}
-                    {restaurant.restaurantDetailCategory}
-                  </div>
-                  <address className="flex items-center gap-1 not-italic text-single-line">
-                    <MapPinned size="1rem" />
-                    {restaurant.restaurantRoadAddressName
-                      .split(" ")
-                      .slice(2)
-                      .join(" ")}
-                  </address>
-                </div>
-                <div className="flex items-center gap-5">
-                  <div>
-                    <span className="sr-only">관련 구청</span>
-                    <p># {restaurant.publicOfficeName}</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-yellow-400">
-                    <span className="sr-only">음식점 평점</span>
-                    <Star size="1rem" />
-                    {restaurant.pointAvg ? restaurant.pointAvg.toFixed(1) : "-"}
-                  </div>
-                  <div className="flex items-center gap-1 text-[#FF9A00]">
-                    <span className="sr-only">방문 횟수</span>
-                    <Footprints size="1rem" />
-                    <p>{restaurant.visitCount}</p>
-                  </div>
-                </div>
-              </div>
-            </button>
+            <RestaurantItem
+              restaurant={restaurant}
+              index={index}
+              isSelected={selectedRestaurantId === restaurant.restaurantId}
+              onRestaurantSelect={handleRestaurantSelect}
+            />
           </li>
         ))}
       </ul>
-      {restaurants && restaurants.length > 0 && (
-        <Pagination
-          totalPages={totalPages ? totalPages : 1}
-          currentPage={currentPage}
-          onPageChange={handlePageChage}
-        />
-      )}
+      <Pagination
+        totalPages={totalPages ? totalPages : 1}
+        currentPage={currentPage}
+        onPageChange={handlePageChage}
+      />
     </Fragment>
   );
 };
