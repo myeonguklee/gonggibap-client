@@ -1,11 +1,12 @@
 import { useState } from "react";
+import Image from "next/image";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useCreateReview } from "@/apis/review";
 import { QUERY_KEYS } from "@/constants/queryKeys";
-import { useAuthStore } from "@/store/useAuthStore";
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -138,11 +139,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <div className="flex gap-2">
               {uploadedImages.map((image, index) => (
                 <div key={index} className="relative">
-                  <img
+                  <div className="w-20 h-20">
+                  <Image
                     src={URL.createObjectURL(image)}
                     alt={`업로드 이미지 ${index + 1}`}
-                    className="w-full h-20 object-cover rounded"
+                    className="object-cover rounded"
+                    fill
                   />
+                  </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveImage(index)}
