@@ -5,7 +5,6 @@ import { RESTAURANT_CATEGORIES } from "@/constants/category";
 interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
-  isDetailOpen?: boolean;
 }
 
 // 메인에 보여줄 카테고리
@@ -15,7 +14,6 @@ const OTHER_CATEGORIES = RESTAURANT_CATEGORIES.slice(3);
 export const CategoryFilter = ({
   selectedCategory,
   onSelectCategory,
-  isDetailOpen,
 }: CategoryFilterProps) => {
   const CategoryButton = ({
     value,
@@ -26,11 +24,11 @@ export const CategoryFilter = ({
   }) => (
     <button
       onClick={() => onSelectCategory(value)}
-      className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors
+      className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors shadow-md
             ${
               selectedCategory === value
                 ? "bg-[#FF7058] font-semibold text-white hover:bg-[#FF8068]"
-                : "bg-white font-semibold text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                : "bg-white font-semibold text-gray-500 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             }`}
     >
       {label}
@@ -38,10 +36,9 @@ export const CategoryFilter = ({
   );
   return (
     <div
-      className={`fixed left-1/2 -translate-x-1/2 top-16 md:top-4 z-10 transition-all duration-300 
-        ${
-          isDetailOpen ? "-translate-y-full md:translate-y-0" : "translate-y-0"
-        }`}
+      className={
+        "fixed left-1/2 -translate-x-1/2 top-4 md:top-4 z-10 transition-all duration-300"
+      }
     >
       <div className="flex items-center gap-2 p-2 overflow-x-auto">
         <CategoryButton value={null} label="전체" />
@@ -56,7 +53,7 @@ export const CategoryFilter = ({
 
         <Popover.Root>
           <Popover.Trigger asChild>
-            <button className="px-3 py-1.5 font-semibold rounded-lg text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300">
+            <button className="px-3 py-1.5 shadow-md text-gray-500 font-semibold rounded-lg text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-300">
               더보기
             </button>
           </Popover.Trigger>

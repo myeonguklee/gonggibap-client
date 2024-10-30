@@ -66,7 +66,6 @@ export default function Home() {
       <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
-        isDetailOpen={selectedRestaurantId !== null}
       />
       <Sidebar
         restaurants={restaurants?.content}
@@ -87,7 +86,7 @@ export default function Home() {
           handleSearch();
           setSelectedRestaurantId(null);
         }}
-        className="fixed left-1/2 -translate-x-1/2 top-4 md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-2xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
+        className="fixed left-1/2 -translate-x-1/2 top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-2xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
         aria-label="현 지도에서 재검색"
       >
         <MdRefresh />현 지도에서 재검색
