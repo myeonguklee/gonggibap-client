@@ -8,18 +8,21 @@ import { MobilePosition, MobileView } from "@/types/sidebar";
 import { Restaurant } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
+import { PiNavigationArrowBold } from "react-icons/pi";
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];
   totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
+  onCurrentLocation: () => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
   totalPages,
   selectedRestaurantId,
   onRestaurantSelect,
+  onCurrentLocation,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
@@ -137,6 +140,18 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="모바일 메뉴"
     >
+      <div className="relative">
+        <button
+          onClick={() => {
+            onCurrentLocation();
+            onRestaurantSelect(null);
+          }}
+          className="absolute -top-16 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+          aria-label="현재 위치로 이동"
+        >
+          <PiNavigationArrowBold className="w-6 h-6 text-gray-500 dark:text-gray-300 rotate-90" />
+        </button>
+      </div>
       <div
         className="w-full h-6 touch-none drag-handle flex-center"
         role="button"
