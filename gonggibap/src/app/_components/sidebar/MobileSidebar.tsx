@@ -6,8 +6,8 @@ import {
 } from "react";
 import { MobilePosition, MobileView } from "@/types/sidebar";
 import { Restaurant } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/RestaurantListView";
-import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
+import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
+import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { PiNavigationArrowBold } from "react-icons/pi";
 
 type MobileSidebarProps = {

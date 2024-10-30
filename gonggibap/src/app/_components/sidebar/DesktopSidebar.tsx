@@ -1,6 +1,6 @@
 import { Restaurant } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/RestaurantListView";
-import { RestaurantDetailView } from "@/app/_components/RestaurantDetailView";
+import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
+import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { PiNavigationArrowBold } from "react-icons/pi";
 
 type DesktopSidebarProps = {
