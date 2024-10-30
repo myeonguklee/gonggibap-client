@@ -7,6 +7,7 @@ type SidebarProps = {
   totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
+  onCurrentLocation: () => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -14,6 +15,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   totalPages,
   selectedRestaurantId,
   onRestaurantSelect,
+  onCurrentLocation,
 }) => {
   return (
     <nav aria-label="사이드바">
@@ -23,6 +25,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           totalPages={totalPages}
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={onRestaurantSelect}
+          onCurrentLocation={onCurrentLocation}
         />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">
@@ -31,6 +34,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           totalPages={totalPages}
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={onRestaurantSelect}
+          onCurrentLocation={onCurrentLocation}
         />
       </div>
     </nav>
