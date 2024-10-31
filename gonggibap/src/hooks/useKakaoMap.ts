@@ -9,6 +9,7 @@ interface UseKakaoMapProps {
 export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
   const { getCurrentLocation } = useCurrentLocation();
 
@@ -38,6 +39,29 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     });
   }, [onPolygonChange]);
 
+  // 드래그 이벤트
+  const setupMapEventListeners = useCallback((map: kakao.maps.Map) => {
+    // 드래그 시작
+    kakao.maps.event.addListener(map, "dragstart", () => {
+      setIsDragging(true);
+    });
+
+    // 드래드 종료
+    kakao.maps.event.addListener(map, "dragend", () => {
+      setIsDragging(false);
+    });
+
+    // 줌 변경 시작
+    kakao.maps.event.addListener(map, "zoom_start", () => {
+      setIsDragging(true);
+    });
+
+    // 줌 변경 종료
+    kakao.maps.event.addListener(map, "zoom_changed", () => {
+      setIsDragging(false);
+    });
+  }, []);
+
   const handleMapInitError = useCallback(
     (error: unknown) => {
       if (!mapRef.current) return;
@@ -59,9 +83,11 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
       const map = new window.kakao.maps.Map(mapRef.current, options);
       mapInstanceRef.current = map;
 
+      setupMapEventListeners(map);
+
       handleSearch();
     },
-    [handleSearch]
+    [handleSearch, setupMapEventListeners]
   );
 
   const initializeMap = useCallback(async () => {
@@ -77,6 +103,8 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
       const map = new window.kakao.maps.Map(mapRef.current, options);
       mapInstanceRef.current = map;
 
+      setupMapEventListeners(map);
+
       // 현재 위치에 마커 추가
       const markerPosition = new window.kakao.maps.LatLng(lat, lng);
       const marker = new window.kakao.maps.Marker({
@@ -88,7 +116,12 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     } catch (error) {
       handleMapInitError(error);
     }
-  }, [getCurrentLocation, handleSearch, handleMapInitError]);
+  }, [
+    getCurrentLocation,
+    handleSearch,
+    handleMapInitError,
+    setupMapEventListeners,
+  ]);
 
   const moveToCurrentLocation = useCallback(async () => {
     try {
@@ -131,5 +164,6 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     handleSearch,
     moveToCurrentLocation,
     onKakaoMapLoad,
+    isDragging,
   };
 };
