@@ -30,6 +30,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={onRestaurantSelect}
           onCurrentLocation={onCurrentLocation}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
         />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">
@@ -39,6 +41,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={onRestaurantSelect}
           onCurrentLocation={onCurrentLocation}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
         />
       </div>
     </nav>
