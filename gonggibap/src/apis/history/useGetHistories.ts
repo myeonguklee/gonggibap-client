@@ -6,20 +6,26 @@ import { client } from "@/apis/core/client";
 import { QUERY_KEYS } from "@/constants/queryKeys";
 
 const getHistories = async (
-  restaurantId: number
+  restaurantId: number,
+  page: number
 ): Promise<GetHistoriesResponse> => {
+  const params:Record<string, number> = {
+    page,
+  };
   const response = await client.get<BaseResponse<GetHistoriesResponse>>({
     url: `histories/${restaurantId}`,
+    params,
   });
   return response.data;
 };
 
 export const useGetHistories = (
-  restaurantId: number
+  restaurantId: number,
+  page: number
 ): UseQueryResult<GetHistoriesResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetHistoriesResponse, AxiosError<ErrorResponse>>({
-    queryKey: [QUERY_KEYS.HISTORY.DETAIL(restaurantId)],
-    queryFn: () => getHistories(restaurantId),
+    queryKey: [QUERY_KEYS.HISTORY.DETAIL(restaurantId, page)],
+    queryFn: () => getHistories(restaurantId, page),
     enabled: !!restaurantId,
     staleTime: 1000 * 60 * 5,
   });
