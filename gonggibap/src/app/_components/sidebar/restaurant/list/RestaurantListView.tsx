@@ -57,6 +57,8 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         totalPages={totalPages ? totalPages : 1}
         currentPage={currentPage}
         onPageChange={onPageChange}
+        selectedRestaurantId={selectedRestaurantId}
+        onRestaurantSelect={onRestaurantSelect}
       />
     </Fragment>
   );

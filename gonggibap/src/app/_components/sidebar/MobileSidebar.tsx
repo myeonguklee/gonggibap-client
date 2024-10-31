@@ -4,11 +4,12 @@ import {
   useRef,
   useEffect,
 } from "react";
+import { PiNavigationArrowBold } from "react-icons/pi";
 import { MobilePosition, MobileView } from "@/types/sidebar";
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
-import { PiNavigationArrowBold } from "react-icons/pi";
+import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];
@@ -18,6 +19,7 @@ type MobileSidebarProps = {
   onCurrentLocation: () => void;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onSelectCategory: (category: RestaurantDetailCategory) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
@@ -27,6 +29,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   onCurrentLocation,
   currentPage,
   onPageChange,
+  onSelectCategory,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
@@ -136,7 +139,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 z-10
+      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 z-20
         rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
         ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
@@ -149,13 +152,15 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
           onClick={() => {
             onCurrentLocation();
             onRestaurantSelect(null);
+            onSelectCategory(null);
           }}
-          className={`absolute -top-16 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none
+          className={`absolute -top-32 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10
             ${position === "full" && "hidden"}`}
           aria-label="현재 위치로 이동"
         >
-          <PiNavigationArrowBold className="w-6 h-6 text-gray-500 dark:text-gray-300 rotate-90" />
+          <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
         </button>
+        <ThemeToggleBtn position={position} />
       </div>
       <div
         className="w-full h-6 touch-none drag-handle flex-center"

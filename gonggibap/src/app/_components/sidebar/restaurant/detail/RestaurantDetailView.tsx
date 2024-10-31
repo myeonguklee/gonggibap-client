@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
 import { RestaurantHeader, RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
-import { ReviewForm, ReviewList, ReviewImages } from "@/app/_components/sidebar/review";
-import { useDeleteReview, useGetReviews } from "@/apis/review";
-import { QUERY_KEYS } from "@/constants/queryKeys";
+import { ReviewImages } from "@/app/_components/sidebar/review";
+import { useGetReviews } from "@/apis/review";
+import { ReviewsContent } from "@/app/_components/sidebar/review";
+import { HistoryContent } from "@/app/_components/sidebar/history";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
@@ -14,33 +13,16 @@ type RestaurantDetailViewProps = {
   onBack?: () => void;
 };
 
+type TabType = "reviews" | "history";
+
 export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   restaurant,
   onClose,
   onBack,
 }) => {
   const auth = useAuthStore();
-  const queryClient = useQueryClient();
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
-  const deleteReviewMutation = useDeleteReview();
-  const [isWriting, setIsWriting] = useState<boolean>(false);
-
-  const onClickWriteReview = () => setIsWriting((prev) => !prev);
-
-  const handleDeleteReview = (reviewId: number) => {
-    deleteReviewMutation.mutate(reviewId, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurant.restaurantId)],
-        });
-        toast.success("리뷰가 삭제되었습니다.");
-      },
-      onError: (error) => {
-        toast.error("리뷰 삭제에 실패했습니다.");
-        console.error(error);
-      },
-    });
-  };
+  const [activeTab, setActiveTab] = useState<TabType>("reviews");
 
   return (
     <div className="flex flex-col gap-5">
@@ -56,35 +38,43 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
       <RestaurantInfo restaurant={restaurant} />
 
-      {isWriting ? (
-        <ReviewForm
-          restaurantId={restaurant.restaurantId}
-          onClickWriteReview={onClickWriteReview}
-        />
-      ) : (
-        <>
-          <div className="flex justify-end">
-            <button
-              onClick={onClickWriteReview}
-              className="p-2 rounded-lg text-white bg-[#FF7058] text-right dark:bg-gray-700 md:dark:bg-gray-800"
-            >
-              리뷰 작성
-            </button>
-          </div>
+      {/* 탭 네비게이션 */}
+      <div className="flex border-b border-gray-200">
+        <button
+          className={`px-4 py-2 ${
+            activeTab === "reviews"
+              ? "border-b-2 border-[#FF7058] text-[#FF7058]"
+              : "text-gray-500"
+          }`}
+          onClick={() => setActiveTab("reviews")}
+        >
+          리뷰
+        </button>
+        <button
+          className={`px-4 py-2 ${
+            activeTab === "history"
+              ? "border-b-2 border-[#FF7058] text-[#FF7058]"
+              : "text-gray-500"
+          }`}
+          onClick={() => setActiveTab("history")}
+        >
+          사용내역
+        </button>
+      </div>
 
-          <div className="flex flex-col gap-2">
-            <h3 className="text-lg font-bold">리뷰</h3>
-            {reviews && (
-              <ReviewList
-                reviews={reviews}
-                currentUserId={auth.userInfo?.id}
-                onDeleteReview={handleDeleteReview}
-                isDeleting={deleteReviewMutation.isPending}
-              />
-            )}
-          </div>
-        </>
-      )}
+      {/* 탭 컨텐츠 */}
+      <div>
+        {activeTab === "reviews" ? (
+          <ReviewsContent 
+            restaurantId={restaurant.restaurantId}
+            currentUserId={auth.userInfo?.id}
+          />
+        ) : (
+          <HistoryContent 
+            restaurantId={restaurant.restaurantId}
+          />
+        )}
+      </div>
     </div>
   );
 };

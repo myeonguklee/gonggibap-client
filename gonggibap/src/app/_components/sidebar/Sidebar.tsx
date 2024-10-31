@@ -1,4 +1,4 @@
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { MobileSidebar } from "@/app/_components/sidebar/MobileSidebar";
 import { DesktopSidebar } from "@/app/_components/sidebar/DesktopSidebar";
 
@@ -10,6 +10,7 @@ type SidebarProps = {
   onCurrentLocation: () => void;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onSelectCategory: (category: RestaurantDetailCategory) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -20,6 +21,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onCurrentLocation,
   currentPage,
   onPageChange,
+  onSelectCategory,
 }) => {
   return (
     <nav aria-label="사이드바">
@@ -32,6 +34,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onCurrentLocation={onCurrentLocation}
           currentPage={currentPage}
           onPageChange={onPageChange}
+          onSelectCategory={onSelectCategory}
         />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">
@@ -43,6 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onCurrentLocation={onCurrentLocation}
           currentPage={currentPage}
           onPageChange={onPageChange}
+          onSelectCategory={onSelectCategory}
         />
       </div>
     </nav>

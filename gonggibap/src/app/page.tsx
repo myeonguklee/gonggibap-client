@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Script from "next/script";
 import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
-import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/sidebar/Sidebar";
 import { CategoryFilter } from "@/app/_components/CategoryFilter";
 import { MapCrosshair } from "@/app/_components/MapCrosshair";
@@ -93,6 +92,7 @@ export default function Home() {
         onCurrentLocation={moveToCurrentLocation}
         currentPage={currentPage}
         onPageChange={handlePageChange}
+        onSelectCategory={handleCategorySelect}
       />
       <Script
         strategy="afterInteractive"
@@ -107,14 +107,13 @@ export default function Home() {
           clearMapMarkers();
           handleSearch();
           setSelectedRestaurantId(null);
-          setCurrentPage(0);
+          handlePageChange(0);
         }}
         className="fixed left-1/2 -translate-x-1/2 md:left-[calc(50%+10rem)] top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-2xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
         aria-label="현 지도에서 재검색"
       >
         <MdRefresh />현 지도에서 재검색
       </button>
-      <ThemeToggleBtn />
     </>
   );
 }
