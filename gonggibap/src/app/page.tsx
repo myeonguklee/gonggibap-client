@@ -106,10 +106,10 @@ export default function Home() {
         onClick={() => {
           clearMapMarkers();
           handleSearch();
-          setSelectedRestaurantId(null);
           handlePageChange(0);
+          setSelectedRestaurantId(null);
         }}
-        className="fixed left-1/2 -translate-x-1/2 md:left-[calc(50%+10rem)] top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-2xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
+        className="fixed left-1/2 -translate-x-1/2 md:left-[calc(50%+10rem)] top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-3xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
         aria-label="현 지도에서 재검색"
       >
         <MdRefresh />현 지도에서 재검색
