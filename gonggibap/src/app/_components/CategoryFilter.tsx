@@ -3,8 +3,8 @@ import * as Popover from "@radix-ui/react-popover";
 import * as Dialog from "@radix-ui/react-dialog";
 import { RestaurantDetailCategory } from "@/types/restaurant";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { getCategoryIcon } from "@/utils/getCategoryIcon";
 import { RESTAURANT_CATEGORIES } from "@/constants/category";
-
 interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
@@ -38,13 +38,14 @@ export const CategoryFilter = ({
         onSelectCategory(value);
         if (isMobile) setIsOpen(false);
       }}
-      className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors shadow-md
+      className={`px-3 py-1.5 rounded-2xl text-sm whitespace-nowrap transition-colors shadow-md flex items-center gap-2 w-full justify-center
             ${
               selectedCategory === value
                 ? "bg-[#FF7058] font-semibold text-white hover:bg-[#FF8068]"
                 : "bg-white font-semibold text-gray-500 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             }`}
     >
+      {getCategoryIcon(value, "w-4 h-4")}
       {label}
     </button>
   );
@@ -53,11 +54,9 @@ export const CategoryFilter = ({
   const MoreCategories = () => (
     <div className="grid grid-cols-2 gap-2">
       {OTHER_CATEGORIES.map((category) => (
-        <CategoryButton
-          key={category.key}
-          value={category.value}
-          label={category.value}
-        />
+        <div key={category.key} className="w-full">
+          <CategoryButton value={category.value} label={category.value} />
+        </div>
       ))}
     </div>
   );
@@ -82,7 +81,7 @@ export const CategoryFilter = ({
         {isMobile ? (
           <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Dialog.Trigger asChild>
-              <button className="px-3 py-1.5 shadow-md font-semibold rounded-lg text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
+              <button className="px-3 py-1.5 shadow-md font-semibold rounded-2xl text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
                 더보기
               </button>
             </Dialog.Trigger>
@@ -103,7 +102,7 @@ export const CategoryFilter = ({
         ) : (
           <Popover.Root>
             <Popover.Trigger asChild>
-              <button className="px-3 py-1.5 shadow-md font-semibold rounded-lg text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
+              <button className="px-3 py-1.5 shadow-md font-semibold rounded-2xl text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
                 더보기
               </button>
             </Popover.Trigger>
