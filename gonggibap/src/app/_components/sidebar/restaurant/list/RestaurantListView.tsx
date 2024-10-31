@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { Pagination } from "@/app/_components/Pagination";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
