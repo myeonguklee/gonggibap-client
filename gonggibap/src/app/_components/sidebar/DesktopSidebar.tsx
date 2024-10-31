@@ -9,6 +9,8 @@ type DesktopSidebarProps = {
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
   onCurrentLocation: () => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
 export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
@@ -17,6 +19,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   selectedRestaurantId,
   onRestaurantSelect,
   onCurrentLocation,
+  currentPage,
+  onPageChange,
 }) => {
   const selectedRestaurant =
     selectedRestaurantId && restaurants
@@ -34,6 +38,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           totalPages={totalPages}
           onRestaurantSelect={onRestaurantSelect}
           selectedRestaurantId={selectedRestaurantId}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
         />
       </div>
 

@@ -12,6 +12,8 @@ type RestaurantListViewProps = {
   totalPages?: number;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
@@ -19,13 +21,9 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   onRestaurantSelect,
   selectedRestaurantId,
   totalPages,
+  currentPage,
+  onPageChange,
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const handlePageChage = (page: number) => {
-    setCurrentPage(page);
-    // 페이지 변경에 따른 API 호출 등 로직
-  };
-
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     // GA4 이벤트 추가
     trackRestaurantSelection(restaurant);
@@ -58,7 +56,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
       <Pagination
         totalPages={totalPages ? totalPages : 1}
         currentPage={currentPage}
-        onPageChange={handlePageChage}
+        onPageChange={onPageChange}
       />
     </Fragment>
   );

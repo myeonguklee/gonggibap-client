@@ -16,6 +16,8 @@ type MobileSidebarProps = {
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
   onCurrentLocation: () => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
@@ -23,6 +25,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   selectedRestaurantId,
   onRestaurantSelect,
   onCurrentLocation,
+  currentPage,
+  onPageChange,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
@@ -173,6 +177,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             totalPages={totalPages}
             selectedRestaurantId={selectedRestaurantId}
             onRestaurantSelect={onRestaurantSelect}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
           />
         ) : (
           selectedRestaurant && (

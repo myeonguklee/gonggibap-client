@@ -52,7 +52,7 @@ export const useGetRestaurants = (
   category: RestaurantDetailCategory = null
 ): UseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
-    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category],
+    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page],
     queryFn: () => getRestaurants(polygon!, page, category),
     enabled: !!polygon,
     staleTime: 1000 * 60 * 5,
