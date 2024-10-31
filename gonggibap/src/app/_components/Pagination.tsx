@@ -1,28 +1,47 @@
-import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
+  selectedRestaurantId?: number | null;
+  onRestaurantSelect?: (id: number | null) => void;
 };
 
-export const Pagination = ({ totalPages, currentPage, onPageChange }: PaginationProps) => {
+export const Pagination = ({ 
+  totalPages, 
+  currentPage, 
+  onPageChange, 
+  selectedRestaurantId, 
+  onRestaurantSelect 
+}: PaginationProps) => {
+  // 화면에 표시될 페이지 번호 (0을 1로 표시)
+  const displayPage = currentPage + 1;
+  
+  const handlePageChange = (newPage: number) => {
+    // selectedRestaurantId가 존재할 경우 null로 초기화
+    if (selectedRestaurantId !== null && onRestaurantSelect) {
+      onRestaurantSelect(null);
+    }
+    // 페이지 번호를 0-based index로 변환하여 전달
+    onPageChange(newPage - 1);
+  };
+
   // 현재 페이지 그룹의 시작과 끝 페이지 계산
   const getPageRange = () => {
     const pageSize = 5; // 한 번에 보여줄 페이지 수
-    const currentGroup = Math.floor((currentPage - 1) / pageSize);
+    const currentGroup = Math.floor((displayPage - 1) / pageSize);
     let start = currentGroup * pageSize + 1;
     let end = Math.min(start + pageSize - 1, totalPages);
 
     // 현재 페이지가 마지막 그룹에 있을 때 조정
-    if (currentPage > totalPages - pageSize) {
+    if (displayPage > totalPages - pageSize) {
       start = Math.max(totalPages - pageSize + 1, 1);
       end = totalPages;
     }
 
     // 현재 페이지가 첫 그룹에 있을 때 조정
-    if (currentPage <= pageSize) {
+    if (displayPage <= pageSize) {
       start = 1;
       end = Math.min(pageSize, totalPages);
     }
@@ -35,13 +54,13 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
   };
 
   const pageNumbers = getPageRange();
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === totalPages;
+  const isFirstPage = displayPage === 1;
+  const isLastPage = displayPage === totalPages;
 
   return (
     <div className="flex justify-center items-center gap-2 mt-4">
       <button
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() => handlePageChange(displayPage - 1)}
         disabled={isFirstPage}
         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="이전 페이지"
@@ -52,7 +71,7 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
       {pageNumbers[0] > 1 && (
         <>
           <button
-            onClick={() => onPageChange(1)}
+            onClick={() => handlePageChange(1)}
             className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             1
@@ -66,13 +85,13 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
       {pageNumbers.map((page) => (
         <button
           key={page}
-          onClick={() => onPageChange(page)}
+          onClick={() => handlePageChange(page)}
           className={`w-10 h-10 rounded-lg ${
-            currentPage === page 
+            displayPage === page 
               ? 'bg-[#FF7058] text-white' 
               : 'hover:bg-gray-100 dark:hover:bg-gray-700'
           }`}
-          aria-current={currentPage === page ? 'page' : undefined}
+          aria-current={displayPage === page ? 'page' : undefined}
         >
           {page}
         </button>
@@ -84,7 +103,7 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
             <span className="px-2">...</span>
           )}
           <button
-            onClick={() => onPageChange(totalPages)}
+            onClick={() => handlePageChange(totalPages)}
             className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             {totalPages}
@@ -93,7 +112,7 @@ export const Pagination = ({ totalPages, currentPage, onPageChange }: Pagination
       )}
 
       <button
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => handlePageChange(displayPage + 1)}
         disabled={isLastPage}
         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="다음 페이지"
