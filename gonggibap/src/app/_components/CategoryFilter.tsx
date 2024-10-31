@@ -10,16 +10,21 @@ interface CategoryFilterProps {
   onSelectCategory: (category: RestaurantDetailCategory) => void;
 }
 
-// 메인에 보여줄 카테고리
-const MAIN_CATEGORIES = RESTAURANT_CATEGORIES.slice(0, 3);
-const OTHER_CATEGORIES = RESTAURANT_CATEGORIES.slice(3);
-
 export const CategoryFilter = ({
   selectedCategory,
   onSelectCategory,
 }: CategoryFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  // 메인에 보여줄 카테고리
+  const MAIN_CATEGORIES = isMobile
+    ? RESTAURANT_CATEGORIES.slice(0, 2)
+    : RESTAURANT_CATEGORIES.slice(0, 3);
+
+  const OTHER_CATEGORIES = isMobile
+    ? RESTAURANT_CATEGORIES.slice(2)
+    : RESTAURANT_CATEGORIES.slice(3);
 
   const CategoryButton = ({
     value,
@@ -29,7 +34,10 @@ export const CategoryFilter = ({
     label: string;
   }) => (
     <button
-      onClick={() => onSelectCategory(value)}
+      onClick={() => {
+        onSelectCategory(value);
+        if (isMobile) setIsOpen(false);
+      }}
       className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors shadow-md
             ${
               selectedCategory === value
@@ -80,10 +88,15 @@ export const CategoryFilter = ({
             </Dialog.Trigger>
 
             <Dialog.Portal>
-              <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
-              <Dialog.Content className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-3xl p-6 z-50 animate-slide-up">
-                <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6" />
-                <MoreCategories />
+              <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
+              <Dialog.Content className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-3xl p-6 z-50 animate-slide-up shadow-xl">
+                <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-6" />
+                <h2 className="ml-2 text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+                  카테고리
+                </h2>
+                <div className="px-2">
+                  <MoreCategories />
+                </div>
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
