@@ -4,7 +4,9 @@ export const QUERY_KEYS = {
     DETAIL: (id: number) => ["restaurant", id] as const,
   },
   REVIEW: {
-    ALL: ["reviews"] as const,
     DETAIL: (id: number) => ["review", id] as const,
+  },
+  HISTORY: {
+    DETAIL: (id: number) => ["history", id] as const,
   },
 };
