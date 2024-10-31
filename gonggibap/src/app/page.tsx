@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Script from "next/script";
 import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
-import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/sidebar/Sidebar";
 import { CategoryFilter } from "@/app/_components/CategoryFilter";
 import { useMapMarkers } from "@/hooks/useMapMarkers";
@@ -112,7 +111,6 @@ export default function Home() {
       >
         <MdRefresh />현 지도에서 재검색
       </button>
-      <ThemeToggleBtn />
     </>
   );
 }
