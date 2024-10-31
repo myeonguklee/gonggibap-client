@@ -69,7 +69,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         className="fixed right-4 bottom-36 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10"
         aria-label="현재 위치로 이동"
       >
-        <PiNavigationArrowBold className="w-6 h-6 text-gray-500 dark:text-gray-300 rotate-90" />
+        <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
       </button>
       <ThemeToggleBtn />
     </div>

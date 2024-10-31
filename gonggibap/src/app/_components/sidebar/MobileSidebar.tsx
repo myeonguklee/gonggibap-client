@@ -160,7 +160,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
         >
           <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
         </button>
-        <ThemeToggleBtn />
+        <ThemeToggleBtn position={position} />
       </div>
       <div
         className="w-full h-6 touch-none drag-handle flex-center"
