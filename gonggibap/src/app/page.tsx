@@ -19,8 +19,13 @@ export default function Home() {
   >(null);
   const [selectedCategory, setSelectedCategory] =
     useState<RestaurantDetailCategory>(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const { data: restaurants } = useGetRestaurants(polygon, 0, selectedCategory);
+  const { data: restaurants } = useGetRestaurants(
+    polygon,
+    currentPage,
+    selectedCategory
+  );
 
   const handleRestaurantSelect = (id: number | null) => {
     setSelectedRestaurantId(id);
@@ -37,6 +42,17 @@ export default function Home() {
         mapInstance.setLevel(3);
       }
     }
+  };
+
+  // 카테고리 변경
+  const handleCategorySelect = (category: RestaurantDetailCategory) => {
+    setSelectedCategory(category);
+    setCurrentPage(0); // 카테고리 변경시 페이지 리셋
+  };
+
+  // 페이징
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   const {
@@ -65,7 +81,7 @@ export default function Home() {
     <>
       <CategoryFilter
         selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
+        onSelectCategory={handleCategorySelect}
       />
       <Sidebar
         restaurants={restaurants?.content}
@@ -73,6 +89,8 @@ export default function Home() {
         selectedRestaurantId={selectedRestaurantId}
         onRestaurantSelect={handleRestaurantSelect}
         onCurrentLocation={moveToCurrentLocation}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
       />
       <Script
         strategy="afterInteractive"
