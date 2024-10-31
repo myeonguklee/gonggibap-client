@@ -5,7 +5,7 @@ interface HistoryContentProps {
 }
 
 export function HistoryContent({ restaurantId }: HistoryContentProps) {
-  const { data: histories, error, isLoading } = useGetHistories(restaurantId);
+  const { data: histories } = useGetHistories(restaurantId);
   return (
     <div className="flex flex-col gap-5">
       {histories?.content.map((history, index) => (
