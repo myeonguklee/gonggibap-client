@@ -6,6 +6,7 @@ import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { Sidebar } from "@/app/_components/sidebar/Sidebar";
 import { CategoryFilter } from "@/app/_components/CategoryFilter";
+import { MapCrosshair } from "@/app/_components/MapCrosshair";
 import { useMapMarkers } from "@/hooks/useMapMarkers";
 import { useKakaoMap } from "@/hooks/useKakaoMap";
 import { useMapCluster } from "@/hooks/useMapCluster";
@@ -61,6 +62,7 @@ export default function Home() {
     handleSearch,
     moveToCurrentLocation,
     onKakaoMapLoad,
+    isDragging,
   } = useKakaoMap({
     onPolygonChange: setPolygon,
   });
@@ -99,6 +101,7 @@ export default function Home() {
         onLoad={onKakaoMapLoad}
       />
       <div ref={mapRef} className="w-screen h-screen" />
+      {isDragging && <MapCrosshair />}
       <button
         onClick={() => {
           clearMapMarkers();
