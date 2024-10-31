@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { MobilePosition } from "@/types/sidebar";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface ThemeToggleBtnProps {
   position?: MobilePosition;

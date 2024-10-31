@@ -1,8 +1,8 @@
+import { PiNavigationArrowBold } from "react-icons/pi";
 import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
-import { PiNavigationArrowBold } from "react-icons/pi";
-import { ThemeToggleBtn } from "../ThemeToggleBtn";
+import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 
 type DesktopSidebarProps = {
   restaurants?: Restaurant[];
