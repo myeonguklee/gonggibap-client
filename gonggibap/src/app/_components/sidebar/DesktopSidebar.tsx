@@ -1,4 +1,4 @@
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { PiNavigationArrowBold } from "react-icons/pi";
@@ -11,6 +11,7 @@ type DesktopSidebarProps = {
   onCurrentLocation: () => void;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onSelectCategory: (category: RestaurantDetailCategory) => void;
 };
 
 export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
@@ -21,6 +22,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   onCurrentLocation,
   currentPage,
   onPageChange,
+  onSelectCategory,
 }) => {
   const selectedRestaurant =
     selectedRestaurantId && restaurants
@@ -61,6 +63,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         onClick={() => {
           onCurrentLocation();
           onRestaurantSelect(null);
+          onSelectCategory(null);
         }}
         className="fixed right-4 bottom-20 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10"
         aria-label="현재 위치로 이동"

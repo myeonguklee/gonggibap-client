@@ -5,7 +5,7 @@ import {
   useEffect,
 } from "react";
 import { MobilePosition, MobileView } from "@/types/sidebar";
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { PiNavigationArrowBold } from "react-icons/pi";
@@ -18,6 +18,7 @@ type MobileSidebarProps = {
   onCurrentLocation: () => void;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onSelectCategory: (category: RestaurantDetailCategory) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
@@ -27,6 +28,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   onCurrentLocation,
   currentPage,
   onPageChange,
+  onSelectCategory,
 }) => {
   const [position, setPosition] = useState<MobilePosition>("peek");
   const [view, setView] = useState<MobileView>("list");
@@ -149,6 +151,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
           onClick={() => {
             onCurrentLocation();
             onRestaurantSelect(null);
+            onSelectCategory(null);
           }}
           className={`absolute -top-16 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none
             ${position === "full" && "hidden"}`}

@@ -91,6 +91,7 @@ export default function Home() {
         onCurrentLocation={moveToCurrentLocation}
         currentPage={currentPage}
         onPageChange={handlePageChange}
+        onSelectCategory={handleCategorySelect}
       />
       <Script
         strategy="afterInteractive"
