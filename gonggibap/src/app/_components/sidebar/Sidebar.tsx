@@ -8,6 +8,8 @@ type SidebarProps = {
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
   onCurrentLocation: () => void;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -16,6 +18,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   selectedRestaurantId,
   onRestaurantSelect,
   onCurrentLocation,
+  currentPage,
+  onPageChange,
 }) => {
   return (
     <nav aria-label="사이드바">
