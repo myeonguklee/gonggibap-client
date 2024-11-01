@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
-import { RestaurantHeader, RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
-import { TabNavigation } from "@/app/_components/sidebar/restaurant/TapNavigation";
+import {
+  RestaurantHeader,
+  RestaurantInfo,
+  RestaurantTapNavigation,
+} from "@/app/_components/sidebar/restaurant/detail";
 import { ReviewImages } from "@/app/_components/sidebar/review";
 import { ReviewsContent } from "@/app/_components/sidebar/review";
 import { HistoryContent } from "@/app/_components/sidebar/history";
@@ -25,10 +28,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
   const tabs = [
     { id: "reviews", label: "리뷰" },
-    { id: "history", label: "사용내역" }
+    { id: "history", label: "공공기관 사용내역" },
   ];
 
-  const handleTabChange = (tab:string) => {
+  const handleTabChange = (tab: string) => {
     setActiveTab(tab);
   };
 
@@ -47,7 +50,11 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       )}
 
       {/* 탭 네비게이션 */}
-      <TabNavigation tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+      <RestaurantTapNavigation
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+      />
 
       {/* 탭 컨텐츠 */}
       <div>

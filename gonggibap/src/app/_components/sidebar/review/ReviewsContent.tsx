@@ -10,7 +10,10 @@ type ReviewsContentProps = {
   currentUserId?: number;
 };
 
-export const ReviewsContent = ({ restaurantId, currentUserId }: ReviewsContentProps) => {
+export const ReviewsContent = ({
+  restaurantId,
+  currentUserId,
+}: ReviewsContentProps) => {
   const queryClient = useQueryClient();
   const { data: reviews } = useGetReviews(restaurantId);
   const deleteReviewMutation = useDeleteReview();
@@ -42,7 +45,13 @@ export const ReviewsContent = ({ restaurantId, currentUserId }: ReviewsContentPr
         />
       ) : (
         <>
-          <div className="flex justify-end">
+          <div className="flex flex-between-center">
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-black">리뷰</h1>
+              <h2 className="text-gray-500 font-bold translate-y-1">
+                {reviews?.length}개
+              </h2>
+            </div>
             <button
               onClick={onClickWriteReview}
               className="p-2 rounded-lg text-white bg-[#FF7058] text-right dark:bg-gray-700 md:dark:bg-gray-800"
@@ -52,7 +61,6 @@ export const ReviewsContent = ({ restaurantId, currentUserId }: ReviewsContentPr
           </div>
 
           <div className="flex flex-col gap-2">
-            {/* <h3 className="text-lg font-bold">리뷰</h3> */}
             {reviews && (
               <ReviewList
                 reviews={reviews}
