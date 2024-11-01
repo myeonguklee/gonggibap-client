@@ -1,7 +1,6 @@
 export const RESTAURANT_CATEGORIES = [
   { key: "CAFE", value: "카페" },
   { key: "PUB", value: "술집" },
-  { key: "OTHER", value: "기타" },
   { key: "KOREAN", value: "한식" },
   { key: "CHINESE", value: "중식" },
   { key: "JAPANESE", value: "일식" },
@@ -10,8 +9,8 @@ export const RESTAURANT_CATEGORIES = [
   { key: "BUNSIK", value: "분식" },
   { key: "FASTFOOD", value: "패스트푸드" },
   { key: "SALAD", value: "샐러드" },
-  { key: "SHABU", value: "샤브샤브" },
   { key: "SNACK", value: "간식" },
   { key: "LUNCH_BOX", value: "도시락" },
   { key: "ASIAN", value: "아시아음식" },
+  { key: "OTHER", value: "기타" },
 ] as const;
