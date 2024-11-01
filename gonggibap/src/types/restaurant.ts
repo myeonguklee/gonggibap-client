@@ -14,6 +14,7 @@ export interface Restaurant {
   restaurantRoadAddressName: string;
   restaurantLatitude: number;
   restaurantLongitude: number;
+  restaurantImage: string;
   publicOfficeId: number;
   publicOfficeName: string;
   visitCount: number;
