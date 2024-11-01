@@ -1,5 +1,3 @@
-import { Star, Footprints } from "lucide-react";
-
 interface RestaurantStatsProps {
   pointAvg: number | null;
   visitCount: number;
