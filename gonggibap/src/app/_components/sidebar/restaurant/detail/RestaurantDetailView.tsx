@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
-import { RestaurantHeader, RestaurantInfo, TapNavigation } from "@/app/_components/sidebar/restaurant/detail";
+import {
+  RestaurantHeader,
+  RestaurantInfo,
+  TapNavigation,
+} from "@/app/_components/sidebar/restaurant/detail";
 import { ReviewImages } from "@/app/_components/sidebar/review";
 import { ReviewsContent } from "@/app/_components/sidebar/review";
 import { HistoryContent } from "@/app/_components/sidebar/history";
@@ -26,21 +30,21 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
-  }
+  };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 px-4">
       <RestaurantHeader
         restaurantName={restaurant.restaurantName}
+        restaurantDetailCategory={restaurant.restaurantDetailCategory}
         onClose={onClose}
         onBack={onBack}
       />
 
+      <RestaurantInfo restaurant={restaurant} />
       {reviews && reviews.length > 0 && reviews[0].imageUrls.length > 0 && (
         <ReviewImages imageUrls={[reviews[0].imageUrls[0]]} />
       )}
-
-      <RestaurantInfo restaurant={restaurant} />
 
       {/* 탭 네비게이션 */}
       <TapNavigation activeTab={activeTab} onTabChange={handleTabChange} />
@@ -48,14 +52,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       {/* 탭 컨텐츠 */}
       <div>
         {activeTab === "reviews" ? (
-          <ReviewsContent 
+          <ReviewsContent
             restaurantId={restaurant.restaurantId}
             currentUserId={auth.userInfo?.id}
           />
         ) : (
-          <HistoryContent 
-            restaurantId={restaurant.restaurantId}
-          />
+          <HistoryContent restaurantId={restaurant.restaurantId} />
         )}
       </div>
     </div>
