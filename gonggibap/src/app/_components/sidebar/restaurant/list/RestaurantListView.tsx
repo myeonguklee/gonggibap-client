@@ -6,7 +6,8 @@ import {
   RestaurantItem,
   trackRestaurantSelection,
 } from "@/app/_components/sidebar/restaurant/list";
-import { TabNavigation } from "../TapNavigation";
+import { TabNavigation } from "@/app/_components/sidebar/restaurant/TapNavigation";
+import { FavoritesList } from "@/app/_components/sidebar/favorite";
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
@@ -59,11 +60,11 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         activeTab={activeTab}
         onTabChange={handleTabChange}
       />
-      {restaurants.length === 0 && (
-        <p className="text-center">검색된 식당이 없습니다.</p>
-      )}
       {activeTab === "list" ? (
         <>
+          {restaurants.length === 0 && (
+            <p className="text-center">검색된 식당이 없습니다.</p>
+          )}
           <ul className="w-full flex flex-col gap-2">
             {restaurants?.map((restaurant, index) => (
               <li key={restaurant.restaurantId}>
@@ -87,7 +88,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           )}
         </>
       ) : (
-        <div>hello</div>
+        <FavoritesList />
       )}
     </div>
   );
