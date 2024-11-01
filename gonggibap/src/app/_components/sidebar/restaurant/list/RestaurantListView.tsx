@@ -20,14 +20,13 @@ type RestaurantListViewProps = {
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   restaurants,
-  onRestaurantSelect,
   selectedRestaurantId,
+  onRestaurantSelect,
   totalPages,
   currentPage,
   onPageChange,
 }) => {
   const [activeTab, setActiveTab] = useState("list");
-
   const tabs = [
     { id: "list", label: "맛집" },
     { id: "favorite", label: "내가 찜한" },
@@ -88,9 +87,12 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           )}
         </>
       ) : (
-          <Suspense fallback={<MapPinLoading />}>
-            <FavoritesList />
-          </Suspense>
+        <Suspense fallback={<MapPinLoading />}>
+          <FavoritesList
+            selectedRestaurantId={selectedRestaurantId}
+            onRestaurantSelect={onRestaurantSelect}
+          />
+        </Suspense>
       )}
     </div>
   );

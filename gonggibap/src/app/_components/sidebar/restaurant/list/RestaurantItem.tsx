@@ -27,18 +27,17 @@ ${
     : "hover:bg-gray-100 dark:hover:bg-gray-900"
 }`}
   >
-    <div className="w-full flex flex-col gap-2">
-      <h3 className="font-bold text-single-line">
+    <div className="w-full flex flex-col gap-3">
+      <h3 className="font-bold text-lg text-single-line">
         {index + 1}. {restaurant.restaurantName}
       </h3>
       <div className="flex gap-3">
         <RestaurantCategory
           category={restaurant.restaurantDetailCategory || ""}
         />
-        <RestaurantAddress address={restaurant.restaurantRoadAddressName} />
+        <RestaurantAddress address={restaurant.restaurantAddressName} />
       </div>
       <RestaurantStats
-        publicOfficeName={restaurant.publicOfficeName}
         pointAvg={restaurant.pointAvg}
         visitCount={restaurant.visitCount}
       />

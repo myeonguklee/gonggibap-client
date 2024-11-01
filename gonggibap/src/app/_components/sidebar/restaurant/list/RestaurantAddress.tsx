@@ -1,8 +1,16 @@
 import { MapPinned } from "lucide-react";
 
-export const RestaurantAddress = ({ address }: { address: string }) => (
-  <address className="flex items-center gap-1 not-italic text-single-line">
-    <MapPinned size="1rem" />
-    {address.split(" ").slice(2).join(" ")}
-  </address>
-);
+export function RestaurantAddress({ address }: { address: string }) {
+  return (
+    <div className="font-bold">
+      <address className="hidden md:flex items-center gap-1 not-italic text-single-line">
+        <MapPinned size="1rem" />
+        {address.split(" ").slice(2).join(" ")}
+      </address>
+      <address className="md:hidden flex items-center gap-1 not-italic text-single-line">
+        <MapPinned size="1rem" />
+        {address}
+      </address>
+    </div>
+  );
+}
