@@ -43,7 +43,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
               </p>
               <div className="flex-between-center">
                 <p>금액 </p>
-                <p className="font-bold text-[#FF7058]">{history.price}원</p>
+                <p className="font-bold text-[#FF7058]">{history.price.toLocaleString()}원</p>
               </div>
               <p className="text-gray-400">
                 {history.useContent} ({history.peopleCount}명)
