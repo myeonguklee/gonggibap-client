@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { Pagination } from "@/app/_components/Pagination";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
@@ -7,7 +7,6 @@ import {
   trackRestaurantSelection,
 } from "@/app/_components/sidebar/restaurant/list";
 import { TabNavigation } from "../TapNavigation";
-import { Divide } from "lucide-react";
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
