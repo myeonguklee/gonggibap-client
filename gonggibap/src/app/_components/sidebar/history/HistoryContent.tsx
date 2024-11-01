@@ -28,17 +28,31 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
 
   return (
     <>
-      {histories?.content.length === 0 ? (
+      {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
           {histories?.content.map((history, index) => (
-            <div key={index}>
-              <p>
-                사용자: {history.publicOfficeName} {history.consumer}
+            <div
+              key={index}
+              className="flex flex-col gap-3"
+            >
+              <div className="self-center px-3 py-1 bg-gray-300 text-white rounded-full">
+                <p>{history.historyDate.split("T")[0]}</p>
+              </div>
+              <p className="font-bold">
+                {history.publicOfficeName} {history.consumer}
               </p>
-              <p>가격: {history.price}</p>
-              <p>인원수: {history.peopleCount}</p>
-              <p>사용 목적: {history.useContent}</p>
-              <p>날짜: {history.historyDate}</p>
+              <div className="flex-between-center">
+                <p>금액 </p>
+                <p className="font-bold text-[#FF7058]">{history.price}원</p>
+              </div>
+              <p className="text-gray-400">
+                {history.useContent} ({history.peopleCount}명)
+              </p>
+              {index !== histories.content.length - 1 && (
+                <div className="flex items-center">
+                  <div className="w-full border-b border-dashed border-gray-300"></div>
+                </div>
+              )}
             </div>
           ))}
           <Pagination
