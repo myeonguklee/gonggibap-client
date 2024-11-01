@@ -8,24 +8,18 @@ import {
 interface RestaurantItemProps {
   restaurant: Restaurant;
   index: number;
-  isSelected: boolean;
+  isSelected?: boolean;
   onRestaurantSelect: (restaurant: Restaurant) => void;
 }
 
 export const RestaurantItem = ({
   restaurant,
   index,
-  isSelected,
   onRestaurantSelect,
 }: RestaurantItemProps) => (
   <button
     onClick={() => onRestaurantSelect(restaurant)}
-    className={`w-full text-left flex flex-col gap-2 p-4 rounded-lg transition-colors dark:bg-gray-700 border dark:border-none
-${
-  isSelected
-    ? "bg-gray-100 dark:bg-gray-900"
-    : "hover:bg-gray-100 dark:hover:bg-gray-900"
-}`}
+    className="w-full text-left flex flex-col gap-2 pt-3 pb-4"
   >
     <div className="w-full flex flex-col gap-3">
       <h3 className="font-bold text-lg text-single-line">

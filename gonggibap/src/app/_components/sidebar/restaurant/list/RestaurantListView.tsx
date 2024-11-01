@@ -73,6 +73,11 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                   isSelected={selectedRestaurantId === restaurant.restaurantId}
                   onRestaurantSelect={handleRestaurantSelect}
                 />
+                {index !== restaurants.length - 1 && (
+                  <div className="flex-center">
+                    <div className="w-full border-b border-gray-300"></div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
