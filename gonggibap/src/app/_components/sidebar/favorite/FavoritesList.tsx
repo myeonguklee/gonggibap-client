@@ -3,6 +3,8 @@ import { RestaurantItem } from "../restaurant/list";
 import { Pagination } from "../../Pagination";
 import { Restaurant } from "@/types/restaurant";
 import { useState } from "react";
+import { MapPinLoading } from "../../MapPinLoading";
+import { useAuthStore } from "@/store/useAuthStore";
 
 interface FavoritesListProps {
   selectedRestaurantId: number | null;
@@ -13,7 +15,8 @@ export function FavoritesList({
   selectedRestaurantId,
   onRestaurantSelect,
 }: FavoritesListProps) {
-  const { data: favorites } = useGetFavoriteRestaurants();
+  const { isLogin } = useAuthStore();
+  const { data: favorites, isLoading, error } = useGetFavoriteRestaurants();
   const [currentPage, setCurrentPage] = useState(0);
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     // 기존 레스토랑 선택 핸들러 호출
@@ -24,6 +27,30 @@ export function FavoritesList({
     setCurrentPage(page);
   };
 
+  if (!isLogin) {
+    return (
+      <div className="absolute inset-0 bg-black/50 flex-center backdrop-blur-sm">
+        <div className="text-center">
+          <p className="text-white mb-4">로그인이 필요합니다</p>
+          <a
+            href="/login"
+            className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
+          >
+            로그인하기
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return <MapPinLoading />;
+  }
+
+  if (error) {
+    return <div>에러가 발생했습니다.</div>;
+  }
+
   return (
     // <div>
     //   {favorites?.content.map((favorite) => (
@@ -31,7 +58,7 @@ export function FavoritesList({
     //   ))}
     // </div>
     <>
-      {favorites.content.length === 0 && (
+      {favorites && favorites.content.length === 0 && (
         <p className="text-center">검색된 식당이 없습니다.</p>
       )}
       <ul className="w-full flex flex-col gap-2">
@@ -46,7 +73,7 @@ export function FavoritesList({
           </li>
         ))}
       </ul>
-      {favorites?.content.length > 0 && (
+      {favorites && favorites?.content.length > 0 && (
         <Pagination
           totalPages={favorites?.totalPages ? favorites.totalPages : 1}
           currentPage={currentPage}

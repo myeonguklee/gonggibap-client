@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { Pagination } from "@/app/_components/Pagination";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
@@ -28,7 +28,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState("list");
   const tabs = [
-    { id: "list", label: "맛집" },
+    { id: "list", label: "맛집 리스트" },
     { id: "favorite", label: "내가 찜한" },
   ];
 
@@ -87,12 +87,10 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           )}
         </>
       ) : (
-        <Suspense fallback={<MapPinLoading />}>
-          <FavoritesList
-            selectedRestaurantId={selectedRestaurantId}
-            onRestaurantSelect={onRestaurantSelect}
-          />
-        </Suspense>
+        <FavoritesList
+          selectedRestaurantId={selectedRestaurantId}
+          onRestaurantSelect={onRestaurantSelect}
+        />
       )}
     </div>
   );
