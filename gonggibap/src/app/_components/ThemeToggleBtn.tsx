@@ -20,10 +20,6 @@ export function ThemeToggleBtn({ position }: ThemeToggleBtnProps) {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    console.log("Current position:", position);
-  }, [position]);
-
   if (!mounted) {
     return null;
   }
