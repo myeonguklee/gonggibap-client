@@ -1,7 +1,12 @@
+import { useGetFavoriteRestaurants } from "@/apis/favorite";
+
 export function FavoritesList() {
+  const { data: favorites } = useGetFavoriteRestaurants();
   return (
     <div>
-      <p>즐겨찾기 목록</p>
+      {favorites?.content.map((favorite) => (
+        <div key={favorite.restaurantId}>{favorite.restaurantName}</div>
+      ))}
     </div>
   );
 }

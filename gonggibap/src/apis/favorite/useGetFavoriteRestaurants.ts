@@ -7,12 +7,12 @@ import { GetRestaurantsResponse } from "@/types/restaurant";
 
 const getFavoriteRestaurants = async (): Promise<GetRestaurantsResponse> => {
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
-    url: "restaurants/favorite/",
+    url: "restaurants/favorite",
   });
   return response.data;
 };
 
-export const usGetFavoriteRestaurants = (
+export const useGetFavoriteRestaurants = (
 ): UseSuspenseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
   return useSuspenseQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
     queryKey: [QUERY_KEYS.FAVORITE.ALL],

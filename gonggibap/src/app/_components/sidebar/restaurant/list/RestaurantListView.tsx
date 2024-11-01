@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { Pagination } from "@/app/_components/Pagination";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
@@ -88,7 +88,9 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           )}
         </>
       ) : (
-        <FavoritesList />
+          <Suspense fallback={<MapPinLoading />}>
+            <FavoritesList />
+          </Suspense>
       )}
     </div>
   );
