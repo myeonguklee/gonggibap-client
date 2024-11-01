@@ -31,7 +31,7 @@ ${
       <h3 className="font-bold text-lg text-single-line">
         {index + 1}. {restaurant.restaurantName}
       </h3>
-      <div className="flex gap-3">
+      <div className="flex gap-3 font-medium">
         <RestaurantCategory
           category={restaurant.restaurantDetailCategory || ""}
         />

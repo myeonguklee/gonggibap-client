@@ -2,7 +2,7 @@ import { MapPinned } from "lucide-react";
 
 export function RestaurantAddress({ address }: { address: string }) {
   return (
-    <div className="font-bold">
+    <>
       <address className="hidden md:flex items-center gap-1 not-italic text-single-line">
         <MapPinned size="1rem" />
         {address.split(" ").slice(2).join(" ")}
@@ -11,6 +11,6 @@ export function RestaurantAddress({ address }: { address: string }) {
         <MapPinned size="1rem" />
         {address}
       </address>
-    </div>
+    </>
   );
 }
