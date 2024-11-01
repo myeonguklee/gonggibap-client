@@ -1,7 +1,8 @@
 // RestaurantInfo.tsx
 import { Restaurant } from "@/types/restaurant";
 import { IoCallOutline, IoLocationOutline } from "react-icons/io5";
-import { LuPin } from "react-icons/lu";
+import { FaRegBookmark } from "react-icons/fa6";
+
 type RestaurantInfoProps = {
   restaurant: Restaurant;
 };
@@ -15,12 +16,6 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
     return (point || 0).toFixed(1);
   };
 
-  // restaurant.publicOfficeName = 관련구청
-  // restaurant.restaurantRoadAddressName = 주소
-  // restaurnat.phone = 번호
-  // restaurant.pointAvg = 평점
-  // restaurant.visitCount = 방문수
-
   return (
     <div className="flex flex-col gap-4">
       <div className="inline-block">
@@ -28,13 +23,15 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
           {restaurant.publicOfficeName}
         </span>
       </div>
-      <div className="flex items-center gap-2 font-semibold">
-        <IoLocationOutline />
-        {restaurant.restaurantAddressName}
-      </div>
-      <div className="flex items-center gap-2 font-semibold">
-        <IoCallOutline />
-        {restaurant.phone ? restaurant.phone : "미제공"}
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-2 font-semibold">
+          <IoLocationOutline />
+          {restaurant.restaurantAddressName}
+        </div>
+        <div className="flex items-center gap-2 font-semibold">
+          <IoCallOutline />
+          {restaurant.phone ? restaurant.phone : "미제공"}
+        </div>
       </div>
       <div className="flex gap-4">
         <div className="flex gap-1">
@@ -48,9 +45,9 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
           <div className="text-black">{restaurant.visitCount}</div>
         </div>
       </div>
-      <div className="bg-[#FF7058] py-2 gap-1 flex justify-center items-center text-white font-semibold rounded-xl">
-        <LuPin />내 지도에 추가하기
-      </div>
+      <button className="bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl">
+        <FaRegBookmark />내 지도에 추가하기
+      </button>
 
       {/* <div>
         <dt className="sr-only">상세정보 웹사이트</dt>
