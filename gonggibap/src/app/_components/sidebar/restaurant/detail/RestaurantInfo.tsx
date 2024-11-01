@@ -7,9 +7,9 @@ type RestaurantInfoProps = {
 };
 
 export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
-  const handleMoveToKakaoMap = () => {
-    window.open(`https://place.map.kakao.com/${restaurant.restaurantLink}`);
-  };
+  // const handleMoveToKakaoMap = () => {
+  //   window.open(`https://place.map.kakao.com/${restaurant.restaurantLink}`);
+  // };
 
   const formatPointAvg = (point: number | null | undefined) => {
     return (point || 0).toFixed(1);

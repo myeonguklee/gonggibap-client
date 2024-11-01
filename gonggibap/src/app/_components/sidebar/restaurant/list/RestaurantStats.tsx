@@ -1,30 +1,27 @@
-import { Star, Footprints } from "lucide-react";
-
 interface RestaurantStatsProps {
-  publicOfficeName: string;
   pointAvg: number | null;
   visitCount: number;
 }
 
 export const RestaurantStats = ({
-  publicOfficeName,
   pointAvg,
   visitCount,
 }: RestaurantStatsProps) => (
   <div className="flex items-center gap-5">
-    <div>
-      <span className="sr-only">관련 구청</span>
-      <p># {publicOfficeName}</p>
+    <div className="flex-center gap-2">
+      <p className="text-xs text-gray-400 dark:text-gray-400">평점</p>
+      <div className="flex-center bg-[#FF7058] text-xs text-white min-w-8 rounded-full">
+        <p>{pointAvg ? pointAvg.toFixed(1) : "-"}</p>
+      </div>
     </div>
-    <div className="flex items-center gap-1 text-yellow-400">
-      <span className="sr-only">음식점 평점</span>
-      <Star size="1rem" />
-      {pointAvg ? pointAvg.toFixed(1) : "-"}
+    <div className="flex-center gap-2">
+      <p className="text-xs text-gray-400 dark:text-gray-400">방문수</p>
+      <p className="text-xs">{visitCount}</p>
     </div>
-    <div className="flex items-center gap-1 text-[#FF9A00]">
-      <span className="sr-only">방문 횟수</span>
-      <Footprints size="1rem" />
-      <p>{visitCount}</p>
-    </div>
+    {/* 리뷰수 업데이트 후 살리기 */}
+    {/* <div className="flex-center gap-2">
+      <p className="text-xs text-gray-500 dark:text-gray-400">리뷰수</p>
+      <p className="text-xs">{visitCount}</p>
+    </div> */}
   </div>
 );

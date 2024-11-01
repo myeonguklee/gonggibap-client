@@ -9,4 +9,7 @@ export const QUERY_KEYS = {
   HISTORY: {
     DETAIL: (id: number, page:number) => ["history", id, page] as const,
   },
+  FAVORITE: {
+    ALL: ["favorite"] as const,
+  }
 };
