@@ -42,7 +42,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
         </div>
         <div className="flex gap-1">
           <div className="text-gray-500">방문수</div>
-          <div className="text-black">{restaurant.visitCount}</div>
+          <div>{restaurant.visitCount}</div>
         </div>
       </div>
       <button className="bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl">
