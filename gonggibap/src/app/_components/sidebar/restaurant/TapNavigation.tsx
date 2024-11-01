@@ -25,7 +25,7 @@ export function TabNavigation({
           key={tab.id}
           className={`flex-1 px-4 py-2 rounded-md text-sm transition-all duration-200 ${
             activeTab === tab.id
-              ? "bg-white dark:bg-gray-700 text-[#FF7058] font-bold shadow-sm"
+              ? "bg-white dark:bg-gray-600 text-[#FF7058] font-bold shadow-sm"
               : "text-gray-500 hover:text-gray-700"
           }`}
           onClick={() => onTabChange(tab.id)}

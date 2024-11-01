@@ -35,7 +35,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
               key={index}
               className="flex flex-col gap-3"
             >
-              <div className="self-center px-3 py-1 bg-gray-300 text-white rounded-full">
+              <div className="self-center px-3 py-1 bg-gray-400 text-white rounded-full">
                 <p>{history.historyDate.split("T")[0]}</p>
               </div>
               <p className="font-bold">
@@ -43,7 +43,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
               </p>
               <div className="flex-between-center">
                 <p>금액 </p>
-                <p className="font-bold text-[#FF7058]">{history.price}원</p>
+                <p className="font-bold text-[#FF7058]">{history.price.toLocaleString()}원</p>
               </div>
               <p className="text-gray-400">
                 {history.useContent} ({history.peopleCount}명)

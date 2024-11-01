@@ -1,9 +1,10 @@
 import { AxiosError } from "axios";
-import { useSuspenseQuery, UseSuspenseQueryResult } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
+import { GetRestaurantsResponse } from "@/types/restaurant";
+import { useAuthStore } from "@/store/useAuthStore";
 import { client } from "@/apis/core/client";
 import { QUERY_KEYS } from "@/constants/queryKeys";
-import { GetRestaurantsResponse } from "@/types/restaurant";
 
 const getFavoriteRestaurants = async (): Promise<GetRestaurantsResponse> => {
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
@@ -12,11 +13,15 @@ const getFavoriteRestaurants = async (): Promise<GetRestaurantsResponse> => {
   return response.data;
 };
 
-export const useGetFavoriteRestaurants = (
-): UseSuspenseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
-  return useSuspenseQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
+export const useGetFavoriteRestaurants = (): UseQueryResult<
+  GetRestaurantsResponse,
+  AxiosError<ErrorResponse>
+> => {
+  const { isLogin } = useAuthStore();
+  return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
     queryKey: [QUERY_KEYS.FAVORITE.ALL],
     queryFn: () => getFavoriteRestaurants(),
+    enabled: isLogin,
     staleTime: 1000 * 60 * 5,
   });
 };
