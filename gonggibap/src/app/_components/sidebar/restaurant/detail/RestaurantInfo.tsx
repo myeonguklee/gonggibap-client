@@ -19,7 +19,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="inline-block">
-        <span className="bg-black text-white px-4 py-1 rounded-xl text-sm">
+        <span className="bg-black text-white px-4 py-1 rounded-xl text-sm dark:bg-white dark:text-black">
           {restaurant.publicOfficeName}
         </span>
       </div>

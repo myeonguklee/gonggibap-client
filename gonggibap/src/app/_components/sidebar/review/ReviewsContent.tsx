@@ -54,7 +54,7 @@ export const ReviewsContent = ({
             </div>
             <button
               onClick={onClickWriteReview}
-              className="p-2 rounded-lg text-white bg-[#FF7058] text-right dark:bg-gray-700 md:dark:bg-gray-800"
+              className="p-2 rounded-lg text-white bg-[#FF7058] text-right"
             >
               리뷰 작성
             </button>
