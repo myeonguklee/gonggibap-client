@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
-import { RestaurantHeader, RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
+import { RestaurantHeader, RestaurantInfo, TapNavigation } from "@/app/_components/sidebar/restaurant/detail";
 import { ReviewImages } from "@/app/_components/sidebar/review";
-import { useGetReviews } from "@/apis/review";
 import { ReviewsContent } from "@/app/_components/sidebar/review";
 import { HistoryContent } from "@/app/_components/sidebar/history";
+import { useGetReviews } from "@/apis/review";
 
 type RestaurantDetailViewProps = {
   restaurant: Restaurant;
@@ -24,6 +24,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
   const [activeTab, setActiveTab] = useState<TabType>("reviews");
 
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab);
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <RestaurantHeader
@@ -39,28 +43,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       <RestaurantInfo restaurant={restaurant} />
 
       {/* 탭 네비게이션 */}
-      <div className="flex border-b border-gray-200">
-        <button
-          className={`px-4 py-2 ${
-            activeTab === "reviews"
-              ? "border-b-2 border-[#FF7058] text-[#FF7058]"
-              : "text-gray-500"
-          }`}
-          onClick={() => setActiveTab("reviews")}
-        >
-          리뷰
-        </button>
-        <button
-          className={`px-4 py-2 ${
-            activeTab === "history"
-              ? "border-b-2 border-[#FF7058] text-[#FF7058]"
-              : "text-gray-500"
-          }`}
-          onClick={() => setActiveTab("history")}
-        >
-          사용내역
-        </button>
-      </div>
+      <TapNavigation activeTab={activeTab} onTabChange={handleTabChange} />
 
       {/* 탭 컨텐츠 */}
       <div>

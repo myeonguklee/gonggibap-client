@@ -52,7 +52,7 @@ export const ReviewsContent = ({ restaurantId, currentUserId }: ReviewsContentPr
           </div>
 
           <div className="flex flex-col gap-2">
-            <h3 className="text-lg font-bold">리뷰</h3>
+            {/* <h3 className="text-lg font-bold">리뷰</h3> */}
             {reviews && (
               <ReviewList
                 reviews={reviews}
