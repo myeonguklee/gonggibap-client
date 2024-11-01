@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
-import { RestaurantHeader, RestaurantInfo, TapNavigation } from "@/app/_components/sidebar/restaurant/detail";
+import { RestaurantHeader, RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
+import { TabNavigation } from "@/app/_components/sidebar/restaurant/TapNavigation";
 import { ReviewImages } from "@/app/_components/sidebar/review";
 import { ReviewsContent } from "@/app/_components/sidebar/review";
 import { HistoryContent } from "@/app/_components/sidebar/history";
@@ -13,8 +14,6 @@ type RestaurantDetailViewProps = {
   onBack?: () => void;
 };
 
-type TabType = "reviews" | "history";
-
 export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   restaurant,
   onClose,
@@ -22,9 +21,14 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 }) => {
   const auth = useAuthStore();
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
-  const [activeTab, setActiveTab] = useState<TabType>("reviews");
+  const [activeTab, setActiveTab] = useState("reviews");
 
-  const handleTabChange = (tab: TabType) => {
+  const tabs = [
+    { id: "reviews", label: "리뷰" },
+    { id: "history", label: "사용내역" }
+  ];
+
+  const handleTabChange = (tab:string) => {
     setActiveTab(tab);
   }
 
@@ -43,7 +47,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       <RestaurantInfo restaurant={restaurant} />
 
       {/* 탭 네비게이션 */}
-      <TapNavigation activeTab={activeTab} onTabChange={handleTabChange} />
+      <TabNavigation tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
 
       {/* 탭 컨텐츠 */}
       <div>
