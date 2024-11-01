@@ -1,29 +1,28 @@
 import { useState } from "react";
-import { Restaurant } from "@/types/restaurant";
+import Image from "next/image";
 import { useAuthStore } from "@/store/useAuthStore";
 import {
   RestaurantHeader,
   RestaurantInfo,
   RestaurantTapNavigation,
 } from "@/app/_components/sidebar/restaurant/detail";
-import { ReviewImages } from "@/app/_components/sidebar/review";
 import { ReviewsContent } from "@/app/_components/sidebar/review";
 import { HistoryContent } from "@/app/_components/sidebar/history";
-import { useGetReviews } from "@/apis/review";
+import { useGetRestaurant } from "@/apis/restaurant/useGetRestaurant";
 
 type RestaurantDetailViewProps = {
-  restaurant: Restaurant;
+  restaurantId: number;
   onClose?: () => void;
   onBack?: () => void;
 };
 
 export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
-  restaurant,
+  restaurantId,
   onClose,
   onBack,
 }) => {
   const auth = useAuthStore();
-  const { data: reviews } = useGetReviews(restaurant.restaurantId);
+  const { data: restaurant } = useGetRestaurant(restaurantId);
   const [activeTab, setActiveTab] = useState("reviews");
 
   const tabs = [
@@ -35,6 +34,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
     setActiveTab(tab);
   };
 
+  if (!restaurant) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-5 px-4">
       <RestaurantHeader
@@ -45,9 +48,14 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       />
 
       <RestaurantInfo restaurant={restaurant} />
-      {reviews && reviews.length > 0 && reviews[0].imageUrls.length > 0 && (
-        <ReviewImages imageUrls={[reviews[0].imageUrls[0]]} />
-      )}
+      <div className="relative w-full h-[300px] md:h-[180px]">
+        <Image
+          src={restaurant.restaurantImage}
+          alt={`${restaurant.restaurantName} 이미지`}
+          fill
+          className="object-cover rounded-xl"
+        />
+      </div>
 
       {/* 탭 네비게이션 */}
       <RestaurantTapNavigation

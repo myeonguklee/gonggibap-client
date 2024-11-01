@@ -75,7 +75,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 />
                 {index !== restaurants.length - 1 && (
                   <div className="flex-center">
-                    <div className="w-full border-b border-gray-300"></div>
+                    <div className="w-full border-b dark:border-gray-500"></div>
                   </div>
                 )}
               </li>

@@ -33,7 +33,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   return (
     <div className="flex">
       <div
-        className="w-80 h-screen bg-white dark:bg-gray-800 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
+        className="w-80 h-screen bg-white dark:bg-gray-700 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
         role="navigation"
       >
         <RestaurantListView
@@ -55,7 +55,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       >
         {selectedRestaurant && (
           <RestaurantDetailView
-            restaurant={selectedRestaurant}
+            restaurantId={selectedRestaurant.restaurantId}
             onClose={() => onRestaurantSelect(null)}
           />
         )}

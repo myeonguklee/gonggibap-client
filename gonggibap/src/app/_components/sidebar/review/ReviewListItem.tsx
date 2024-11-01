@@ -16,7 +16,7 @@ export const ReviewListItem = ({
   isDeleting,
 }: ReviewListItemProps) => {
   return (
-    <li className="flex flex-col pb-4 gap-1 dark:bg-gray-700 md:dark:bg-gray-800 rounded-lg border-b dark:border-none">
+    <li className="flex flex-col pb-4 gap-1 border-b dark:border-gray-500">
       <div className="flex items-center gap-2">
         <p className="font-bold text-lg">{review.userName}</p>
         <div className="flex gap-1 text-xs font-semibold">
