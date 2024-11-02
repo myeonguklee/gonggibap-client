@@ -16,6 +16,15 @@ export const RestaurantHeader = ({
 }: RestaurantHeaderProps) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
+  // 글자 길이에 따른 텍스트 크기 클래스 결정
+  const getTextSizeClass = (text: string) => {
+    if (text.length > 15) return "text-lg";
+    if (text.length > 12) return "text-xl";
+    return "text-2xl";
+  };
+
+  const textSizeClass = getTextSizeClass(restaurantName);
+
   return (
     <div className="flex-between-center">
       <div className="flex items-center gap-2">
@@ -27,9 +36,9 @@ export const RestaurantHeader = ({
           <ChevronLeft size="1.5rem" />
         </button>
         <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-black">{restaurantName}</h1>
+          <h1 className={`${textSizeClass} font-black`}>{restaurantName}</h1>
           {restaurantDetailCategory && (
-            <h2 className="text-gray-500 font-bold translate-y-1">
+            <h2 className="text-gray-500 font-bold translate-y-1 flex-shrink-0">
               {restaurantDetailCategory}
             </h2>
           )}
