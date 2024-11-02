@@ -16,6 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gonggibap.co.kr/"),
   title: "공기밥",
   description: "맛집 추천 서비스",
   openGraph: {
