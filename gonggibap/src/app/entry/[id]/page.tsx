@@ -17,10 +17,14 @@ interface SharePageProps {
 }
 
 export default function SharePage({ params }: SharePageProps) {
-  const [polygon, setPolygon] = useState<Polygon | null>(null);
-  const [selectedRestaurantId, setSelectedRestaurantId] = useState<number | null>(null);
+  const [_polygon, setPolygon] = useState<Polygon | null>(null);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState<
+    number | null
+  >(null);
   const restaurantId = params.id;
-  const { data: restaurant, isLoading } = useGetRestaurant(Number(restaurantId));
+  const { data: restaurant, isLoading } = useGetRestaurant(
+    Number(restaurantId)
+  );
 
   const handleRestaurantSelect = (id: number | null) => {
     setSelectedRestaurantId(id);
@@ -35,14 +39,7 @@ export default function SharePage({ params }: SharePageProps) {
     }
   };
 
-  const {
-    mapRef,
-    mapInstance,
-    handleSearch,
-    moveToCurrentLocation,
-    onKakaoMapLoad,
-    isDragging,
-  } = useKakaoMap({
+  const { mapRef, mapInstance, onKakaoMapLoad } = useKakaoMap({
     onPolygonChange: setPolygon,
   });
 
@@ -52,7 +49,7 @@ export default function SharePage({ params }: SharePageProps) {
   });
 
   // useMapMarkers에 cluster 전달
-  const { clearMarkers } = useMapMarkers({
+  useMapMarkers({
     map: mapInstance,
     restaurants: restaurant ? [restaurant] : [],
     cluster, // cluster 전달
@@ -60,11 +57,21 @@ export default function SharePage({ params }: SharePageProps) {
     onRestaurantSelect: handleRestaurantSelect,
   });
 
+  // restaurant 데이터가 로드되고 mapInstance가 생성되면 실행
   useEffect(() => {
-    if (restaurant) {
+    if (restaurant && mapInstance) {
+      // 식당 위치로 지도 중심 이동
+      mapInstance.setCenter(
+        new kakao.maps.LatLng(
+          restaurant.restaurantLatitude,
+          restaurant.restaurantLongitude
+        )
+      );
+      mapInstance.setLevel(3);
+      // 식당 선택 상태로 설정
       handleRestaurantSelect(Number(restaurantId));
     }
-  }, [restaurant, restaurantId]);
+  }, [restaurant, mapInstance, restaurantId]);
 
   if (isLoading) {
     return (
