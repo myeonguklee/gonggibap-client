@@ -3,6 +3,8 @@ import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
+import { MapPinLoading } from "@/app/_components/MapPinLoading";
+import { Suspense } from "react";
 
 type DesktopSidebarProps = {
   restaurants?: Restaurant[];
@@ -36,14 +38,16 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         className="w-80 h-screen bg-white dark:bg-gray-700 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
         role="navigation"
       >
-        <RestaurantListView
-          restaurants={restaurants}
-          totalPages={totalPages}
-          onRestaurantSelect={onRestaurantSelect}
-          selectedRestaurantId={selectedRestaurantId}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
+        <Suspense fallback={<MapPinLoading />}>
+          <RestaurantListView
+            restaurants={restaurants}
+            totalPages={totalPages}
+            onRestaurantSelect={onRestaurantSelect}
+            selectedRestaurantId={selectedRestaurantId}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        </Suspense>
       </div>
 
       <section

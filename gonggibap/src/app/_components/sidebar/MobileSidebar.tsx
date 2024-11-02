@@ -3,6 +3,7 @@ import {
   TouchEvent as ReactTouchEvent,
   useRef,
   useEffect,
+  Suspense,
 } from "react";
 import { PiNavigationArrowBold } from "react-icons/pi";
 import { MobilePosition, MobileView } from "@/types/sidebar";
@@ -10,6 +11,7 @@ import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
 import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
+import { MapPinLoading } from "@/app/_components/MapPinLoading";
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];
@@ -177,14 +179,16 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
         `}
       >
         {view === "list" ? (
-          <RestaurantListView
-            restaurants={restaurants}
-            totalPages={totalPages}
-            selectedRestaurantId={selectedRestaurantId}
-            onRestaurantSelect={onRestaurantSelect}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
-          />
+          <Suspense fallback={<MapPinLoading />}>
+            <RestaurantListView
+              restaurants={restaurants}
+              totalPages={totalPages}
+              selectedRestaurantId={selectedRestaurantId}
+              onRestaurantSelect={onRestaurantSelect}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+            />
+          </Suspense>
         ) : (
           selectedRestaurant && (
             <RestaurantDetailView
