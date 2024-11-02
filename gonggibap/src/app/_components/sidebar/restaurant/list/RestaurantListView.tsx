@@ -42,7 +42,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
     // 기존 레스토랑 선택 핸들러 호출
     onRestaurantSelect(restaurant.restaurantId);
   };
-
+  
   // 로딩 스피너
   if (!restaurants) return <MapPinLoading />;
 
@@ -70,7 +70,6 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
                 <RestaurantItem
                   restaurant={restaurant}
                   index={index}
-                  isSelected={selectedRestaurantId === restaurant.restaurantId}
                   onRestaurantSelect={handleRestaurantSelect}
                 />
                 {index !== restaurants.length - 1 && (

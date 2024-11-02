@@ -75,9 +75,13 @@ export function FavoritesList({
             <RestaurantItem
               restaurant={favorite}
               index={index}
-              isSelected={selectedRestaurantId === favorite.restaurantId}
               onRestaurantSelect={handleRestaurantSelect}
             />
+            {index !== favorites.content.length - 1 && (
+              <div className="flex-center">
+                <div className="w-full border-b dark:border-gray-500"></div>
+              </div>
+            )}
           </li>
         ))}
       </ul>
