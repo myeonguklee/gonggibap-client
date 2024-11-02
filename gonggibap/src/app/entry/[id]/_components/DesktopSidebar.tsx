@@ -1,9 +1,9 @@
-import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
+import { Restaurant } from "@/types/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { RestaurantDetailView } from "@/app/entry/[id]/_components/RestaurantDetailView";
 
 interface DesktopSidebarProps {
-  restaurant?: Restaurant;
+  restaurant: Restaurant;
 }
 
 export function DesktopSidebar({ restaurant }: DesktopSidebarProps) {

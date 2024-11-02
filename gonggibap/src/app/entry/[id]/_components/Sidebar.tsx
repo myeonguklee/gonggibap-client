@@ -3,7 +3,7 @@ import { MobileSidebar } from "@/app/entry/[id]/_components/MobileSidebar";
 import { Restaurant } from "@/types/restaurant";
 
 interface SidebarProps {
-  restaurant?: Restaurant;
+  restaurant: Restaurant;
 }
 
 export function Sidebar({ restaurant }: SidebarProps) {

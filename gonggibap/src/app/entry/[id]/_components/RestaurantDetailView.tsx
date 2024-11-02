@@ -1,24 +1,18 @@
 import { useGetReviews } from "@/apis/review";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import {
-  RestaurantHeader,
-  RestaurantInfo,
-} from "@/app/_components/sidebar/restaurant/detail";
+import { RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
 import { ReviewImages, ReviewsContent } from "@/app/_components/sidebar/review";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Restaurant } from "@/types/restaurant";
 
 interface RestaurantDetailViewProps {
-  restaurant?: Restaurant;
+  restaurant: Restaurant;
 }
 
 export function RestaurantDetailView({
   restaurant,
 }: RestaurantDetailViewProps) {
-  if (!restaurant) {
-    return <MapPinLoading />;
-  }
-
+  
   const auth = useAuthStore();
   const { data: reviews } = useGetReviews(restaurant.restaurantId);
 
