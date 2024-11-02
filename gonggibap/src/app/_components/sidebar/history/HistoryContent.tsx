@@ -31,11 +31,8 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
       {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
           {histories?.content.map((history, index) => (
-            <div
-              key={index}
-              className="flex flex-col gap-3"
-            >
-              <div className="self-center px-3 py-1 bg-gray-400 text-white rounded-full">
+            <div key={index} className="flex flex-col gap-3">
+              <div className="self-center px-3 py-1 bg-black text-white rounded-full dark:bg-white dark:text-black">
                 <p>{history.historyDate.split("T")[0]}</p>
               </div>
               <p className="font-bold">
@@ -43,7 +40,9 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
               </p>
               <div className="flex-between-center">
                 <p>금액 </p>
-                <p className="font-bold text-[#FF7058]">{history.price.toLocaleString()}원</p>
+                <p className="font-bold text-[#FF7058]">
+                  {history.price.toLocaleString()}원
+                </p>
               </div>
               <p className="text-gray-400">
                 {history.useContent} ({history.peopleCount}명)

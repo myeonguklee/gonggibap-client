@@ -13,7 +13,7 @@ const createFavoriteRestaurant = async (
   restaurantId: number
 ): Promise<void> => {
   await client.post<BaseResponse<void>>({
-    url: `restaurant/favorites/${restaurantId}`,
+    url: `restaurants/favorite/${restaurantId}`,
   });
 };
 
@@ -26,14 +26,14 @@ export const useCreateFavoriteRestaurant = (): UseMutationResult<
   return useMutation({
     mutationFn: createFavoriteRestaurant,
     onSuccess: () => {
-      toast.success("찜한 식당 등록");
+      toast.success("나의 맛집 리스트에 저장됐습니다.");
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.FAVORITE.ALL],
       });
     },
     onError: (error) => {
       console.log(error);
-      toast.error("찜한 식당 등록 실패");
+      toast.error("맛집 저장에 실패했습니다. 잠시 후 다시 시도해 주세요.");
     },
   });
 };
