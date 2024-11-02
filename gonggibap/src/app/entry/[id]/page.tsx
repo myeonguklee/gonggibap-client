@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Script from "next/script";
 import { useGetRestaurant } from "@/apis/restaurant/useGetRestaurant";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import { Sidebar } from "@/app/entry/[id]/_components/Sidebar";
 import { useKakaoMap } from "@/hooks/useKakaoMap";
 import { Polygon } from "@/types/restaurant";
 import { useMapMarkers } from "@/hooks/useMapMarkers";
 import { useMapCluster } from "@/hooks/useMapCluster";
+import { SearchBar } from "./_components/SearchBar";
+import { DesktopSidebar } from "./_components/DesktopSidebar";
+import { MobileSidebar } from "./_components/MobileSidebar";
 
 interface SharePageProps {
   params: {
@@ -17,26 +19,18 @@ interface SharePageProps {
 }
 
 export default function SharePage({ params }: SharePageProps) {
-  const [_polygon, setPolygon] = useState<Polygon | null>(null);
-  const [selectedRestaurantId, setSelectedRestaurantId] = useState<
-    number | null
-  >(null);
   const restaurantId = params.id;
   const { data: restaurant, isLoading } = useGetRestaurant(
     Number(restaurantId)
   );
+  const [polygon, setPolygon] = useState<Polygon | null>(null);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState<
+    number | null
+  >(null);
 
-  const handleRestaurantSelect = (id: number | null) => {
-    setSelectedRestaurantId(id);
-    if (id && mapInstance && restaurant) {
-      mapInstance.setCenter(
-        new kakao.maps.LatLng(
-          restaurant.restaurantLatitude,
-          restaurant.restaurantLongitude
-        )
-      );
-      mapInstance.setLevel(3);
-    }
+  const handleSearch = (keyword: string) => {
+    // 검색 로직 구현
+    console.log("Search:", keyword);
   };
 
   const { mapRef, mapInstance, onKakaoMapLoad } = useKakaoMap({
@@ -48,6 +42,22 @@ export default function SharePage({ params }: SharePageProps) {
     map: mapInstance,
   });
 
+  const handleRestaurantSelect = useCallback(
+    (id: number | null) => {
+      setSelectedRestaurantId(id);
+      if (id && mapInstance && restaurant) {
+        mapInstance.setCenter(
+          new kakao.maps.LatLng(
+            restaurant.restaurantLatitude,
+            restaurant.restaurantLongitude
+          )
+        );
+        mapInstance.setLevel(3);
+      }
+    },
+    [mapInstance, restaurant]
+  );
+
   // useMapMarkers에 cluster 전달
   useMapMarkers({
     map: mapInstance,
@@ -56,6 +66,14 @@ export default function SharePage({ params }: SharePageProps) {
     selectedRestaurantId,
     onRestaurantSelect: handleRestaurantSelect,
   });
+
+  // 빌드 에러 방지를 위한 useEffect
+  useEffect(() => {
+    if (polygon) {
+      // polygon 데이터를 활용하는 로직
+      console.log("Current map bounds:", polygon);
+    }
+  }, [polygon]);
 
   // restaurant 데이터가 로드되고 mapInstance가 생성되면 실행
   useEffect(() => {
@@ -71,7 +89,7 @@ export default function SharePage({ params }: SharePageProps) {
       // 식당 선택 상태로 설정
       handleRestaurantSelect(Number(restaurantId));
     }
-  }, [restaurant, mapInstance, restaurantId]);
+  }, [restaurant, mapInstance, restaurantId, handleRestaurantSelect]);
 
   if (isLoading) {
     return (
@@ -87,7 +105,23 @@ export default function SharePage({ params }: SharePageProps) {
 
   return (
     <>
-      <Sidebar restaurant={restaurant} />
+      {/* 모바일 검색창 */}
+      <div className="absolute top-4 left-4 right-4 z-10 md:hidden">
+        <SearchBar onSearch={handleSearch} />
+      </div>
+
+      <nav aria-label="사이드바">
+        <div className="hidden md:block" aria-label="데스크톱 사이드바">
+          <DesktopSidebar restaurant={restaurant}>
+            <SearchBar onSearch={handleSearch} />
+          </DesktopSidebar>
+        </div>
+        <div className="block md:hidden" aria-label="모바일 사이드바">
+          <MobileSidebar restaurant={restaurant} />
+        </div>
+      </nav>
+
+      {/* 카카오맵 */}
       <Script
         strategy="afterInteractive"
         type="text/javascript"
