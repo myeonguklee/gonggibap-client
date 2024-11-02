@@ -3,48 +3,24 @@ import {
   TouchEvent as ReactTouchEvent,
   useRef,
   useEffect,
-  Suspense,
 } from "react";
-import { PiNavigationArrowBold } from "react-icons/pi";
-import { MobilePosition, MobileView } from "@/types/sidebar";
-import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
-import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
+import { MobilePosition } from "@/types/sidebar";
+import { Restaurant } from "@/types/restaurant";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
+import { RestaurantDetailView } from "@/app/entry/[id]/_components/RestaurantDetailView";
 
-type MobileSidebarProps = {
-  restaurants?: Restaurant[];
-  totalPages?: number;
-  selectedRestaurantId: number | null;
-  onRestaurantSelect: (id: number | null) => void;
-  onCurrentLocation: () => void;
-  currentPage: number;
-  onPageChange: (page: number) => void;
-  onSelectCategory: (category: RestaurantDetailCategory) => void;
-};
-export const MobileSidebar: React.FC<MobileSidebarProps> = ({
-  restaurants,
-  totalPages,
-  selectedRestaurantId,
-  onRestaurantSelect,
-  onCurrentLocation,
-  currentPage,
-  onPageChange,
-  onSelectCategory,
-}) => {
+interface MobileSidebarProps {
+  restaurant: Restaurant;
+}
+
+export function MobileSidebar({ restaurant }: MobileSidebarProps) {
   const [position, setPosition] = useState<MobilePosition>("peek");
-  const [view, setView] = useState<MobileView>("list");
   const [touchState, setTouchState] = useState({
     startY: 0,
     currentY: 0,
     isDragging: false,
   });
   const sidebarRef = useRef<HTMLDivElement>(null);
-
-  const selectedRestaurant = restaurants?.find(
-    (r) => r.restaurantId === selectedRestaurantId
-  );
 
   useEffect(() => {
     const element = sidebarRef.current;
@@ -70,22 +46,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       element.removeEventListener("touchmove", touchMoveHandler);
     };
   }, [touchState.isDragging, position]);
-
-  useEffect(() => {
-    if (selectedRestaurantId) {
-      setView("detail");
-      setPosition("half");
-    } else {
-      setView("list");
-      setPosition("peek");
-    }
-  }, [selectedRestaurantId]);
-
-  const handleBackToList = () => {
-    setView("list");
-    onRestaurantSelect(null);
-    setPosition("half");
-  };
 
   const handleTouchStart = (e: ReactTouchEvent<HTMLDivElement>) => {
     setTouchState({
@@ -141,7 +101,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-700 z-20
+      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 z-20
         rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
         ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
@@ -150,18 +110,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       aria-label="모바일 메뉴"
     >
       <div className="relative">
-        <button
-          onClick={() => {
-            onCurrentLocation();
-            onRestaurantSelect(null);
-            onSelectCategory(null);
-          }}
-          className={`absolute -top-32 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10
-            ${position === "full" && "hidden"}`}
-          aria-label="현재 위치로 이동"
-        >
-          <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
-        </button>
         <ThemeToggleBtn position={position} />
       </div>
       <div
@@ -178,26 +126,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
           ${position === "full" ? "touch-auto" : "touch-none"}
         `}
       >
-        {view === "list" ? (
-          <Suspense fallback={<MapPinLoading />}>
-            <RestaurantListView
-              restaurants={restaurants}
-              totalPages={totalPages}
-              selectedRestaurantId={selectedRestaurantId}
-              onRestaurantSelect={onRestaurantSelect}
-              currentPage={currentPage}
-              onPageChange={onPageChange}
-            />
-          </Suspense>
-        ) : (
-          selectedRestaurant && (
-            <RestaurantDetailView
-              restaurantId={selectedRestaurant.restaurantId}
-              onBack={handleBackToList}
-            />
-          )
-        )}
+        <RestaurantDetailView restaurant={restaurant} />
       </div>
     </div>
   );
-};
+}

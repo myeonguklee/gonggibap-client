@@ -140,12 +140,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               {uploadedImages.map((image, index) => (
                 <div key={index} className="relative">
                   <div className="w-20 h-20">
-                  <Image
-                    src={URL.createObjectURL(image)}
-                    alt={`업로드 이미지 ${index + 1}`}
-                    className="object-cover rounded"
-                    fill
-                  />
+                    <Image
+                      src={URL.createObjectURL(image)}
+                      alt={`업로드 이미지 ${index + 1}`}
+                      className="object-cover rounded"
+                      fill
+                    />
                   </div>
                   <button
                     type="button"
@@ -226,12 +226,20 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <p className="text-white mb-4">
               리뷰를 작성하려면 로그인이 필요합니다
             </p>
-            <a
-              href="/login"
-              className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
-            >
-              로그인하기
-            </a>
+            <div className="flex-center gap-6">
+              <button
+                onClick={onClickWriteReview}
+                className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
+              >
+                취소
+              </button>
+              <a
+                href="/login"
+                className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
+              >
+                로그인하기
+              </a>
+            </div>
           </div>
         </div>
       )}

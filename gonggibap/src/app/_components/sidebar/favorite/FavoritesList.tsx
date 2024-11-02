@@ -1,27 +1,18 @@
-import { useGetFavoriteRestaurants } from "@/apis/favorite";
-import { RestaurantItem } from "../restaurant/list";
-import { Pagination } from "../../Pagination";
-import { Restaurant } from "@/types/restaurant";
 import { useState } from "react";
-import { MapPinLoading } from "../../MapPinLoading";
 import { useAuthStore } from "@/store/useAuthStore";
+import { Pagination } from "@/app/_components/Pagination";
+import { MapPinLoading } from "@/app/_components/MapPinLoading";
+import { FavoritesListItem } from "@/app/_components/sidebar/favorite";
+import { useGetFavoriteRestaurants } from "@/apis/favorite";
 
 interface FavoritesListProps {
-  selectedRestaurantId: number | null;
-  onRestaurantSelect: (id: number | null) => void;
+  onTabChange: (tab: string) => void;
 }
 
-export function FavoritesList({
-  selectedRestaurantId,
-  onRestaurantSelect,
-}: FavoritesListProps) {
+export function FavoritesList({ onTabChange }: FavoritesListProps) {
   const { isLogin } = useAuthStore();
   const { data: favorites, isLoading, error } = useGetFavoriteRestaurants();
   const [currentPage, setCurrentPage] = useState(0);
-  const handleRestaurantSelect = (restaurant: Restaurant) => {
-    // 기존 레스토랑 선택 핸들러 호출
-    onRestaurantSelect(restaurant.restaurantId);
-  };
 
   const handleCurrentPage = (page: number) => {
     setCurrentPage(page);
@@ -30,14 +21,22 @@ export function FavoritesList({
   if (!isLogin) {
     return (
       <div className="absolute inset-0 bg-black/50 flex-center backdrop-blur-sm">
-        <div className="text-center">
-          <p className="text-white mb-4">로그인이 필요합니다</p>
-          <a
-            href="/login"
-            className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
-          >
-            로그인하기
-          </a>
+        <div className="flex flex-col gap-5 text-center">
+          <p className="text-white">로그인이 필요합니다</p>
+          <div className="flex gap-6">
+            <button
+              onClick={() => onTabChange("list")}
+              className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
+            >
+              취소
+            </button>
+            <a
+              href="/login"
+              className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
+            >
+              로그인하기
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -52,11 +51,6 @@ export function FavoritesList({
   }
 
   return (
-    // <div>
-    //   {favorites?.content.map((favorite) => (
-    //     <div key={favorite.restaurantId}>{favorite.restaurantName}</div>
-    //   ))}
-    // </div>
     <>
       {favorites && favorites.content.length === 0 && (
         <p className="text-center">검색된 식당이 없습니다.</p>
@@ -64,12 +58,12 @@ export function FavoritesList({
       <ul className="w-full flex flex-col gap-2">
         {favorites?.content.map((favorite, index) => (
           <li key={favorite.restaurantId}>
-            <RestaurantItem
-              restaurant={favorite}
-              index={index}
-              isSelected={selectedRestaurantId === favorite.restaurantId}
-              onRestaurantSelect={handleRestaurantSelect}
-            />
+            <FavoritesListItem restaurant={favorite} index={index} />
+            {index !== favorites.content.length - 1 && (
+              <div className="flex-center">
+                <div className="w-full border-b dark:border-gray-500"></div>
+              </div>
+            )}
           </li>
         ))}
       </ul>
@@ -78,8 +72,6 @@ export function FavoritesList({
           totalPages={favorites?.totalPages ? favorites.totalPages : 1}
           currentPage={currentPage}
           onPageChange={handleCurrentPage}
-          selectedRestaurantId={selectedRestaurantId}
-          onRestaurantSelect={onRestaurantSelect}
         />
       )}
     </>
