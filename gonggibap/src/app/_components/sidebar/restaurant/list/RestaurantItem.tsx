@@ -27,7 +27,7 @@ export const RestaurantItem = ({
       </h3>
       <div className="flex gap-3 font-medium">
         <RestaurantCategory
-          category={restaurant.restaurantDetailCategory || ""}
+          category={restaurant.restaurantDetailCategory}
         />
         <RestaurantAddress address={restaurant.restaurantAddressName} />
       </div>
