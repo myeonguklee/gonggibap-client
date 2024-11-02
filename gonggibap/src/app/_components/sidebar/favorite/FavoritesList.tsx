@@ -7,6 +7,7 @@ import { MapPinLoading } from "../../MapPinLoading";
 import { useAuthStore } from "@/store/useAuthStore";
 
 interface FavoritesListProps {
+  onTabChange: (tab: string) => void;
   selectedRestaurantId: number | null;
   onRestaurantSelect: (id: number | null) => void;
 }
@@ -14,6 +15,7 @@ interface FavoritesListProps {
 export function FavoritesList({
   selectedRestaurantId,
   onRestaurantSelect,
+  onTabChange,
 }: FavoritesListProps) {
   const { isLogin } = useAuthStore();
   const { data: favorites, isLoading, error } = useGetFavoriteRestaurants();
@@ -30,14 +32,20 @@ export function FavoritesList({
   if (!isLogin) {
     return (
       <div className="absolute inset-0 bg-black/50 flex-center backdrop-blur-sm">
-        <div className="text-center">
-          <p className="text-white mb-4">로그인이 필요합니다</p>
+        <div className="flex flex-col gap-5 text-center text-xl">
+          <p className="text-white">로그인이 필요합니다</p>
           <a
             href="/login"
-            className="inline-block py-2 px-6 bg-[#FF7058] text-white rounded-lg hover:bg-[#ff7158da]"
+            className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
           >
             로그인하기
           </a>
+          <button
+            onClick={() => onTabChange("list")}
+            className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
+          >
+            취소
+          </button>
         </div>
       </div>
     );

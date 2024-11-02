@@ -93,6 +93,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         </>
       ) : (
         <FavoritesList
+          onTabChange={handleTabChange}
           selectedRestaurantId={selectedRestaurantId}
           onRestaurantSelect={onRestaurantSelect}
         />
