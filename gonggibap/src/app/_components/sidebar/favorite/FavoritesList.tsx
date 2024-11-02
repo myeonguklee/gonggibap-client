@@ -9,9 +9,7 @@ interface FavoritesListProps {
   onTabChange: (tab: string) => void;
 }
 
-export function FavoritesList({
-  onTabChange,
-}: FavoritesListProps) {
+export function FavoritesList({ onTabChange }: FavoritesListProps) {
   const { isLogin } = useAuthStore();
   const { data: favorites, isLoading, error } = useGetFavoriteRestaurants();
   const [currentPage, setCurrentPage] = useState(0);
@@ -23,20 +21,22 @@ export function FavoritesList({
   if (!isLogin) {
     return (
       <div className="absolute inset-0 bg-black/50 flex-center backdrop-blur-sm">
-        <div className="flex flex-col gap-5 text-center text-xl">
+        <div className="flex flex-col gap-5 text-center">
           <p className="text-white">로그인이 필요합니다</p>
-          <a
-            href="/login"
-            className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
-          >
-            로그인하기
-          </a>
-          <button
-            onClick={() => onTabChange("list")}
-            className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
-          >
-            취소
-          </button>
+          <div className="flex gap-6">
+            <button
+              onClick={() => onTabChange("list")}
+              className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
+            >
+              취소
+            </button>
+            <a
+              href="/login"
+              className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
+            >
+              로그인하기
+            </a>
+          </div>
         </div>
       </div>
     );
