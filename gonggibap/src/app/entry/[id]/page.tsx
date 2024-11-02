@@ -12,13 +12,13 @@ import { SearchBar } from "./_components/SearchBar";
 import { DesktopSidebar } from "./_components/DesktopSidebar";
 import { MobileSidebar } from "./_components/MobileSidebar";
 
-interface SharePageProps {
+interface EntryPageProps {
   params: {
     id: string; // Next.js는 URL 파라미터를 항상 문자열로 전달
   };
 }
 
-export default function SharePage({ params }: SharePageProps) {
+export default function EntryPage({ params }: EntryPageProps) {
   const restaurantId = params.id;
   const { data: restaurant, isLoading } = useGetRestaurant(
     Number(restaurantId)
