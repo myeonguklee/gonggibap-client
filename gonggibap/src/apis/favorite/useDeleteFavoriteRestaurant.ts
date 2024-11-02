@@ -13,7 +13,7 @@ const deleteFavoriteRestaurant = async (
   restaurantId: number
 ): Promise<void> => {
   await client.delete<BaseResponse<void>>({
-    url: `restaurant/favorites/${restaurantId}`,
+    url: `restaurants/favorite/${restaurantId}`,
   });
 };
 

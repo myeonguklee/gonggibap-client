@@ -23,7 +23,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
   };
 
   const formatPointAvg = (point: number | null | undefined) => {
-    return (point || 0).toFixed(1);
+    return point ? point.toFixed(1) : "-";
   };
 
   return (
