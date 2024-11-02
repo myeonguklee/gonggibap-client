@@ -6,7 +6,7 @@ import {
   RestaurantItem,
   trackRestaurantSelection,
 } from "@/app/_components/sidebar/restaurant/list";
-import { TabNavigation } from "@/app/_components/sidebar/restaurant/TapNavigation";
+import { TabNavigation } from "@/app/_components/sidebar/restaurant/list/TapNavigation";
 import { FavoritesList } from "@/app/_components/sidebar/favorite";
 
 type RestaurantListViewProps = {
