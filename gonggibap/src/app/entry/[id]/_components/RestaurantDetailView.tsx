@@ -1,5 +1,4 @@
 import { useGetReviews } from "@/apis/review";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
 import { RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
 import { ReviewImages, ReviewsContent } from "@/app/_components/sidebar/review";
 import { useAuthStore } from "@/store/useAuthStore";
