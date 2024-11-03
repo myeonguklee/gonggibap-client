@@ -151,7 +151,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     <div
       ref={sidebarRef}
       className={`fixed bottom-0 left-0 z-20 w-full rounded-t-3xl bg-white
-        shadow-lg transition-all duration-300 ease-out dark:bg-gray-700${positionToHeightClass[position]}`}
+        shadow-lg transition-all duration-300 ease-out dark:bg-gray-700 ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

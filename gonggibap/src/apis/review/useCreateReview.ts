@@ -5,11 +5,6 @@ import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 
 import { client } from '@/apis/core/client';
 
-
-
-
-
-
 interface CreateReviewDTO {
   restaurantId: number;
   content: string;

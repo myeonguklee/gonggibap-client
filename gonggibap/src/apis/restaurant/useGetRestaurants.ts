@@ -1,5 +1,3 @@
-
-
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -13,9 +11,6 @@ import {
 import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
-
-
 
 const getRestaurants = async (
   polygon: Polygon,

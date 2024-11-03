@@ -1,5 +1,3 @@
-
-
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -9,9 +7,6 @@ import { Review } from '@/types/review';
 import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
-
-
 
 const getReviews = async (restaurantId: number): Promise<Review[]> => {
   const response = await client.get<BaseResponse<Review[]>>({

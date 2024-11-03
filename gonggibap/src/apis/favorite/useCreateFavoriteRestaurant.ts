@@ -12,12 +12,6 @@ import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
-
-
-
-
-
-
 const createFavoriteRestaurant = async (
   restaurantId: number,
 ): Promise<void> => {
