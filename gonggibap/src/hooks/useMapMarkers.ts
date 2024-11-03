@@ -1,10 +1,13 @@
 import { useRef, useEffect, useCallback } from 'react';
+
 import { Restaurant } from '@/types/restaurant';
+
 import {
   MARKER_TEMPLATES,
   MARKER_DIMENSIONS,
   MARKER_Z_INDEX,
 } from '@/constants/marker';
+
 
 interface MarkerProps {
   map: kakao.maps.Map | null;

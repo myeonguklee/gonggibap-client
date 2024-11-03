@@ -1,14 +1,76 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "plugins": [
+    "import" // 플러그인 추가
+  ],
   "rules": {
-    // console.log 사용시 경고 (프로덕션에 실수로 배포하는 것 방지)
-    "no-console": 1,
-
-    // 변수나 함수를 선언하기 전에 사용할 경우 경고
-    "no-use-before-define": 1,
-
-    "no-unused-vars": 1, // 사용하지 않는 변수 경고
+    "no-console": 1, // console.log 사용시 경고 (프로덕션에 실수로 배포하는 것 방지)
+    "no-use-before-define": 1, // 변수나 함수를 선언하기 전에 사용할 경우 경고
     "no-empty-function": 1, // 빈 함수 경고
-    "no-duplicate-imports": 1 // 중복 import 경고
+    "no-duplicate-imports": 1, // 중복 import 경고
+
+    // import 정렬 규칙
+    "import/order": [
+      2,
+      {
+        // 기본 그룹 설정
+        "groups": ["builtin", "external", "internal", "index"],
+        // 커스텀
+        "pathGroups": [
+          {
+            "pattern": "{react,react-dom,next,next/*}",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/types/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "@/store/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "{@/components/**,@/app/**/components/**,@/app/**/_components/**}",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/apis/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/hooks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/constants/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "react-icons/**",
+            "group": "index",
+            "position": "after"
+          }
+        ],
+        // react-icons가 external 그룹에 포함되지 않도록
+        "pathGroupsExcludedImportTypes": ["react-icons"],
+        "alphabetize": {
+          "order": "asc", // 오름차순 정렬
+          "caseInsensitive": true // 대소문자 구분 x
+        },
+        "newlines-between": "always" // 그룹 간 빈 줄 추가
+      }
+    ]
   }
 }

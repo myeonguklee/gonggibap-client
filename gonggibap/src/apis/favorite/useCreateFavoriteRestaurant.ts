@@ -1,13 +1,22 @@
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
 import {
   UseMutationResult,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+
 import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
+
 import { client } from '@/apis/core/client';
+
 import { QUERY_KEYS } from '@/constants/queryKeys';
+
+
+
+
+
+
 
 const createFavoriteRestaurant = async (
   restaurantId: number,

@@ -1,19 +1,24 @@
 import { ReactElement } from 'react';
-import { ImSpoonKnife } from 'react-icons/im';
-import { BiSolidCoffeeAlt } from 'react-icons/bi';
-import { RiBeerFill } from 'react-icons/ri';
+
 import { RestaurantDetailCategory } from '@/types/restaurant';
-import { FaBowlFood } from 'react-icons/fa6'; // 한식
-import { GiNoodles } from 'react-icons/gi'; // 일식
-import { GiChickenOven } from 'react-icons/gi'; // 치킨
+
+import { BiSolidCoffeeAlt } from 'react-icons/bi';
+import { BsBox2HeartFill } from 'react-icons/bs';
+import { FaBowlFood } from 'react-icons/fa6';
+import {
+  GiChickenOven,
+  GiDumpling,
+  GiMeat,
+  GiPopcorn,
+  GiNoodles,
+  GiFastNoodles,
+} from 'react-icons/gi';
+import { ImSpoonKnife } from 'react-icons/im';
 import { IoFastFood } from 'react-icons/io5'; // 패스트푸드
-import { MdRamenDining } from 'react-icons/md'; // 분식
-import { GiDumpling } from 'react-icons/gi'; // 중식
-import { GiMeat } from 'react-icons/gi'; // 양식
 import { LuSalad } from 'react-icons/lu'; // 샐러드
-import { GiPopcorn } from 'react-icons/gi'; // 간식
-import { BsBox2HeartFill } from 'react-icons/bs'; // 도시락
-import { GiFastNoodles } from 'react-icons/gi'; // 아시아음식
+import { MdRamenDining } from 'react-icons/md'; // 분식
+import { RiBeerFill } from 'react-icons/ri';
+
 
 export const getCategoryIcon = (
   value: RestaurantDetailCategory | null,

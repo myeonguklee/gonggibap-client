@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+
 import { Polygon } from '@/types/restaurant';
+
 import { useCurrentLocation } from '@/hooks/useCurrentLocation';
+
 import {
   MARKER_TEMPLATES,
   MARKER_DIMENSIONS,
   MARKER_Z_INDEX,
 } from '@/constants/marker';
+
+
 
 interface UseKakaoMapProps {
   onPolygonChange: (polygon: Polygon) => void;

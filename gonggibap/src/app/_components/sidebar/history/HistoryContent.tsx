@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Pagination } from '@/app/_components/Pagination';
+
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { Pagination } from '@/app/_components/Pagination';
+
 import { useGetHistories } from '@/apis/history';
+
 
 interface HistoryContentProps {
   restaurantId: number;

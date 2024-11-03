@@ -4,10 +4,13 @@ import {
   useRef,
   useEffect,
 } from 'react';
-import { MobilePosition } from '@/types/sidebar';
+
 import { Restaurant } from '@/types/restaurant';
+import { MobilePosition } from '@/types/sidebar';
+
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
+
 
 interface MobileSidebarProps {
   restaurant: Restaurant;

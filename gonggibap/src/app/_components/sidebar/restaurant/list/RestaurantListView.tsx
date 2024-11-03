@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+
+
 import { Restaurant } from '@/types/restaurant';
-import { Pagination } from '@/app/_components/Pagination';
+
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { Pagination } from '@/app/_components/Pagination';
+import { FavoritesList } from '@/app/_components/sidebar/favorite';
 import {
   RestaurantItem,
   trackRestaurantSelection,
 } from '@/app/_components/sidebar/restaurant/list';
 import { TabNavigation } from '@/app/_components/sidebar/restaurant/list/TapNavigation';
-import { FavoritesList } from '@/app/_components/sidebar/favorite';
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];

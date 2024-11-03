@@ -1,9 +1,13 @@
 import { useState } from 'react';
+
 import { useAuthStore } from '@/store/useAuthStore';
-import { Pagination } from '@/app/_components/Pagination';
+
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { Pagination } from '@/app/_components/Pagination';
 import { FavoritesListItem } from '@/app/_components/sidebar/favorite';
+
 import { useGetFavoriteRestaurants } from '@/apis/favorite';
+
 
 interface FavoritesListProps {
   onTabChange: (tab: string) => void;

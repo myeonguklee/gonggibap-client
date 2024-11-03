@@ -5,18 +5,22 @@ import {
   useEffect,
   Suspense,
 } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
-import { PiNavigationArrowBold } from 'react-icons/pi';
-import { MobilePosition, MobileView } from '@/types/sidebar';
+
 import { Restaurant, RestaurantDetailCategory } from '@/types/restaurant';
-import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list/RestaurantListView';
+import { MobilePosition, MobileView } from '@/types/sidebar';
+
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
 import {
   RestaurantDetailView,
   RestaurantDetailSkeleton,
   RestaurantDetailErrorFallback,
 } from '@/app/_components/sidebar/restaurant/detail';
+import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list/RestaurantListView';
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
-import { MapPinLoading } from '@/app/_components/MapPinLoading';
+
+import { PiNavigationArrowBold } from 'react-icons/pi';
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];

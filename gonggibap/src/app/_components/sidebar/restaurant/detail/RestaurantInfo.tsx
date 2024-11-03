@@ -1,15 +1,25 @@
 import { useState } from 'react';
+
+
 import { Restaurant } from '@/types/restaurant';
+
 import { useAuthStore } from '@/store/useAuthStore';
+
 import { LoginConfirmationModal } from '@/components/LoginConfirmationModal';
+
 import {
   useGetFavoriteRestaurantCheck,
   useCreateFavoriteRestaurant,
   useDeleteFavoriteRestaurant,
 } from '@/apis/favorite';
-import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
+
 import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
+import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
+
+
+
+
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;

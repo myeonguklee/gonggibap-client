@@ -1,13 +1,16 @@
-import { useState } from 'react';
 import Image from 'next/image';
+import { useState } from 'react';
+
 import { useAuthStore } from '@/store/useAuthStore';
+
+import { HistoryContent } from '@/app/_components/sidebar/history';
 import {
   RestaurantHeader,
   RestaurantInfo,
   RestaurantTapNavigation,
 } from '@/app/_components/sidebar/restaurant/detail';
 import { ReviewsContent } from '@/app/_components/sidebar/review';
-import { HistoryContent } from '@/app/_components/sidebar/history';
+
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
 type RestaurantDetailViewProps = {
