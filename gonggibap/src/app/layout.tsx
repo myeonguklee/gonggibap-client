@@ -63,6 +63,24 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": ["WebSite", "WebApplication"],
+              name: "공기밥",
+              description: "공무원 업무추진비로 검증된 맛집 추천 서비스",
+              url: "https://gonggibap.co.kr",
+              applicationCategory: "FoodEstablishmentReservation",
+              operatingSystem: "ALL",
+              offers: {
+                "@type": "Offer",
+                availability: "https://schema.org/OnlineOnly",
+              },
+            }),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
