@@ -8,7 +8,7 @@ import { QUERY_KEYS } from "@/constants/queryKeys";
 
 const getFavoriteRestaurants = async (): Promise<GetRestaurantsResponse> => {
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
-    url: "restaurants/favorite",
+    url: "/restaurants/favorite",
   });
   return response.data;
 };

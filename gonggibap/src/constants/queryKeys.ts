@@ -7,9 +7,10 @@ export const QUERY_KEYS = {
     DETAIL: (id: number) => ["review", id] as const,
   },
   HISTORY: {
-    DETAIL: (id: number, page:number) => ["history", id, page] as const,
+    DETAIL: (id: number, page: number) => ["history", id, page] as const,
   },
   FAVORITE: {
     ALL: ["favorite"] as const,
-  }
+    CHECK: (id: number) => ["check", id] as const,
+  },
 };
