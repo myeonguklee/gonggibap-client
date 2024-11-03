@@ -1,9 +1,11 @@
 import { Restaurant } from '@/types/restaurant';
+
 import {
   RestaurantCategory,
   RestaurantAddress,
   RestaurantStats,
 } from '@/app/_components/sidebar/restaurant/list';
+
 
 interface RestaurantItemProps {
   restaurant: Restaurant;

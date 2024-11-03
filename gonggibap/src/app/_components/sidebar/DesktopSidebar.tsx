@@ -1,14 +1,18 @@
 import { Suspense } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
 import { Restaurant, RestaurantDetailCategory } from '@/types/restaurant';
-import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list';
-import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
+
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
 import {
   RestaurantDetailView,
   RestaurantDetailSkeleton,
   RestaurantDetailErrorFallback,
 } from '@/app/_components/sidebar/restaurant/detail';
+import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list';
+import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
+
 import { PiNavigationArrowBold } from 'react-icons/pi';
 
 type DesktopSidebarProps = {

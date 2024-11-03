@@ -1,16 +1,26 @@
 'use client';
 
-import { useState } from 'react';
 import Script from 'next/script';
+import { useState } from 'react';
+
+
+
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
-import { Sidebar } from '@/app/_components/sidebar/Sidebar';
+
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
 import { MapCrosshair } from '@/app/_components/MapCrosshair';
-import { useMapMarkers } from '@/hooks/useMapMarkers';
+import { Sidebar } from '@/app/_components/sidebar/Sidebar';
+
+import { useGetRestaurants } from '@/apis/restaurant';
+
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
-import { useGetRestaurants } from '@/apis/restaurant';
+import { useMapMarkers } from '@/hooks/useMapMarkers';
+
 import { MdRefresh } from 'react-icons/md';
+
+
+
 
 export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);

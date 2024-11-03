@@ -1,9 +1,17 @@
+
+
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+
 import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 import { GetHistoriesResponse } from '@/types/history';
+
 import { client } from '@/apis/core/client';
+
 import { QUERY_KEYS } from '@/constants/queryKeys';
+
+
+
 
 const getHistories = async (
   restaurantId: number,

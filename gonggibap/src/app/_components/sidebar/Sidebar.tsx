@@ -1,6 +1,8 @@
+
 import { Restaurant, RestaurantDetailCategory } from '@/types/restaurant';
-import { MobileSidebar } from '@/app/_components/sidebar/MobileSidebar';
+
 import { DesktopSidebar } from '@/app/_components/sidebar/DesktopSidebar';
+import { MobileSidebar } from '@/app/_components/sidebar/MobileSidebar';
 
 type SidebarProps = {
   restaurants?: Restaurant[];

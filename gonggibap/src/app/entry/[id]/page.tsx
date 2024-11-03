@@ -1,16 +1,25 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
 import Script from 'next/script';
-import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
-import { MapPinLoading } from '@/app/_components/MapPinLoading';
-import { useKakaoMap } from '@/hooks/useKakaoMap';
+import { useCallback, useEffect, useState } from 'react';
+
+
+
 import { Polygon } from '@/types/restaurant';
-import { useMapMarkers } from '@/hooks/useMapMarkers';
+
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+
+import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
+
+import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
-import { SearchBar } from './_components/SearchBar';
+import { useMapMarkers } from '@/hooks/useMapMarkers';
+
 import { DesktopSidebar } from './_components/DesktopSidebar';
 import { MobileSidebar } from './_components/MobileSidebar';
+import { SearchBar } from './_components/SearchBar';
+
+
 
 interface EntryPageProps {
   params: {

@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { Coordinate } from '@/types/restaurant';
 
 interface UseCurrentLocationReturn {

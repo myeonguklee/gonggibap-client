@@ -1,4 +1,6 @@
+
 import { Restaurant } from '@/types/restaurant';
+
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
 

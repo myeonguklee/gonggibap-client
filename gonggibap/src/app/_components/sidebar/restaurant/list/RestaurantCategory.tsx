@@ -1,4 +1,5 @@
 import { RestaurantDetailCategory } from '@/types/restaurant';
+
 import { getCategoryIcon } from '@/utils/getCategoryIcon';
 
 export const RestaurantCategory = ({
