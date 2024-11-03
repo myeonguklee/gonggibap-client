@@ -5,4 +5,4 @@ export interface UserInfo {
   userRole: UserRole;
 }
 
-export type UserRole = "ADMIN" | "USER";
+export type UserRole = 'ADMIN' | 'USER';

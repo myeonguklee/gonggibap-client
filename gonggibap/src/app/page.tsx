@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Script from "next/script";
-import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
-import { Sidebar } from "@/app/_components/sidebar/Sidebar";
-import { CategoryFilter } from "@/app/_components/CategoryFilter";
-import { MapCrosshair } from "@/app/_components/MapCrosshair";
-import { useMapMarkers } from "@/hooks/useMapMarkers";
-import { useKakaoMap } from "@/hooks/useKakaoMap";
-import { useMapCluster } from "@/hooks/useMapCluster";
-import { useGetRestaurants } from "@/apis/restaurant";
-import { MdRefresh } from "react-icons/md";
+import { useState } from 'react';
+import Script from 'next/script';
+import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
+import { Sidebar } from '@/app/_components/sidebar/Sidebar';
+import { CategoryFilter } from '@/app/_components/CategoryFilter';
+import { MapCrosshair } from '@/app/_components/MapCrosshair';
+import { useMapMarkers } from '@/hooks/useMapMarkers';
+import { useKakaoMap } from '@/hooks/useKakaoMap';
+import { useMapCluster } from '@/hooks/useMapCluster';
+import { useGetRestaurants } from '@/apis/restaurant';
+import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);
@@ -24,7 +24,7 @@ export default function Home() {
   const { data: restaurants } = useGetRestaurants(
     polygon,
     currentPage,
-    selectedCategory
+    selectedCategory,
   );
 
   const handleRestaurantSelect = (id: number | null) => {
@@ -36,8 +36,8 @@ export default function Home() {
         mapInstance.setCenter(
           new kakao.maps.LatLng(
             selected.restaurantLatitude,
-            selected.restaurantLongitude
-          )
+            selected.restaurantLongitude,
+          ),
         );
         mapInstance.setLevel(3);
       }
@@ -110,8 +110,7 @@ export default function Home() {
           setSelectedRestaurantId(null);
         }}
         className="fixed left-1/2 -translate-x-1/2 md:left-[calc(50%+10rem)] top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-3xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
-        aria-label="현 지도에서 재검색"
-      >
+        aria-label="현 지도에서 재검색">
         <MdRefresh />현 지도에서 재검색
       </button>
     </>

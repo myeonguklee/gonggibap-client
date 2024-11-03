@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
-import { Pagination } from "@/app/_components/Pagination";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import { FavoritesListItem } from "@/app/_components/sidebar/favorite";
-import { useGetFavoriteRestaurants } from "@/apis/favorite";
+import { useState } from 'react';
+import { useAuthStore } from '@/store/useAuthStore';
+import { Pagination } from '@/app/_components/Pagination';
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { FavoritesListItem } from '@/app/_components/sidebar/favorite';
+import { useGetFavoriteRestaurants } from '@/apis/favorite';
 
 interface FavoritesListProps {
   onTabChange: (tab: string) => void;
@@ -25,15 +25,13 @@ export function FavoritesList({ onTabChange }: FavoritesListProps) {
           <p className="text-white">로그인이 필요합니다</p>
           <div className="flex gap-6">
             <button
-              onClick={() => onTabChange("list")}
-              className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
-            >
+              onClick={() => onTabChange('list')}
+              className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500">
               취소
             </button>
             <a
               href="/login"
-              className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
-            >
+              className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]">
               로그인하기
             </a>
           </div>

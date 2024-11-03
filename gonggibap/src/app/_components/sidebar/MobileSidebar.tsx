@@ -4,19 +4,19 @@ import {
   useRef,
   useEffect,
   Suspense,
-} from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { PiNavigationArrowBold } from "react-icons/pi";
-import { MobilePosition, MobileView } from "@/types/sidebar";
-import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
-import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
+} from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { PiNavigationArrowBold } from 'react-icons/pi';
+import { MobilePosition, MobileView } from '@/types/sidebar';
+import { Restaurant, RestaurantDetailCategory } from '@/types/restaurant';
+import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list/RestaurantListView';
 import {
   RestaurantDetailView,
   RestaurantDetailSkeleton,
   RestaurantDetailErrorFallback,
-} from "@/app/_components/sidebar/restaurant/detail";
-import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
+} from '@/app/_components/sidebar/restaurant/detail';
+import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];
@@ -38,8 +38,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   onPageChange,
   onSelectCategory,
 }) => {
-  const [position, setPosition] = useState<MobilePosition>("peek");
-  const [view, setView] = useState<MobileView>("list");
+  const [position, setPosition] = useState<MobilePosition>('peek');
+  const [view, setView] = useState<MobileView>('list');
   const [touchState, setTouchState] = useState({
     startY: 0,
     currentY: 0,
@@ -48,7 +48,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const selectedRestaurant = restaurants?.find(
-    (r) => r.restaurantId === selectedRestaurantId
+    (r) => r.restaurantId === selectedRestaurantId,
   );
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!touchState.isDragging) return;
-      if (position !== "full") {
+      if (position !== 'full') {
         e.preventDefault();
       }
     };
@@ -69,27 +69,27 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       }
     };
 
-    element.addEventListener("touchmove", touchMoveHandler, { passive: false });
+    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
 
     return () => {
-      element.removeEventListener("touchmove", touchMoveHandler);
+      element.removeEventListener('touchmove', touchMoveHandler);
     };
   }, [touchState.isDragging, position]);
 
   useEffect(() => {
     if (selectedRestaurantId) {
-      setView("detail");
-      setPosition("half");
+      setView('detail');
+      setPosition('half');
     } else {
-      setView("list");
-      setPosition("peek");
+      setView('list');
+      setPosition('peek');
     }
   }, [selectedRestaurantId]);
 
   const handleBackToList = () => {
-    setView("list");
+    setView('list');
     onRestaurantSelect(null);
-    setPosition("half");
+    setPosition('half');
   };
 
   const handleTouchStart = (e: ReactTouchEvent<HTMLDivElement>) => {
@@ -111,7 +111,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     const diff = touchState.startY - touchState.currentY;
     const threshold = 30;
     const contentElement = document.querySelector(
-      ".mobile-content"
+      '.mobile-content',
     ) as HTMLElement;
     const isScrolledToTop = contentElement?.scrollTop === 0;
 
@@ -122,15 +122,15 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
 
     if (diff > 0) {
       setPosition((prev) => {
-        if (prev === "peek") return "half";
-        if (prev === "half") return "full";
+        if (prev === 'peek') return 'half';
+        if (prev === 'half') return 'full';
         return prev;
       });
     } else {
-      if (position === "full" && isScrolledToTop) {
-        setPosition("half");
-      } else if (position === "half") {
-        setPosition("peek");
+      if (position === 'full' && isScrolledToTop) {
+        setPosition('half');
+      } else if (position === 'half') {
+        setPosition('peek');
       }
     }
 
@@ -138,9 +138,9 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   };
 
   const positionToHeightClass = {
-    peek: "h-24",
-    half: "h-1/2",
-    full: "h-[85vh]",
+    peek: 'h-24',
+    half: 'h-1/2',
+    full: 'h-[85vh]',
   };
 
   return (
@@ -152,8 +152,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      aria-label="모바일 메뉴"
-    >
+      aria-label="모바일 메뉴">
       <div className="relative">
         <button
           onClick={() => {
@@ -162,9 +161,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             onSelectCategory(null);
           }}
           className={`absolute -top-32 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10
-            ${position === "full" && "hidden"}`}
-          aria-label="현재 위치로 이동"
-        >
+            ${position === 'full' && 'hidden'}`}
+          aria-label="현재 위치로 이동">
           <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
         </button>
         <ThemeToggleBtn position={position} />
@@ -172,18 +170,16 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       <div
         className="w-full h-6 touch-none drag-handle flex-center"
         role="button"
-        aria-label="스와이프로 메뉴 조절"
-      >
+        aria-label="스와이프로 메뉴 조절">
         <div className="w-10 h-1 bg-gray-600 rounded-full" />
       </div>
 
       <div
         className={`
           overflow-y-auto h-[calc(100%-1.5rem)] p-4 mobile-content
-          ${position === "full" ? "touch-auto" : "touch-none"}
-        `}
-      >
-        {view === "list" ? (
+          ${position === 'full' ? 'touch-auto' : 'touch-none'}
+        `}>
+        {view === 'list' ? (
           <Suspense fallback={<MapPinLoading />}>
             <RestaurantListView
               restaurants={restaurants}

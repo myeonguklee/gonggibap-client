@@ -1,5 +1,5 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { useRouter } from "next/navigation";
+import * as Dialog from '@radix-ui/react-dialog';
+import { useRouter } from 'next/navigation';
 
 interface LoginConfirmationModalProps {
   isOpen: boolean;
@@ -13,7 +13,7 @@ export const LoginConfirmationModal = ({
   const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/login");
+    router.push('/login');
     onClose();
   };
 
@@ -31,14 +31,12 @@ export const LoginConfirmationModal = ({
           <div className="flex justify-center gap-4">
             <button
               onClick={onClose}
-              className="px-4 py-2 border rounded-lg hover:bg-gray-100 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
+              className="px-4 py-2 border rounded-lg hover:bg-gray-100 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white">
               취소
             </button>
             <button
               onClick={handleLogin}
-              className="px-4 py-2 bg-[#FF7058] text-white rounded-lg hover:bg-[#FF7058]/90"
-            >
+              className="px-4 py-2 bg-[#FF7058] text-white rounded-lg hover:bg-[#FF7058]/90">
               로그인하기
             </button>
           </div>

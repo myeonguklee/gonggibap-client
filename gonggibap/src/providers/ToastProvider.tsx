@@ -1,12 +1,12 @@
-import { ToastContainer, ToastContainerProps } from "react-toastify";
-import { useTheme } from "next-themes";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, ToastContainerProps } from 'react-toastify';
+import { useTheme } from 'next-themes';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function ToastProvider() {
   const { theme } = useTheme();
 
   const toastConfig: ToastContainerProps = {
-    position: "bottom-right",
+    position: 'bottom-right',
     autoClose: 3000,
     hideProgressBar: false,
     newestOnTop: false,
@@ -15,7 +15,7 @@ export function ToastProvider() {
     pauseOnFocusLoss: true,
     draggable: true,
     pauseOnHover: true,
-    theme: theme as "light" | "dark" | undefined,
+    theme: theme as 'light' | 'dark' | undefined,
   };
 
   return <ToastContainer {...toastConfig} />;

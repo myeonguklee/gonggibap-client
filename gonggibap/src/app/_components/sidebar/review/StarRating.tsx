@@ -1,4 +1,4 @@
-import { MdOutlineStar } from "react-icons/md";
+import { MdOutlineStar } from 'react-icons/md';
 
 export const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -6,7 +6,7 @@ export const StarRating = ({ rating }: { rating: number }) => {
       {[1, 2, 3, 4, 5].map((star) => (
         <MdOutlineStar
           key={star}
-          className={star <= rating ? "text-[#FF7058]" : "text-gray-300"}
+          className={star <= rating ? 'text-[#FF7058]' : 'text-gray-300'}
           size={18}
         />
       ))}

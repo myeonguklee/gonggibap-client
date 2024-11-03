@@ -7,17 +7,17 @@ export const getRelativeTime = (dateString: string): string => {
   const normalizedToday = new Date(
     today.getFullYear(),
     today.getMonth(),
-    today.getDate()
+    today.getDate(),
   );
   const normalizedDate = new Date(
     date.getFullYear(),
     date.getMonth(),
-    date.getDate()
+    date.getDate(),
   );
 
   const diffInDays = Math.floor(
     (normalizedToday.getTime() - normalizedDate.getTime()) /
-      (1000 * 60 * 60 * 24)
+      (1000 * 60 * 60 * 24),
   );
   const diffInMonths =
     (today.getFullYear() - date.getFullYear()) * 12 +
@@ -27,33 +27,33 @@ export const getRelativeTime = (dateString: string): string => {
 
   switch (true) {
     case diffInDays === 0:
-      return "오늘";
+      return '오늘';
     case diffInDays === 1:
-      return "어제";
+      return '어제';
     case diffInDays === 2:
-      return "그제";
+      return '그제';
     case diffInDays === 7:
-      return "일주일 전";
+      return '일주일 전';
     case diffInDays === 14:
-      return "2주일 전";
+      return '2주일 전';
     case diffInDays < 7:
       return `${diffInDays}일 전`;
     case diffInDays < 14:
-      return "일주일 전";
+      return '일주일 전';
     case diffInDays < 21:
-      return "2주일 전";
+      return '2주일 전';
     case diffInDays < 28:
-      return "3주일 전";
+      return '3주일 전';
     case diffInMonths === 1:
-      return "한달 전";
+      return '한달 전';
     case diffInMonths === 3:
-      return "3달 전";
+      return '3달 전';
     case diffInMonths === 6:
-      return "6달 전";
+      return '6달 전';
     case diffInMonths < 12:
       return `${diffInMonths}달 전`;
     case diffInYears === 1:
-      return "1년 전";
+      return '1년 전';
     default:
       return `${diffInYears}년 전`;
   }

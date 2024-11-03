@@ -1,1 +1,1 @@
-export { useGetRestaurants } from "@/apis/restaurant/useGetRestaurants";
+export { useGetRestaurants } from '@/apis/restaurant/useGetRestaurants';

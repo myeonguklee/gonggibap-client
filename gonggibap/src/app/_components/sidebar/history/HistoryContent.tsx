@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Pagination } from "@/app/_components/Pagination";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import { useGetHistories } from "@/apis/history";
+import { useEffect, useState } from 'react';
+import { Pagination } from '@/app/_components/Pagination';
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { useGetHistories } from '@/apis/history';
 
 interface HistoryContentProps {
   restaurantId: number;
@@ -11,7 +11,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const { data: histories, isLoading } = useGetHistories(
     restaurantId,
-    currentPage
+    currentPage,
   );
 
   const handleHistoryPageChange = (page: number) => {
@@ -33,7 +33,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
           {histories?.content.map((history, index) => (
             <div key={index} className="flex flex-col gap-3">
               <div className="self-center px-3 py-1 bg-black text-white rounded-full dark:bg-white dark:text-black">
-                <p>{history.historyDate.split("T")[0]}</p>
+                <p>{history.historyDate.split('T')[0]}</p>
               </div>
               <p className="font-bold">
                 {history.publicOfficeName} {history.consumer}

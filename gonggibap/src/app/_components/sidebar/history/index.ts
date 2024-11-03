@@ -1,1 +1,1 @@
-export { HistoryContent } from "@/app/_components/sidebar/history/HistoryContent";
+export { HistoryContent } from '@/app/_components/sidebar/history/HistoryContent';

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import { useState } from 'react';
+import { RiKakaoTalkFill } from 'react-icons/ri';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,10 +21,9 @@ export default function LoginPage() {
         <button
           onClick={handleGitHubLogin}
           disabled={isLoading}
-          className="w-full flex items-center justify-center font-semibold py-3 bg-yellow-300 text-black rounded-md hover:bg-yellow-200 transition-colors"
-        >
+          className="w-full flex items-center justify-center font-semibold py-3 bg-yellow-300 text-black rounded-md hover:bg-yellow-200 transition-colors">
           <RiKakaoTalkFill size={30} className="mr-3" />
-          {isLoading ? "로그인 중" : <>카카오로 시작하기</>}
+          {isLoading ? '로그인 중' : <>카카오로 시작하기</>}
         </button>
       </div>
     </div>

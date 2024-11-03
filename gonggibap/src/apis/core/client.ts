@@ -1,14 +1,14 @@
-import axios, { AxiosInstance, AxiosRequestConfig, Method } from "axios";
-import { useAuthStore } from "@/store/useAuthStore";
-import { routeURL } from "@/constants/routeURL";
-import { HTTP_METHODS } from "@/constants/http";
+import axios, { AxiosInstance, AxiosRequestConfig, Method } from 'axios';
+import { useAuthStore } from '@/store/useAuthStore';
+import { routeURL } from '@/constants/routeURL';
+import { HTTP_METHODS } from '@/constants/http';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   },
 });
 
@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInstance.interceptors.response.use(
@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
       window.location.href = routeURL.login;
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 const createApiMethod =

@@ -1,1 +1,1 @@
-export { getUserInfo } from "@/apis/user/getUserInfo";
+export { getUserInfo } from '@/apis/user/getUserInfo';

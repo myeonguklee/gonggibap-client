@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { Polygon } from "@/types/restaurant";
-import { useCurrentLocation } from "@/hooks/useCurrentLocation";
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Polygon } from '@/types/restaurant';
+import { useCurrentLocation } from '@/hooks/useCurrentLocation';
 import {
   MARKER_TEMPLATES,
   MARKER_DIMENSIONS,
   MARKER_Z_INDEX,
-} from "@/constants/marker";
+} from '@/constants/marker';
 
 interface UseKakaoMapProps {
   onPolygonChange: (polygon: Polygon) => void;
@@ -48,22 +48,22 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
   // 드래그 이벤트
   const setupMapEventListeners = useCallback((map: kakao.maps.Map) => {
     // 드래그 시작
-    kakao.maps.event.addListener(map, "dragstart", () => {
+    kakao.maps.event.addListener(map, 'dragstart', () => {
       setIsDragging(true);
     });
 
     // 드래드 종료
-    kakao.maps.event.addListener(map, "dragend", () => {
+    kakao.maps.event.addListener(map, 'dragend', () => {
       setIsDragging(false);
     });
 
     // 줌 변경 시작
-    kakao.maps.event.addListener(map, "zoom_start", () => {
+    kakao.maps.event.addListener(map, 'zoom_start', () => {
       setIsDragging(true);
     });
 
     // 줌 변경 종료
-    kakao.maps.event.addListener(map, "zoom_changed", () => {
+    kakao.maps.event.addListener(map, 'zoom_changed', () => {
       setIsDragging(false);
     });
   }, []);
@@ -83,15 +83,15 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
       };
 
       const markerImage = new window.kakao.maps.MarkerImage(
-        "data:image/svg+xml;charset=utf-8," +
+        'data:image/svg+xml;charset=utf-8,' +
           encodeURIComponent(MARKER_TEMPLATES.CURRENT_LOCATION),
         imageSize,
-        imageOption
+        imageOption,
       );
 
       const markerPosition = new window.kakao.maps.LatLng(
         position.lat,
-        position.lng
+        position.lng,
       );
       const marker = new window.kakao.maps.Marker({
         position: markerPosition,
@@ -104,7 +104,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
 
       return marker;
     },
-    []
+    [],
   );
 
   const handleMapInitError = useCallback(
@@ -113,10 +113,10 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
 
       if (error instanceof GeolocationPositionError) {
         if (error.code === 1) {
-          alert("위치 권한을 허용해주세요");
+          alert('위치 권한을 허용해주세요');
         }
         if (error.code === 2) {
-          alert("위치를 가져올 수 없습니다");
+          alert('위치를 가져올 수 없습니다');
         }
       }
 
@@ -132,7 +132,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
 
       handleSearch();
     },
-    [handleSearch, setupMapEventListeners]
+    [handleSearch, setupMapEventListeners],
   );
 
   const initializeMap = useCallback(async () => {
@@ -177,10 +177,10 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     } catch (error) {
       if (error instanceof GeolocationPositionError) {
         if (error.code === 1) {
-          alert("위치 권한을 허용해주세요");
+          alert('위치 권한을 허용해주세요');
         }
         if (error.code === 2) {
-          alert("위치를 가져올 수 없습니다");
+          alert('위치를 가져올 수 없습니다');
         }
       }
     }

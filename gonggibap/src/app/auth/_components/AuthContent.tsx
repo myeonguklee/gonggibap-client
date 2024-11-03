@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "react-toastify";
-import Image from "next/image";
-import { useAuthStore } from "@/store/useAuthStore";
-import { getUserInfo } from "@/apis/user";
-import { routeURL } from "@/constants/routeURL";
+import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { toast } from 'react-toastify';
+import Image from 'next/image';
+import { useAuthStore } from '@/store/useAuthStore';
+import { getUserInfo } from '@/apis/user';
+import { routeURL } from '@/constants/routeURL';
 
 export function AuthContent() {
   const router = useRouter();
@@ -19,21 +19,21 @@ export function AuthContent() {
         setAccessToken(accessToken);
         const userInfo = await getUserInfo();
         setUserInfo(userInfo);
-        toast.success("로그인에 성공했습니다.");
+        toast.success('로그인에 성공했습니다.');
         router.push(routeURL.home);
       } catch (error) {
-        console.error("사용자 정보 조회 실패:", error);
-        toast.error("사용자 정보 조회에 실패했습니다.");
+        console.error('사용자 정보 조회 실패:', error);
+        toast.error('사용자 정보 조회에 실패했습니다.');
         router.push(routeURL.login);
       }
     };
 
     // url에서 accessToken 가져오기
-    const accessToken = searchParams.get("accessToken");
+    const accessToken = searchParams.get('accessToken');
     if (accessToken) {
       fetchUserAndRedirect(accessToken);
     } else {
-      toast.error("로그인에 실패했습니다.");
+      toast.error('로그인에 실패했습니다.');
       router.push(routeURL.login);
     }
   }, [searchParams, setAccessToken, setUserInfo, router]);
@@ -42,8 +42,7 @@ export function AuthContent() {
     <main className="flex items-center justify-center h-screen">
       <section
         className="flex flex-col items-center"
-        aria-label="로그인 진행 상태"
-      >
+        aria-label="로그인 진행 상태">
         <figure>
           <Image
             src="/images/logo.png"

@@ -1,7 +1,7 @@
-import { AxiosError } from "axios";
-import { UseMutationResult, useMutation } from "@tanstack/react-query";
-import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
-import { client } from "@/apis/core/client";
+import { AxiosError } from 'axios';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
+import { client } from '@/apis/core/client';
 
 interface CreateReviewDTO {
   restaurantId: number;
@@ -19,20 +19,20 @@ const createReview = async ({
   const formData = new FormData();
 
   // required
-  formData.append("content", content);
-  formData.append("point", point.toString());
+  formData.append('content', content);
+  formData.append('point', point.toString());
 
   // images는 항상 배열이므로 (undefined가 될 수 없음)
   // 바로 forEach 실행
   images.forEach((image) => {
-    formData.append("images", image);
+    formData.append('images', image);
   });
 
   await client.post<BaseResponse<void>>({
     url: `reviews/restaurant/${restaurantId}`,
     data: formData,
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
   });
 };

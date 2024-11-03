@@ -18,8 +18,8 @@ declare global {
         event_category?: string;
         event_label?: string;
         value?: number;
-        [key: string]: unknown;  // 기타 가능한 속성들을 위한 인덱스 시그니처
-      }
+        [key: string]: unknown; // 기타 가능한 속성들을 위한 인덱스 시그니처
+      },
     ) => void;
     // any[] 대신 구체적인 타입 정의
     dataLayer: Array<{
@@ -81,7 +81,7 @@ interface EventProps {
 
 export const event = ({ action, category, label, value }: EventProps) => {
   if (!GA_ID) return;
-  
+
   window?.gtag?.('event', action, {
     event_category: category,
     event_label: label,

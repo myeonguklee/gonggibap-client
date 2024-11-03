@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { ChevronLeft, X } from "lucide-react";
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { ChevronLeft, X } from 'lucide-react';
 
 type RestaurantHeaderProps = {
   restaurantName: string;
@@ -14,14 +14,14 @@ export const RestaurantHeader = ({
   onClose,
   onBack,
 }: RestaurantHeaderProps) => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // 글자 길이에 따른 텍스트 크기 클래스 결정
   const getTextSizeClass = (text: string) => {
-    if (isMobile) return "text-2xl";
-    if (text.length > 15) return "text-lg";
-    if (text.length >= 12) return "text-xl";
-    return "text-2xl";
+    if (isMobile) return 'text-2xl';
+    if (text.length > 15) return 'text-lg';
+    if (text.length >= 12) return 'text-xl';
+    return 'text-2xl';
   };
 
   const textSizeClass = getTextSizeClass(restaurantName);
@@ -32,8 +32,7 @@ export const RestaurantHeader = ({
         <button
           onClick={isMobile ? onBack : onClose}
           className="rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          aria-label={isMobile ? "뒤로 가기" : "닫기"}
-        >
+          aria-label={isMobile ? '뒤로 가기' : '닫기'}>
           <ChevronLeft size="1.5rem" />
         </button>
         <div className="flex items-center gap-2">
@@ -50,8 +49,7 @@ export const RestaurantHeader = ({
         <button
           onClick={onClose}
           className="hover:bg-gray-100 dark:hover:bg-gray-600"
-          aria-label="닫기"
-        >
+          aria-label="닫기">
           <X size="1.5rem" />
         </button>
       )}
