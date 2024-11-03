@@ -5,7 +5,6 @@ import { Pagination } from '@/app/_components/Pagination';
 
 import { useGetHistories } from '@/apis/history';
 
-
 interface HistoryContentProps {
   restaurantId: number;
 }

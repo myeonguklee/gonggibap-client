@@ -6,7 +6,6 @@ import {
   RestaurantStats,
 } from '@/app/_components/sidebar/restaurant/list';
 
-
 interface RestaurantItemProps {
   restaurant: Restaurant;
   index: number;

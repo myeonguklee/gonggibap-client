@@ -4,9 +4,6 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-
-
-
 import { toast } from 'react-toastify';
 
 import { useAuthStore } from '@/store/useAuthStore';
@@ -14,7 +11,6 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { getUserInfo } from '@/apis/user';
 
 import { routeURL } from '@/constants/routeURL';
-
 
 export function AuthContent() {
   const router = useRouter();

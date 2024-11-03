@@ -2,8 +2,6 @@ import { ChevronLeft, X } from 'lucide-react';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-
-
 type RestaurantHeaderProps = {
   restaurantName: string;
   restaurantDetailCategory: string | null;

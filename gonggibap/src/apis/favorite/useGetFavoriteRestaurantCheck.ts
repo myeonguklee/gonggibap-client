@@ -1,6 +1,3 @@
-
-
-
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 

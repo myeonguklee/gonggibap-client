@@ -2,7 +2,6 @@ import { Restaurant } from '@/types/restaurant';
 
 import { event } from '@/app/_components/GoogleAnalytics';
 
-
 export const trackRestaurantSelection = (restaurant: Restaurant) => {
   event({
     action: 'select_restaurant',

@@ -1,8 +1,6 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-
-
 import { Restaurant } from '@/types/restaurant';
 
 import { MapPinLoading } from '@/app/_components/MapPinLoading';

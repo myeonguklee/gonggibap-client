@@ -1,9 +1,7 @@
-
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { FallbackProps } from 'react-error-boundary';
 
 import { RiRestaurantLine } from 'react-icons/ri';
-
 
 interface RestaurantDetailErrorFallbackProps extends FallbackProps {
   onClose?: () => void;

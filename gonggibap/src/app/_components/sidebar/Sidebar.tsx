@@ -1,4 +1,3 @@
-
 import { Restaurant, RestaurantDetailCategory } from '@/types/restaurant';
 
 import { DesktopSidebar } from '@/app/_components/sidebar/DesktopSidebar';

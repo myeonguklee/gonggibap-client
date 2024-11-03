@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-
-
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
@@ -10,7 +8,6 @@ import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
 import { useDeleteReview, useGetReviews } from '@/apis/review';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
 
 type ReviewsContentProps = {
   restaurantId: number;

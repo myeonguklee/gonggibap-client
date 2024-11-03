@@ -10,8 +10,6 @@ import {
   MARKER_Z_INDEX,
 } from '@/constants/marker';
 
-
-
 interface UseKakaoMapProps {
   onPolygonChange: (polygon: Polygon) => void;
 }

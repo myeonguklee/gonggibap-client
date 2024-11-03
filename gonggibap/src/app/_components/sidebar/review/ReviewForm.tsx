@@ -1,9 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-
-
-
 import { useQueryClient } from '@tanstack/react-query';
 import { X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -14,12 +11,6 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { useCreateReview } from '@/apis/review';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
-
-
-
-
-
 
 type ReviewFormProps = {
   restaurantId: number;
