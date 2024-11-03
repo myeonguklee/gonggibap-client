@@ -161,6 +161,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     handleSearch,
     handleMapInitError,
     setupMapEventListeners,
+    createCurrentLocationMarker,
   ]);
 
   const moveToCurrentLocation = useCallback(async () => {

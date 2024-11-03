@@ -1,4 +1,7 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import {
+  useSuspenseQuery,
+  UseSuspenseQueryResult,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
 import { Restaurant } from "@/types/restaurant";
@@ -15,8 +18,8 @@ const getRestaurant = async (restaurantId: number): Promise<Restaurant> => {
 
 export const useGetRestaurant = (
   restaurantId: number
-): UseQueryResult<Restaurant, AxiosError<ErrorResponse>> => {
-  return useQuery<Restaurant, AxiosError<ErrorResponse>>({
+): UseSuspenseQueryResult<Restaurant, AxiosError<ErrorResponse>> => {
+  return useSuspenseQuery<Restaurant, AxiosError<ErrorResponse>>({
     queryKey: QUERY_KEYS.RESTAURANT.DETAIL(restaurantId),
     queryFn: () => getRestaurant(restaurantId),
   });

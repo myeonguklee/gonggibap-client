@@ -5,11 +5,16 @@ import {
   useEffect,
   Suspense,
 } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { PiNavigationArrowBold } from "react-icons/pi";
 import { MobilePosition, MobileView } from "@/types/sidebar";
 import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list/RestaurantListView";
-import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
+import {
+  RestaurantDetailView,
+  RestaurantDetailSkeleton,
+  RestaurantDetailErrorFallback,
+} from "@/app/_components/sidebar/restaurant/detail";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
 
@@ -191,10 +196,14 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
           </Suspense>
         ) : (
           selectedRestaurant && (
-            <RestaurantDetailView
-              restaurantId={selectedRestaurant.restaurantId}
-              onBack={handleBackToList}
-            />
+            <ErrorBoundary FallbackComponent={RestaurantDetailErrorFallback}>
+              <Suspense fallback={<RestaurantDetailSkeleton />}>
+                <RestaurantDetailView
+                  restaurantId={selectedRestaurant.restaurantId}
+                  onBack={handleBackToList}
+                />
+              </Suspense>
+            </ErrorBoundary>
           )
         )}
       </div>
