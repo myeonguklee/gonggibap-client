@@ -1,5 +1,3 @@
-
-
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -11,9 +9,6 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
-
-
 
 const getFavoriteRestaurants = async (): Promise<GetRestaurantsResponse> => {
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({

@@ -1,6 +1,4 @@
-
 import { useState } from 'react';
-
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
@@ -12,7 +10,6 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { getCategoryIcon } from '@/utils/getCategoryIcon';
 
 import { RESTAURANT_CATEGORIES } from '@/constants/category';
-
 
 interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;

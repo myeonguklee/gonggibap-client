@@ -5,12 +5,6 @@ import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 
 import { client } from '@/apis/core/client';
 
-
-
-
-
-
-
 const deleteReview = async (reviewId: number): Promise<void> => {
   // Review 삭제 로직
   await client.delete<BaseResponse<void>>({

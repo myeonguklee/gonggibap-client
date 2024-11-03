@@ -1,5 +1,3 @@
-
-
 import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
@@ -12,9 +10,6 @@ import { Restaurant } from '@/types/restaurant';
 import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-
-
-
 
 const getRestaurant = async (restaurantId: number): Promise<Restaurant> => {
   const response = await client.get<BaseResponse<Restaurant>>({
