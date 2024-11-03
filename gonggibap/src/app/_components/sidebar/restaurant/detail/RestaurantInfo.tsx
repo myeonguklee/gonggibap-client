@@ -67,45 +67,53 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4" aria-label="음식점 기본 정보">
         <div className="inline-block">
-          <span className="bg-black text-white px-4 py-1 rounded-xl text-sm dark:bg-white dark:text-black">
+          <span
+            className="bg-black text-white px-4 py-1 rounded-xl text-sm dark:bg-white dark:text-black"
+            role="text"
+          >
             {restaurant.publicOfficeName}
           </span>
         </div>
-        <div className="flex flex-col gap-1">
+
+        <address className="flex flex-col gap-1 not-italic">
           <div className="flex items-center gap-2 font-semibold">
-            <IoLocationOutline />
-            {restaurant.restaurantAddressName}
+            <IoLocationOutline aria-hidden="true" />
+            <span>{restaurant.restaurantAddressName}</span>
           </div>
           <div className="flex items-center gap-2 font-semibold">
-            <IoCallOutline />
-            {restaurant.phone ? restaurant.phone : "미제공"}
+            <IoCallOutline aria-hidden="true" />
+            <span>{restaurant.phone ? restaurant.phone : "미제공"}</span>
           </div>
-        </div>
-        <div className="flex gap-4">
+        </address>
+
+        <dl className="flex gap-4">
           <div className="flex gap-1">
-            <div className="text-gray-500">평점</div>
-            <div className="bg-[#FF7058] text-white rounded-xl px-3">
+            <dt className="text-gray-500">평점</dt>
+            <dd className="bg-[#FF7058] text-white rounded-xl px-3">
               {formatPointAvg(restaurant.pointAvg)}
-            </div>
+            </dd>
           </div>
           <div className="flex gap-1">
-            <div className="text-gray-500">방문수</div>
-            <div>{restaurant.visitCount}</div>
+            <dt className="text-gray-500">방문수</dt>
+            <dd>{restaurant.visitCount}</dd>
           </div>
-        </div>
+        </dl>
+
         <button
           disabled={isLoading}
           onClick={handleFavoriteCreate}
           className={`bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl ${
             isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
+          aria-busy={isLoading}
         >
           {getButtonState().icon}
-          {getButtonState().text}
+          <span>{getButtonState().text}</span>
         </button>
-      </div>
+      </section>
+
       <LoginConfirmationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
