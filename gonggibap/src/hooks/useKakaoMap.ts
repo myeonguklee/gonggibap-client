@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Polygon } from "@/types/restaurant";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
+import {
+  MARKER_TEMPLATES,
+  MARKER_DIMENSIONS,
+  MARKER_Z_INDEX,
+} from "@/constants/marker";
 
 interface UseKakaoMapProps {
   onPolygonChange: (polygon: Polygon) => void;
@@ -11,6 +16,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const mapInstanceRef = useRef<kakao.maps.Map | null>(null);
+  const currentLocationMarkerRef = useRef<kakao.maps.Marker | null>(null);
   const { getCurrentLocation } = useCurrentLocation();
 
   const handleSearch = useCallback(() => {
@@ -62,6 +68,45 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
     });
   }, []);
 
+  const createCurrentLocationMarker = useCallback(
+    (map: kakao.maps.Map, position: { lat: number; lng: number }) => {
+      // 기존 위치 마커가 있으면 제거
+      if (currentLocationMarkerRef.current) {
+        currentLocationMarkerRef.current.setMap(null);
+      }
+
+      const { size, offset } = MARKER_DIMENSIONS.CURRENT_LOCATION;
+
+      const imageSize = new window.kakao.maps.Size(size.width, size.height);
+      const imageOption = {
+        offset: new window.kakao.maps.Point(offset.x, offset.y),
+      };
+
+      const markerImage = new window.kakao.maps.MarkerImage(
+        "data:image/svg+xml;charset=utf-8," +
+          encodeURIComponent(MARKER_TEMPLATES.CURRENT_LOCATION),
+        imageSize,
+        imageOption
+      );
+
+      const markerPosition = new window.kakao.maps.LatLng(
+        position.lat,
+        position.lng
+      );
+      const marker = new window.kakao.maps.Marker({
+        position: markerPosition,
+        image: markerImage,
+        zIndex: MARKER_Z_INDEX.CURRENT_LOCATION,
+      });
+
+      marker.setMap(map);
+      currentLocationMarkerRef.current = marker;
+
+      return marker;
+    },
+    []
+  );
+
   const handleMapInitError = useCallback(
     (error: unknown) => {
       if (!mapRef.current) return;
@@ -105,13 +150,8 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
 
       setupMapEventListeners(map);
 
-      // 현재 위치에 마커 추가
-      const markerPosition = new window.kakao.maps.LatLng(lat, lng);
-      const marker = new window.kakao.maps.Marker({
-        position: markerPosition,
-      });
-      marker.setMap(map);
-
+      // 현재 위치 마커 이미지 생성
+      createCurrentLocationMarker(map, { lat, lng });
       handleSearch();
     } catch (error) {
       handleMapInitError(error);
@@ -131,6 +171,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
 
       mapInstanceRef.current.setCenter(new window.kakao.maps.LatLng(lat, lng));
       mapInstanceRef.current.setLevel(3);
+      createCurrentLocationMarker(mapInstanceRef.current, { lat, lng });
       handleSearch();
     } catch (error) {
       if (error instanceof GeolocationPositionError) {
@@ -142,7 +183,7 @@ export const useKakaoMap = ({ onPolygonChange }: UseKakaoMapProps) => {
         }
       }
     }
-  }, [getCurrentLocation, handleSearch]);
+  }, [getCurrentLocation, handleSearch, createCurrentLocationMarker]);
 
   // 카카오맵 SDK 초기화 후 mapLoaded 상태 변경
   const onKakaoMapLoad = () => {
