@@ -26,7 +26,7 @@ export const RestaurantHeader = ({
   const textSizeClass = getTextSizeClass(restaurantName);
 
   return (
-    <div className="flex-between-center">
+    <header className="flex-between-center">
       <div className="flex items-center gap-2">
         <button
           onClick={isMobile ? onBack : onClose}
@@ -38,9 +38,9 @@ export const RestaurantHeader = ({
         <div className="flex items-center gap-2">
           <h1 className={`${textSizeClass} font-black`}>{restaurantName}</h1>
           {restaurantDetailCategory && (
-            <h2 className="text-gray-500 font-bold translate-y-1 flex-shrink-0">
+            <p className="text-gray-500 font-bold translate-y-1 flex-shrink-0">
               {restaurantDetailCategory}
-            </h2>
+            </p>
           )}
         </div>
       </div>
@@ -54,6 +54,6 @@ export const RestaurantHeader = ({
           <X size="1.5rem" />
         </button>
       )}
-    </div>
+    </header>
   );
 };

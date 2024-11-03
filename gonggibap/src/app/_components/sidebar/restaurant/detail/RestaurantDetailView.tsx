@@ -26,8 +26,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   const [activeTab, setActiveTab] = useState("reviews");
 
   const tabs = [
-    { id: "reviews", label: "리뷰" },
-    { id: "history", label: "공공기관 사용내역" },
+    { id: "reviews", label: "리뷰", ariaLabel: "음식점 리뷰 탭" },
+    {
+      id: "history",
+      label: "공공기관 사용내역",
+      ariaLabel: "공공기관 사용내역 탭",
+    },
   ];
 
   const handleTabChange = (tab: string) => {
@@ -39,7 +43,11 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-5 px-4">
+    <article
+      className="flex flex-col gap-5 px-4"
+      role="article"
+      aria-label={`${restaurant.restaurantName} 상세 정보`}
+    >
       <RestaurantHeader
         restaurantName={restaurant.restaurantName}
         restaurantDetailCategory={restaurant.restaurantDetailCategory}
@@ -48,24 +56,34 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       />
 
       <RestaurantInfo restaurant={restaurant} />
-      <div className="relative w-full h-[300px] md:h-[180px]">
+      <figure className="relative w-full h-[300px] md:h-[180px]">
         <Image
           src={restaurant.restaurantImage}
           alt={`${restaurant.restaurantName} 이미지`}
           fill
           className="object-cover rounded-xl"
+          priority
         />
-      </div>
+        <figcaption className="sr-only">
+          {restaurant.restaurantName} 음식점 이미지
+        </figcaption>
+      </figure>
 
       {/* 탭 네비게이션 */}
-      <RestaurantTapNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <nav aria-label="음식점 리뷰 사용내역 탭 메뉴">
+        <RestaurantTapNavigation
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
+      </nav>
 
       {/* 탭 컨텐츠 */}
-      <div>
+      <section
+        aria-live="polite"
+        role="tabpanel"
+        aria-label={activeTab === "reviews" ? "리뷰 목록" : "공공기관 사용내역"}
+      >
         {activeTab === "reviews" ? (
           <ReviewsContent
             restaurantId={restaurant.restaurantId}
@@ -74,7 +92,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         ) : (
           <HistoryContent restaurantId={restaurant.restaurantId} />
         )}
-      </div>
-    </div>
+      </section>
+    </article>
   );
 };
