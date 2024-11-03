@@ -1,13 +1,13 @@
 export const MapCrosshair = () => {
   return (
-    <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-      <div className="relative w-4 h-4">
+    <div className="pointer-events-none fixed left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+      <div className="relative size-4">
         <div
-          className="absolute left-1/2 top-0 h-full bg-gray-500 -translate-x-1/2"
+          className="absolute left-1/2 top-0 h-full -translate-x-1/2 bg-gray-500"
           style={{ width: '1px' }}
         />
         <div
-          className="absolute top-1/2 left-0 w-full bg-gray-500 -translate-y-1/2"
+          className="absolute left-0 top-1/2 w-full -translate-y-1/2 bg-gray-500"
           style={{ height: '1px' }}
         />
       </div>

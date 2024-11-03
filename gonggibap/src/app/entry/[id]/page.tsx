@@ -102,7 +102,7 @@ export default function EntryPage({ params }: EntryPageProps) {
 
   if (isLoading) {
     return (
-      <div className="w-screen h-screen">
+      <div className="h-screen w-screen">
         <MapPinLoading />
       </div>
     );
@@ -115,7 +115,7 @@ export default function EntryPage({ params }: EntryPageProps) {
   return (
     <>
       {/* 모바일 검색창 */}
-      <div className="absolute top-4 left-4 right-4 z-10 md:hidden">
+      <div className="absolute inset-x-4 top-4 z-10 md:hidden">
         <SearchBar onSearch={handleSearch} />
       </div>
 
@@ -137,7 +137,7 @@ export default function EntryPage({ params }: EntryPageProps) {
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&libraries=services,clusterer&autoload=false`}
         onLoad={onKakaoMapLoad}
       />
-      <div ref={mapRef} className="w-screen h-screen" />
+      <div ref={mapRef} className="h-screen w-screen" />
     </>
   );
 }

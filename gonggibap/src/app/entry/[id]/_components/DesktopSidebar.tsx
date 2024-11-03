@@ -13,7 +13,7 @@ export function DesktopSidebar({ restaurant, children }: DesktopSidebarProps) {
   return (
     <div className="flex">
       <div
-        className="w-80 h-screen flex flex-col gap-5 bg-white dark:bg-gray-700 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
+        className="fixed left-0 top-0 z-20 flex h-screen w-80 flex-col gap-5 overflow-y-auto bg-white p-4 dark:bg-gray-700"
         role="navigation">
         {children}
         <RestaurantDetailView restaurant={restaurant} />

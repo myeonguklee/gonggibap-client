@@ -58,11 +58,11 @@ export const Pagination = ({
   const isLastPage = displayPage === totalPages;
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-4">
+    <div className="mt-4 flex items-center justify-center gap-2">
       <button
         onClick={() => handlePageChange(displayPage - 1)}
         disabled={isFirstPage}
-        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="rounded-lg p-2 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700"
         aria-label="이전 페이지">
         <ChevronLeft size={20} />
       </button>
@@ -71,7 +71,7 @@ export const Pagination = ({
         <>
           <button
             onClick={() => handlePageChange(1)}
-            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            className="size-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
             1
           </button>
           {pageNumbers[0] > 2 && <span className="px-2">...</span>}
@@ -82,7 +82,7 @@ export const Pagination = ({
         <button
           key={page}
           onClick={() => handlePageChange(page)}
-          className={`w-10 h-10 rounded-lg ${
+          className={`size-10 rounded-lg ${
             displayPage === page
               ? 'bg-[#FF7058] text-white'
               : 'hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -99,7 +99,7 @@ export const Pagination = ({
           )}
           <button
             onClick={() => handlePageChange(totalPages)}
-            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            className="size-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
             {totalPages}
           </button>
         </>
@@ -108,7 +108,7 @@ export const Pagination = ({
       <button
         onClick={() => handlePageChange(displayPage + 1)}
         disabled={isLastPage}
-        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="rounded-lg p-2 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-gray-700"
         aria-label="다음 페이지">
         <ChevronRight size={20} />
       </button>

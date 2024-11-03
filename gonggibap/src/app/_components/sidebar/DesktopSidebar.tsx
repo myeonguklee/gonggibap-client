@@ -44,7 +44,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   return (
     <div className="flex">
       <div
-        className="w-80 h-screen bg-white dark:bg-gray-700 p-4 fixed left-0 top-0 z-20 overflow-y-auto"
+        className="fixed left-0 top-0 z-20 h-screen w-80 overflow-y-auto bg-white p-4 dark:bg-gray-700"
         role="navigation">
         <Suspense fallback={<MapPinLoading />}>
           <RestaurantListView
@@ -59,8 +59,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       </div>
 
       <section
-        className={`w-96 h-[96%] bg-white dark:bg-gray-700 p-4 fixed left-[21rem] top-[2%] rounded-xl
-          transition-transform duration-300 ease-in-out z-10 overflow-y-auto
+        className={`fixed left-[21rem] top-[2%] z-10 h-[96%] w-96 overflow-y-auto rounded-xl bg-white
+          p-4 transition-transform duration-300 ease-in-out dark:bg-gray-700
           ${selectedRestaurantId ? 'translate-x-0' : '-translate-x-[25rem]'}`}
         aria-label="레스토랑 상세 정보"
         aria-hidden={!selectedRestaurantId}>
@@ -81,9 +81,9 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           onRestaurantSelect(null);
           onSelectCategory(null);
         }}
-        className="fixed right-4 bottom-36 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10"
+        className="fixed bottom-36 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
         aria-label="현재 위치로 이동">
-        <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
+        <PiNavigationArrowBold className="size-6 rotate-90 text-[#B3B3B3]" />
       </button>
       <ThemeToggleBtn />
     </div>

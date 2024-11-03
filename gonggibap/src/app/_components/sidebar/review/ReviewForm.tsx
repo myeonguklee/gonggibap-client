@@ -123,7 +123,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           {/* Rating selection */}
           <fieldset>
             <legend className="hidden">별점</legend>
-            <div className="flex-center gap-2">
+            <div className="gap-2 flex-center">
               {Array.from({ length: 5 }, (_, index) => index + 1).map(
                 (star) => (
                   <button
@@ -139,7 +139,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               )}
             </div>
             {errors.point && (
-              <strong role="alert" className="text-red-500 text-xs">
+              <strong role="alert" className="text-xs text-red-500">
                 별점을 선택해주세요.
               </strong>
             )}
@@ -151,27 +151,27 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <div className="flex gap-2">
               {uploadedImages.map((image, index) => (
                 <div key={index} className="relative">
-                  <div className="w-20 h-20">
+                  <div className="size-20">
                     <Image
                       src={URL.createObjectURL(image)}
                       alt={`업로드 이미지 ${index + 1}`}
-                      className="object-cover rounded"
+                      className="rounded object-cover"
                       fill
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveImage(index)}
-                    className="absolute -top-1 -right-1 bg-white dark:bg-gray-800 md:dark:bg-gray-700 rounded p-1"
+                    className="absolute -right-1 -top-1 rounded bg-white p-1 dark:bg-gray-800 md:dark:bg-gray-700"
                     aria-label={`이미지 ${index + 1} 삭제`}>
-                    <X className="w-4 h-4" />
+                    <X className="size-4" />
                   </button>
                 </div>
               ))}
 
               {uploadedImages.length < 4 && (
-                <label className="w-full h-20 flex-col-center rounded cursor-pointer bg-gray-100 dark:bg-gray-700 md:dark:bg-gray-800  hover:bg-gray-200 dark:hover:bg-gray-900">
-                  <span className="w-full h-full flex-center text-xs">
+                <label className="h-20 w-full cursor-pointer rounded bg-gray-100 flex-col-center hover:bg-gray-200 dark:bg-gray-700  dark:hover:bg-gray-900 md:dark:bg-gray-800">
+                  <span className="size-full text-xs flex-center">
                     사진 추가
                   </span>
                   <input
@@ -202,10 +202,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                 },
               })}
               placeholder="음식과 서비스는 어떠셨나요? (최소 10자 이상)"
-              className="w-full h-32 px-3 py-2 bg-gray-100 md:dark:bg-gray-800 dark:bg-gray-700 rounded-lg resize-none"
+              className="h-32 w-full resize-none rounded-lg bg-gray-100 px-3 py-2 dark:bg-gray-700 md:dark:bg-gray-800"
             />
             {errors.content && (
-              <strong role="alert" className="text-red-500 text-xs">
+              <strong role="alert" className="text-xs text-red-500">
                 {errors.content.message}
               </strong>
             )}
@@ -214,7 +214,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           <div className="flex gap-3">
             <button
               type="button"
-              className="flex-1 py-2 px-4 bg-gray-200 text-gray-400 rounded-lg hover:bg-gray-100"
+              className="flex-1 rounded-lg bg-gray-200 px-4 py-2 text-gray-400 hover:bg-gray-100"
               onClick={onClickWriteReview}>
               취소
             </button>
@@ -222,7 +222,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <button
               type="submit"
               disabled={createReviewMutation.isPending}
-              className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900 disabled:opacity-50">
+              className="flex-1 rounded-lg bg-[#FF7058] px-4 py-2 text-white hover:bg-[#ff7158da] disabled:opacity-50 dark:bg-gray-700 dark:hover:bg-gray-900 md:dark:bg-gray-800">
               {createReviewMutation.isPending ? '등록 중...' : '리뷰 등록'}
             </button>
           </div>
@@ -230,20 +230,20 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       </div>
       {/* Login Overlay */}
       {!isLogin && (
-        <div className="absolute inset-0 bg-black/50 flex-center rounded-lg backdrop-blur-sm">
+        <div className="absolute inset-0 rounded-lg bg-black/50 backdrop-blur-sm flex-center">
           <div className="text-center">
-            <p className="text-white mb-4">
+            <p className="mb-4 text-white">
               리뷰를 작성하려면 로그인이 필요합니다
             </p>
-            <div className="flex-center gap-6">
+            <div className="gap-6 flex-center">
               <button
                 onClick={onClickWriteReview}
-                className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500">
+                className="rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
                 취소
               </button>
               <a
                 href="/login"
-                className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]">
+                className="inline-block rounded-lg bg-[#FF7058] px-6 py-2 font-bold text-white hover:bg-[#ff7158da]">
                 로그인하기
               </a>
             </div>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 import { Restaurant } from '@/types/restaurant';
 
 import { useAuthStore } from '@/store/useAuthStore';
@@ -16,10 +15,6 @@ import {
 import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
-
-
-
-
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -80,7 +75,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
       <section className="flex flex-col gap-4" aria-label="음식점 기본 정보">
         <div className="inline-block">
           <span
-            className="bg-black text-white px-4 py-1 rounded-xl text-sm dark:bg-white dark:text-black"
+            className="rounded-xl bg-black px-4 py-1 text-sm text-white dark:bg-white dark:text-black"
             role="text">
             {restaurant.publicOfficeName}
           </span>
@@ -100,7 +95,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
         <dl className="flex gap-4">
           <div className="flex gap-1">
             <dt className="text-gray-500">평점</dt>
-            <dd className="bg-[#FF7058] text-white rounded-xl px-3">
+            <dd className="rounded-xl bg-[#FF7058] px-3 text-white">
               {formatPointAvg(restaurant.pointAvg)}
             </dd>
           </div>
@@ -113,8 +108,8 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
         <button
           disabled={isMutating}
           onClick={handleFavoriteCreate}
-          className={`bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl ${
-            isMutating ? 'opacity-50 cursor-not-allowed' : ''
+          className={`flex items-center justify-center gap-1 rounded-xl bg-[#FF7058] py-3 font-semibold text-white ${
+            isMutating ? 'cursor-not-allowed opacity-50' : ''
           }`}
           aria-busy={isMutating}>
           {getButtonState().icon}

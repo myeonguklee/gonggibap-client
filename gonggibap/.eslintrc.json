@@ -1,14 +1,19 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
-  "plugins": [
-    "import" // 플러그인 추가
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "prettier",
+    "plugin:tailwindcss/recommended"
   ],
+  "plugins": ["import", "tailwindcss"],
   "rules": {
     "no-console": 1, // console.log 사용시 경고 (프로덕션에 실수로 배포하는 것 방지)
     "no-use-before-define": 1, // 변수나 함수를 선언하기 전에 사용할 경우 경고
     "no-empty-function": 1, // 빈 함수 경고
     "no-duplicate-imports": 1, // 중복 import 경고
 
+    // tailwind css 규칙
+    "tailwindcss/no-custom-classname": "off",
     // import 정렬 규칙
     "import/order": [
       2,

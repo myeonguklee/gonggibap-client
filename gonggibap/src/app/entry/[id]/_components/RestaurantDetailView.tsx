@@ -24,7 +24,7 @@ export function RestaurantDetailView({
       <div className="flex items-end gap-2">
         <h1 className="text-2xl font-black">{restaurant.restaurantName}</h1>
         {restaurant.restaurantDetailCategory && (
-          <h2 className="text-gray-500 font-bold">
+          <h2 className="font-bold text-gray-500">
             {restaurant.restaurantDetailCategory}
           </h2>
         )}
@@ -32,12 +32,12 @@ export function RestaurantDetailView({
 
       <RestaurantInfo restaurant={restaurant} />
 
-      <div className="relative w-full h-[300px] md:h-[180px]">
+      <div className="relative h-[300px] w-full md:h-[180px]">
         <Image
           src={restaurant.restaurantImage}
           alt={`${restaurant.restaurantName} 이미지`}
           fill
-          className="object-cover rounded-xl"
+          className="rounded-xl object-cover"
         />
       </div>
 

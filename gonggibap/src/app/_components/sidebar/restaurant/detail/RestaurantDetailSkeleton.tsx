@@ -7,14 +7,14 @@ export const RestaurantDetailSkeleton = () => {
       {/* Header Skeleton */}
       <header className="flex-between-center">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6">
+          <div className="size-6">
             <Skeleton circle width={24} height={24} />
           </div>
           <div className="flex items-center gap-2">
             <h1>
               <Skeleton width={180} height={32} />
             </h1>
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Skeleton width={60} />
             </div>
           </div>
@@ -42,11 +42,11 @@ export const RestaurantDetailSkeleton = () => {
 
         {/* Stats */}
         <div className="flex gap-4">
-          <div className="flex gap-1 items-center">
+          <div className="flex items-center gap-1">
             <Skeleton width={30} />
             <Skeleton width={30} />
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex items-center gap-1">
             <Skeleton width={40} />
             <Skeleton width={30} />
           </div>

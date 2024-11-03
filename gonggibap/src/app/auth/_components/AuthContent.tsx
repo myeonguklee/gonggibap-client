@@ -47,7 +47,7 @@ export function AuthContent() {
   }, [searchParams, setAccessToken, setUserInfo, router]);
 
   return (
-    <main className="flex items-center justify-center h-screen">
+    <main className="flex h-screen items-center justify-center">
       <section
         className="flex flex-col items-center"
         aria-label="로그인 진행 상태">

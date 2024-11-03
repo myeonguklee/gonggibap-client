@@ -10,5 +10,5 @@ export const MapPinLoading = () => {
     </div>
   ));
 
-  return <div className="w-full h-full flex-center p-4">{pins}</div>;
+  return <div className="size-full p-4 flex-center">{pins}</div>;
 };

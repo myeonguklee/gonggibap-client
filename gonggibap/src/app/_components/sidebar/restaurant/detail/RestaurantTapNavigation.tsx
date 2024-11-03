@@ -28,7 +28,7 @@ export function RestaurantTapNavigation({
           aria-selected={activeTab === tab.id}
           aria-controls={`${tab.id}-panel`}
           aria-label={tab.ariaLabel}
-          className={`flex-1 px-4 py-2 text-sm relative transition-all duration-200 font-semibold
+          className={`relative flex-1 px-4 py-2 text-sm font-semibold transition-all duration-200
               ${
                 activeTab === tab.id
                   ? 'text-[#FF7058]'
@@ -39,7 +39,7 @@ export function RestaurantTapNavigation({
           {tab.label}
           {activeTab === tab.id && (
             <div
-              className="absolute bottom-[-1.8px] left-0 w-full h-[2px] bg-[#FF7058]"
+              className="absolute bottom-[-1.8px] left-0 h-[2px] w-full bg-[#FF7058]"
               aria-hidden="true"
             />
           )}
