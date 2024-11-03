@@ -150,9 +150,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-700 z-20
-        rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
-        ${positionToHeightClass[position]}`}
+      className={`fixed bottom-0 left-0 z-20 w-full rounded-t-3xl bg-white
+        shadow-lg transition-all duration-300 ease-out dark:bg-gray-700${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -164,23 +163,23 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
             onRestaurantSelect(null);
             onSelectCategory(null);
           }}
-          className={`absolute -top-32 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-10
+          className={`absolute -top-32 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700
             ${position === 'full' && 'hidden'}`}
           aria-label="현재 위치로 이동">
-          <PiNavigationArrowBold className="w-6 h-6 text-[#B3B3B3] rotate-90" />
+          <PiNavigationArrowBold className="size-6 rotate-90 text-[#B3B3B3]" />
         </button>
         <ThemeToggleBtn position={position} />
       </div>
       <div
-        className="w-full h-6 touch-none drag-handle flex-center"
+        className="drag-handle h-6 w-full touch-none flex-center"
         role="button"
         aria-label="스와이프로 메뉴 조절">
-        <div className="w-10 h-1 bg-gray-600 rounded-full" />
+        <div className="h-1 w-10 rounded-full bg-gray-600" />
       </div>
 
       <div
         className={`
-          overflow-y-auto h-[calc(100%-1.5rem)] p-4 mobile-content
+          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto p-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
         {view === 'list' ? (

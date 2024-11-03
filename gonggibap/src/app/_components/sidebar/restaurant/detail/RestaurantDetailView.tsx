@@ -58,12 +58,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       />
 
       <RestaurantInfo restaurant={restaurant} />
-      <figure className="relative w-full h-[300px] md:h-[180px]">
+      <figure className="relative h-[300px] w-full md:h-[180px]">
         <Image
           src={restaurant.restaurantImage}
           alt={`${restaurant.restaurantName} 이미지`}
           fill
-          className="object-cover rounded-xl"
+          className="rounded-xl object-cover"
           priority
         />
         <figcaption className="sr-only">

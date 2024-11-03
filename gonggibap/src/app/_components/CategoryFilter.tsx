@@ -48,8 +48,8 @@ export const CategoryFilter = ({
         onSelectCategory(value);
         if (isMobile) setIsOpen(false);
       }}
-      className={`px-3 py-1.5 text-sm whitespace-nowrap transition-colors flex items-center gap-2 w-full
-          ${!isMoreMenu ? 'shadow-md rounded-2xl' : ''}
+      className={`flex w-full items-center gap-2 whitespace-nowrap px-3 py-1.5 text-sm transition-colors
+          ${!isMoreMenu ? 'rounded-2xl shadow-md' : ''}
           ${
             selectedCategory === value
               ? 'bg-[#FF7058] font-semibold text-white hover:bg-[#FF8068]'
@@ -82,9 +82,9 @@ export const CategoryFilter = ({
   return (
     <div
       className={
-        'fixed left-1/2 -translate-x-1/2 md:left-[21rem] md:-translate-x-0 top-4 md:top-4 z-10 transition-all duration-300'
+        'fixed left-1/2 top-4 z-10 -translate-x-1/2 transition-all duration-300 md:left-[21rem] md:top-4 md:-translate-x-0'
       }>
-      <div className="flex items-center gap-2 p-2 overflow-x-auto">
+      <div className="flex items-center gap-2 overflow-x-auto p-2">
         <CategoryButton value={null} label="음식점" />
 
         {MAIN_CATEGORIES.map((category) => (
@@ -98,16 +98,16 @@ export const CategoryFilter = ({
         {isMobile ? (
           <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Dialog.Trigger asChild>
-              <button className="px-3 py-1.5 shadow-md font-semibold rounded-2xl text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
+              <button className="whitespace-nowrap rounded-2xl bg-white px-3 py-1.5 text-sm font-semibold text-gray-500 shadow-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
                 더보기
               </button>
             </Dialog.Trigger>
 
             <Dialog.Portal>
-              <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
-              <Dialog.Content className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-3xl p-6 z-50 animate-slide-up shadow-xl">
-                <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-6" />
-                <h2 className="ml-2 text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+              <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
+              <Dialog.Content className="fixed inset-x-0 bottom-0 z-50 animate-slide-up rounded-t-3xl bg-white p-6 shadow-xl dark:bg-gray-800">
+                <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-gray-300 dark:bg-gray-600" />
+                <h2 className="mb-4 ml-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
                   카테고리
                 </h2>
                 <div>
@@ -119,14 +119,14 @@ export const CategoryFilter = ({
         ) : (
           <Popover.Root>
             <Popover.Trigger asChild>
-              <button className="px-3 py-1.5 shadow-md font-semibold rounded-2xl text-sm whitespace-nowrap bg-white hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-500 dark:text-gray-300">
+              <button className="whitespace-nowrap rounded-2xl bg-white px-3 py-1.5 text-sm font-semibold text-gray-500 shadow-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
                 더보기
               </button>
             </Popover.Trigger>
 
             <Popover.Portal>
               <Popover.Content
-                className="bg-white dark:bg-black rounded-lg overflow-hidden w-[280px] z-50"
+                className="z-50 w-[280px] overflow-hidden rounded-lg bg-white dark:bg-black"
                 sideOffset={5}
                 align="end">
                 <MoreCategories />

@@ -22,9 +22,9 @@ export function FavoritesListItem({
   return (
     <button
       onClick={handleMoveDetail}
-      className="w-full text-left flex flex-col gap-2 pt-3 pb-4">
-      <div className="w-full flex flex-col gap-3">
-        <h3 className="font-bold text-lg text-single-line">
+      className="flex w-full flex-col gap-2 pb-4 pt-3 text-left">
+      <div className="flex w-full flex-col gap-3">
+        <h3 className="text-lg font-bold text-single-line">
           {index + 1}. {restaurant.restaurantName}
         </h3>
         <div className="flex gap-3 font-medium">

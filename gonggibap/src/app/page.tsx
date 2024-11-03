@@ -110,7 +110,7 @@ export default function Home() {
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&libraries=services,clusterer&autoload=false`}
         onLoad={onKakaoMapLoad}
       />
-      <div ref={mapRef} className="w-screen h-screen" />
+      <div ref={mapRef} className="h-screen w-screen" />
       {isDragging && <MapCrosshair />}
       <button
         onClick={() => {
@@ -119,7 +119,7 @@ export default function Home() {
           handlePageChange(0);
           setSelectedRestaurantId(null);
         }}
-        className="fixed left-1/2 -translate-x-1/2 md:left-[calc(50%+10rem)] top-20 font-semibold md:top-auto md:bottom-12 flex-center gap-1 bg-[#FF7058] text-white px-4 py-2 md:px-6 md:py-3 text-base md:text-lg rounded-3xl shadow-lg hover:bg-[#FF6147] z-10 focus:outline-none"
+        className="fixed left-1/2 top-20 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-base font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
         aria-label="현 지도에서 재검색">
         <MdRefresh />현 지도에서 재검색
       </button>

@@ -17,7 +17,7 @@ export const ReviewList = ({
   isDeleting,
 }: ReviewListProps) => {
   if (reviews.length === 0) {
-    return <p className="text-center mt-10">작성된 리뷰가 없습니다.</p>;
+    return <p className="mt-10 text-center">작성된 리뷰가 없습니다.</p>;
   }
 
   return (

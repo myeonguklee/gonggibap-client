@@ -35,7 +35,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
         <div className="flex flex-col gap-5">
           {histories?.content.map((history, index) => (
             <div key={index} className="flex flex-col gap-3">
-              <div className="self-center px-3 py-1 bg-black text-white rounded-full dark:bg-white dark:text-black">
+              <div className="self-center rounded-full bg-black px-3 py-1 text-white dark:bg-white dark:text-black">
                 <p>{history.historyDate.split('T')[0]}</p>
               </div>
               <p className="font-bold">

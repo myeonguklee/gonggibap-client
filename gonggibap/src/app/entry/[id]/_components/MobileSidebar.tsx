@@ -104,9 +104,8 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 z-20
-        rounded-t-3xl shadow-lg transform transition-all duration-300 ease-out
-        ${positionToHeightClass[position]}`}
+      className={`fixed bottom-0 left-0 z-20 w-full rounded-t-3xl bg-white
+        shadow-lg transition-all duration-300 ease-out dark:bg-gray-800${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -115,15 +114,15 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
         <ThemeToggleBtn position={position} />
       </div>
       <div
-        className="w-full h-6 touch-none drag-handle flex-center"
+        className="drag-handle h-6 w-full touch-none flex-center"
         role="button"
         aria-label="스와이프로 메뉴 조절">
-        <div className="w-10 h-1 bg-gray-600 rounded-full" />
+        <div className="h-1 w-10 rounded-full bg-gray-600" />
       </div>
 
       <div
         className={`
-          overflow-y-auto h-[calc(100%-1.5rem)] p-4 mobile-content
+          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto p-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
         <RestaurantDetailView restaurant={restaurant} />

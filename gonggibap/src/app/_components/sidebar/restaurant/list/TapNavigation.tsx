@@ -18,13 +18,13 @@ export function TabNavigation({
 }: TabNavigationProps) {
   return (
     <div
-      className={`p-1 bg-gray-100 dark:bg-gray-300 rounded-lg flex ${className}`}>
+      className={`flex rounded-lg bg-gray-100 p-1 dark:bg-gray-300 ${className}`}>
       {tabs.map((tab) => (
         <button
           key={tab.id}
-          className={`flex-1 px-4 py-2 rounded-md text-sm transition-all duration-200 ${
+          className={`flex-1 rounded-md px-4 py-2 text-sm transition-all duration-200 ${
             activeTab === tab.id
-              ? 'bg-white dark:bg-gray-600 text-[#FF7058] font-bold shadow-sm'
+              ? 'bg-white font-bold text-[#FF7058] shadow-sm dark:bg-gray-600'
               : 'text-gray-500 hover:text-gray-700'
           }`}
           onClick={() => onTabChange(tab.id)}>

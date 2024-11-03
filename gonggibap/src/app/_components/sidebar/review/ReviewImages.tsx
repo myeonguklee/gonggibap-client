@@ -16,20 +16,20 @@ export const ReviewImages = ({ imageUrls }: ReviewImagesProps) => {
             src={imageUrls[0]}
             alt="리뷰 이미지"
             fill
-            className="object-cover rounded-lg"
+            className="rounded-lg object-cover"
           />
         </div>
       );
     case 2:
       return (
-        <div className="flex gap-2 h-48">
+        <div className="flex h-48 gap-2">
           {imageUrls.map((url) => (
-            <div key={url} className="relative w-1/2 h-full">
+            <div key={url} className="relative h-full w-1/2">
               <Image
                 src={url}
                 alt="리뷰 이미지"
                 fill
-                className="object-cover rounded-lg"
+                className="rounded-lg object-cover"
               />
             </div>
           ))}
@@ -37,22 +37,22 @@ export const ReviewImages = ({ imageUrls }: ReviewImagesProps) => {
       );
     case 3:
       return (
-        <div className="grid grid-cols-2 gap-2 h-48">
+        <div className="grid h-48 grid-cols-2 gap-2">
           <div className="relative h-full">
             <Image
               src={imageUrls[0]}
               alt="리뷰 이미지"
               fill
-              className="object-cover rounded-lg"
+              className="rounded-lg object-cover"
             />
           </div>
-          <div className="grid grid-rows-2 gap-2 h-full">
+          <div className="grid h-full grid-rows-2 gap-2">
             <div className="relative">
               <Image
                 src={imageUrls[1]}
                 alt="리뷰 이미지"
                 fill
-                className="object-cover rounded-lg"
+                className="rounded-lg object-cover"
               />
             </div>
             <div className="relative">
@@ -60,7 +60,7 @@ export const ReviewImages = ({ imageUrls }: ReviewImagesProps) => {
                 src={imageUrls[2]}
                 alt="리뷰 이미지"
                 fill
-                className="object-cover rounded-lg"
+                className="rounded-lg object-cover"
               />
             </div>
           </div>
@@ -68,14 +68,14 @@ export const ReviewImages = ({ imageUrls }: ReviewImagesProps) => {
       );
     case 4:
       return (
-        <div className="grid grid-cols-2 gap-2 h-48">
+        <div className="grid h-48 grid-cols-2 gap-2">
           {imageUrls.map((url) => (
             <div key={url} className="relative h-full">
               <Image
                 src={url}
                 alt="리뷰 이미지"
                 fill
-                className="object-cover rounded-lg"
+                className="rounded-lg object-cover"
               />
             </div>
           ))}

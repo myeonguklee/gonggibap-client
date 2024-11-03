@@ -18,9 +18,9 @@ export const ReviewListItem = ({
   isDeleting,
 }: ReviewListItemProps) => {
   return (
-    <li className="flex flex-col pb-4 gap-1 border-b dark:border-gray-500">
+    <li className="flex flex-col gap-1 border-b pb-4 dark:border-gray-500">
       <div className="flex items-center gap-2">
-        <p className="font-bold text-lg">{review.userName}</p>
+        <p className="text-lg font-bold">{review.userName}</p>
         <div className="flex gap-1 text-xs font-semibold">
           <p className="text-gray-500">리뷰</p>
           <p>{review.userReviewCount}</p>
@@ -31,7 +31,7 @@ export const ReviewListItem = ({
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <StarRating rating={review.point} />
           <div className="text-xs text-gray-500">
             {getRelativeTime(review.date)}
@@ -41,8 +41,8 @@ export const ReviewListItem = ({
           <button
             onClick={() => onDeleteReview(review.reviewId)}
             disabled={isDeleting}
-            className={`text-xs bg-gray-200 px-2 py-1 rounded-xl${
-              isDeleting ? 'opacity-50 cursor-not-allowed' : ''
+            className={`rounded-xl bg-gray-200 px-2 py-1 text-xs${
+              isDeleting ? 'cursor-not-allowed opacity-50' : ''
             }`}
             aria-label="리뷰 삭제">
             삭제

@@ -83,7 +83,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
           {restaurants.length === 0 && (
             <p className="text-center">검색된 식당이 없습니다.</p>
           )}
-          <ul className="w-full flex flex-col gap-2">
+          <ul className="flex w-full flex-col gap-2">
             {restaurants?.map((restaurant, index) => (
               <li key={restaurant.restaurantId}>
                 <RestaurantItem

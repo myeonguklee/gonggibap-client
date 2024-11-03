@@ -24,18 +24,18 @@ export function FavoritesList({ onTabChange }: FavoritesListProps) {
 
   if (!isLogin) {
     return (
-      <div className="absolute inset-0 bg-black/50 flex-center backdrop-blur-sm">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex-center">
         <div className="flex flex-col gap-5 text-center">
           <p className="text-white">로그인이 필요합니다</p>
           <div className="flex gap-6">
             <button
               onClick={() => onTabChange('list')}
-              className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500">
+              className="rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
               취소
             </button>
             <a
               href="/login"
-              className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]">
+              className="inline-block rounded-lg bg-[#FF7058] px-6 py-2 font-bold text-white hover:bg-[#ff7158da]">
               로그인하기
             </a>
           </div>
@@ -57,7 +57,7 @@ export function FavoritesList({ onTabChange }: FavoritesListProps) {
       {favorites && favorites.content.length === 0 && (
         <p className="text-center">검색된 식당이 없습니다.</p>
       )}
-      <ul className="w-full flex flex-col gap-2">
+      <ul className="flex w-full flex-col gap-2">
         {favorites?.content.map((favorite, index) => (
           <li key={favorite.restaurantId}>
             <FavoritesListItem restaurant={favorite} index={index} />

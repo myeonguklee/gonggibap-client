@@ -34,14 +34,14 @@ export const RestaurantHeader = ({
       <div className="flex items-center gap-2">
         <button
           onClick={isMobile ? onBack : onClose}
-          className="rounded dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+          className="rounded hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
           aria-label={isMobile ? '뒤로 가기' : '닫기'}>
           <ChevronLeft size="1.5rem" />
         </button>
         <div className="flex items-center gap-2">
           <h1 className={`${textSizeClass} font-black`}>{restaurantName}</h1>
           {restaurantDetailCategory && (
-            <p className="text-gray-500 font-bold translate-y-0.5 flex-shrink-0">
+            <p className="shrink-0 translate-y-0.5 font-bold text-gray-500">
               {restaurantDetailCategory}
             </p>
           )}

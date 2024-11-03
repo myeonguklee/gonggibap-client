@@ -36,9 +36,9 @@ export function ThemeToggleBtn({ position }: ThemeToggleBtnProps) {
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       className={`
-        w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg 
-        hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none flex-center z-10
-        ${isMobile ? 'absolute -top-16 right-4' : 'fixed right-4 bottom-20'}
+        z-10 size-12 rounded-full bg-white shadow-lg flex-center 
+        hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700
+        ${isMobile ? 'absolute -top-16 right-4' : 'fixed bottom-20 right-4'}
         ${position === 'full' ? '!hidden' : ''}
       `}>
       {theme === 'dark' ? (
