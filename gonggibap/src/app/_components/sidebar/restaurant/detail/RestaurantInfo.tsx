@@ -2,28 +2,67 @@ import { useState } from "react";
 import { Restaurant } from "@/types/restaurant";
 import { useAuthStore } from "@/store/useAuthStore";
 import { LoginConfirmationModal } from "@/components/LoginConfirmationModal";
-import { useCreateFavoriteRestaurant } from "@/apis/favorite";
+import {
+  useGetFavoriteRestaurantCheck,
+  useCreateFavoriteRestaurant,
+  useDeleteFavoriteRestaurant,
+} from "@/apis/favorite";
 import { IoCallOutline, IoLocationOutline } from "react-icons/io5";
 import { FaRegBookmark } from "react-icons/fa6";
+import { GoBookmarkSlash } from "react-icons/go";
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
 };
 
 export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
-  const { mutate: createFavoriteRestaurant } = useCreateFavoriteRestaurant();
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { data: favoriteRestaurantCheck } = useGetFavoriteRestaurantCheck(
+    restaurant.restaurantId,
+    {
+      enabled: isLogin,
+    }
+  );
+
+  const { mutate: createFavoriteRestaurant, isPending: isCreating } =
+    useCreateFavoriteRestaurant();
+  const { mutate: deleteFavoriteRestaurant, isPending: isDeleting } =
+    useDeleteFavoriteRestaurant();
+  const isLoading = isCreating || isDeleting;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleFavoriteCreate = () => {
-    const isLogin = useAuthStore.getState().isLogin;
     if (!isLogin) {
       setIsModalOpen(true);
       return;
     }
-    createFavoriteRestaurant(restaurant.restaurantId);
+    if (favoriteRestaurantCheck?.favoriteStatus) {
+      deleteFavoriteRestaurant(restaurant.restaurantId);
+    }
+    if (!favoriteRestaurantCheck?.favoriteStatus) {
+      createFavoriteRestaurant(restaurant.restaurantId);
+    }
   };
 
+  // 평점 포멧팅 함수
   const formatPointAvg = (point: number | null | undefined) => {
     return point ? point.toFixed(1) : "-";
+  };
+
+  // 좋아요 버튼 텍스트, 아이콘 결정 함수
+  const getButtonState = () => {
+    if (!isLogin)
+      return { text: "내 지도에 추가하기", icon: <FaRegBookmark /> };
+    return favoriteRestaurantCheck?.favoriteStatus
+      ? {
+          text: "내 지도에서 제거하기",
+          icon: <GoBookmarkSlash />,
+        }
+      : {
+          text: "내 지도에 추가하기",
+          icon: <FaRegBookmark />,
+        };
   };
 
   return (
@@ -57,10 +96,14 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
           </div>
         </div>
         <button
+          disabled={isLoading}
           onClick={handleFavoriteCreate}
-          className="bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl"
+          className={`bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          <FaRegBookmark />내 지도에 추가하기
+          {getButtonState().icon}
+          {getButtonState().text}
         </button>
       </div>
       <LoginConfirmationModal

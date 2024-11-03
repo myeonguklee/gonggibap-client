@@ -13,7 +13,7 @@ const createFavoriteRestaurant = async (
   restaurantId: number
 ): Promise<void> => {
   await client.post<BaseResponse<void>>({
-    url: `restaurants/favorite/${restaurantId}`,
+    url: `/restaurants/favorite/${restaurantId}`,
   });
 };
 
@@ -25,15 +25,23 @@ export const useCreateFavoriteRestaurant = (): UseMutationResult<
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createFavoriteRestaurant,
-    onSuccess: () => {
+    onSuccess: (_, restaurantId) => {
       toast.success("나의 맛집 리스트에 저장됐습니다.");
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.FAVORITE.ALL],
+        queryKey: QUERY_KEYS.FAVORITE.ALL,
+      });
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.FAVORITE.CHECK(restaurantId),
       });
     },
     onError: (error) => {
-      console.log(error);
-      toast.error("맛집 저장에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      switch (error.response?.status) {
+        case 409:
+          toast.error("이미 나의 맛집 리스트에 있는 식당이에요.");
+          break;
+        default:
+          toast.error("맛집 저장에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+      }
     },
   });
 };
