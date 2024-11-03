@@ -1,14 +1,14 @@
-import { useState } from "react";
-import Image from "next/image";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useState } from 'react';
+import Image from 'next/image';
+import { useAuthStore } from '@/store/useAuthStore';
 import {
   RestaurantHeader,
   RestaurantInfo,
   RestaurantTapNavigation,
-} from "@/app/_components/sidebar/restaurant/detail";
-import { ReviewsContent } from "@/app/_components/sidebar/review";
-import { HistoryContent } from "@/app/_components/sidebar/history";
-import { useGetRestaurant } from "@/apis/restaurant/useGetRestaurant";
+} from '@/app/_components/sidebar/restaurant/detail';
+import { ReviewsContent } from '@/app/_components/sidebar/review';
+import { HistoryContent } from '@/app/_components/sidebar/history';
+import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
 type RestaurantDetailViewProps = {
   restaurantId: number;
@@ -23,14 +23,14 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 }) => {
   const auth = useAuthStore();
   const { data: restaurant } = useGetRestaurant(restaurantId);
-  const [activeTab, setActiveTab] = useState("reviews");
+  const [activeTab, setActiveTab] = useState('reviews');
 
   const tabs = [
-    { id: "reviews", label: "리뷰", ariaLabel: "음식점 리뷰 탭" },
+    { id: 'reviews', label: '리뷰', ariaLabel: '음식점 리뷰 탭' },
     {
-      id: "history",
-      label: "공공기관 사용내역",
-      ariaLabel: "공공기관 사용내역 탭",
+      id: 'history',
+      label: '공공기관 사용내역',
+      ariaLabel: '공공기관 사용내역 탭',
     },
   ];
 
@@ -46,8 +46,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
     <article
       className="flex flex-col gap-5 px-4"
       role="article"
-      aria-label={`${restaurant.restaurantName} 상세 정보`}
-    >
+      aria-label={`${restaurant.restaurantName} 상세 정보`}>
       <RestaurantHeader
         restaurantName={restaurant.restaurantName}
         restaurantDetailCategory={restaurant.restaurantDetailCategory}
@@ -82,9 +81,10 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       <section
         aria-live="polite"
         role="tabpanel"
-        aria-label={activeTab === "reviews" ? "리뷰 목록" : "공공기관 사용내역"}
-      >
-        {activeTab === "reviews" ? (
+        aria-label={
+          activeTab === 'reviews' ? '리뷰 목록' : '공공기관 사용내역'
+        }>
+        {activeTab === 'reviews' ? (
           <ReviewsContent
             restaurantId={restaurant.restaurantId}
             currentUserId={auth.userInfo?.id}

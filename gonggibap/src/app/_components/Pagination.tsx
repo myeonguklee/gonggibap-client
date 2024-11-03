@@ -8,16 +8,16 @@ type PaginationProps = {
   onRestaurantSelect?: (id: number | null) => void;
 };
 
-export const Pagination = ({ 
-  totalPages, 
-  currentPage, 
-  onPageChange, 
-  selectedRestaurantId, 
-  onRestaurantSelect 
+export const Pagination = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+  selectedRestaurantId,
+  onRestaurantSelect,
 }: PaginationProps) => {
   // 화면에 표시될 페이지 번호 (0을 1로 표시)
   const displayPage = currentPage + 1;
-  
+
   const handlePageChange = (newPage: number) => {
     // selectedRestaurantId가 존재할 경우 null로 초기화
     if (selectedRestaurantId !== null && onRestaurantSelect) {
@@ -63,8 +63,7 @@ export const Pagination = ({
         onClick={() => handlePageChange(displayPage - 1)}
         disabled={isFirstPage}
         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label="이전 페이지"
-      >
+        aria-label="이전 페이지">
         <ChevronLeft size={20} />
       </button>
 
@@ -72,13 +71,10 @@ export const Pagination = ({
         <>
           <button
             onClick={() => handlePageChange(1)}
-            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
+            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
             1
           </button>
-          {pageNumbers[0] > 2 && (
-            <span className="px-2">...</span>
-          )}
+          {pageNumbers[0] > 2 && <span className="px-2">...</span>}
         </>
       )}
 
@@ -87,12 +83,11 @@ export const Pagination = ({
           key={page}
           onClick={() => handlePageChange(page)}
           className={`w-10 h-10 rounded-lg ${
-            displayPage === page 
-              ? 'bg-[#FF7058] text-white' 
+            displayPage === page
+              ? 'bg-[#FF7058] text-white'
               : 'hover:bg-gray-100 dark:hover:bg-gray-700'
           }`}
-          aria-current={displayPage === page ? 'page' : undefined}
-        >
+          aria-current={displayPage === page ? 'page' : undefined}>
           {page}
         </button>
       ))}
@@ -104,8 +99,7 @@ export const Pagination = ({
           )}
           <button
             onClick={() => handlePageChange(totalPages)}
-            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
+            className="w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
             {totalPages}
           </button>
         </>
@@ -115,8 +109,7 @@ export const Pagination = ({
         onClick={() => handlePageChange(displayPage + 1)}
         disabled={isLastPage}
         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label="다음 페이지"
-      >
+        aria-label="다음 페이지">
         <ChevronRight size={20} />
       </button>
     </div>

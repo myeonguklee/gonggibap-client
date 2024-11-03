@@ -1,6 +1,6 @@
-import { useQueryErrorResetBoundary } from "@tanstack/react-query";
-import { FallbackProps } from "react-error-boundary";
-import { RiRestaurantLine } from "react-icons/ri";
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
+import { FallbackProps } from 'react-error-boundary';
+import { RiRestaurantLine } from 'react-icons/ri';
 
 interface RestaurantDetailErrorFallbackProps extends FallbackProps {
   onClose?: () => void;
@@ -29,15 +29,13 @@ export const RestaurantDetailErrorFallback = ({
       <div className="flex gap-2">
         <button
           onClick={handleReset}
-          className="px-4 py-2 bg-[#FF7058] text-white rounded-lg hover:bg-[#FF6147] transition-colors"
-        >
+          className="px-4 py-2 bg-[#FF7058] text-white rounded-lg hover:bg-[#FF6147] transition-colors">
           다시 시도
         </button>
         {onClose && (
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
-          >
+            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
             닫기
           </button>
         )}

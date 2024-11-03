@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import Script from "next/script";
-import { useGetRestaurant } from "@/apis/restaurant/useGetRestaurant";
-import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import { useKakaoMap } from "@/hooks/useKakaoMap";
-import { Polygon } from "@/types/restaurant";
-import { useMapMarkers } from "@/hooks/useMapMarkers";
-import { useMapCluster } from "@/hooks/useMapCluster";
-import { SearchBar } from "./_components/SearchBar";
-import { DesktopSidebar } from "./_components/DesktopSidebar";
-import { MobileSidebar } from "./_components/MobileSidebar";
+import { useCallback, useEffect, useState } from 'react';
+import Script from 'next/script';
+import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { useKakaoMap } from '@/hooks/useKakaoMap';
+import { Polygon } from '@/types/restaurant';
+import { useMapMarkers } from '@/hooks/useMapMarkers';
+import { useMapCluster } from '@/hooks/useMapCluster';
+import { SearchBar } from './_components/SearchBar';
+import { DesktopSidebar } from './_components/DesktopSidebar';
+import { MobileSidebar } from './_components/MobileSidebar';
 
 interface EntryPageProps {
   params: {
@@ -21,7 +21,7 @@ interface EntryPageProps {
 export default function EntryPage({ params }: EntryPageProps) {
   const restaurantId = params.id;
   const { data: restaurant, isLoading } = useGetRestaurant(
-    Number(restaurantId)
+    Number(restaurantId),
   );
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -30,7 +30,7 @@ export default function EntryPage({ params }: EntryPageProps) {
 
   const handleSearch = (keyword: string) => {
     // 검색 로직 구현
-    console.log("Search:", keyword);
+    console.log('Search:', keyword);
   };
 
   const { mapRef, mapInstance, onKakaoMapLoad } = useKakaoMap({
@@ -49,13 +49,13 @@ export default function EntryPage({ params }: EntryPageProps) {
         mapInstance.setCenter(
           new kakao.maps.LatLng(
             restaurant.restaurantLatitude,
-            restaurant.restaurantLongitude
-          )
+            restaurant.restaurantLongitude,
+          ),
         );
         mapInstance.setLevel(3);
       }
     },
-    [mapInstance, restaurant]
+    [mapInstance, restaurant],
   );
 
   // useMapMarkers에 cluster 전달
@@ -71,7 +71,7 @@ export default function EntryPage({ params }: EntryPageProps) {
   useEffect(() => {
     if (polygon) {
       // polygon 데이터를 활용하는 로직
-      console.log("Current map bounds:", polygon);
+      console.log('Current map bounds:', polygon);
     }
   }, [polygon]);
 
@@ -82,8 +82,8 @@ export default function EntryPage({ params }: EntryPageProps) {
       mapInstance.setCenter(
         new kakao.maps.LatLng(
           restaurant.restaurantLatitude,
-          restaurant.restaurantLongitude
-        )
+          restaurant.restaurantLongitude,
+        ),
       );
       mapInstance.setLevel(3);
       // 식당 선택 상태로 설정

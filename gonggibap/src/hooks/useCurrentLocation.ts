@@ -1,5 +1,5 @@
-import { useCallback } from "react";
-import { Coordinate } from "@/types/restaurant";
+import { useCallback } from 'react';
+import { Coordinate } from '@/types/restaurant';
 
 interface UseCurrentLocationReturn {
   getCurrentLocation: () => Promise<Coordinate>; // 위치를 가져오는 함수
@@ -11,7 +11,7 @@ export const useCurrentLocation = (): UseCurrentLocationReturn => {
       const position = await new Promise<GeolocationPosition>(
         (resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
-        }
+        },
       );
       return {
         latitude: position.coords.latitude,
@@ -19,7 +19,7 @@ export const useCurrentLocation = (): UseCurrentLocationReturn => {
       };
     } catch (err) {
       const error =
-        err instanceof Error ? err : new Error("Failed to get location");
+        err instanceof Error ? err : new Error('Failed to get location');
       throw error;
     }
   }, []);

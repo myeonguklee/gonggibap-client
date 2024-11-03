@@ -1,6 +1,6 @@
-import { Review } from "@/types/review";
-import { StarRating, ReviewImages } from "@/app/_components/sidebar/review";
-import { getRelativeTime } from "@/utils/getRelativeTime";
+import { Review } from '@/types/review';
+import { StarRating, ReviewImages } from '@/app/_components/sidebar/review';
+import { getRelativeTime } from '@/utils/getRelativeTime';
 
 type ReviewListItemProps = {
   review: Review;
@@ -40,10 +40,9 @@ export const ReviewListItem = ({
             onClick={() => onDeleteReview(review.reviewId)}
             disabled={isDeleting}
             className={`text-xs bg-gray-200 px-2 py-1 rounded-xl${
-              isDeleting ? "opacity-50 cursor-not-allowed" : ""
+              isDeleting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
-            aria-label="리뷰 삭제"
-          >
+            aria-label="리뷰 삭제">
             삭제
           </button>
         )}

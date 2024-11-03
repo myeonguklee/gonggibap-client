@@ -1,12 +1,12 @@
-import { useState } from "react";
-import Image from "next/image";
-import { X } from "lucide-react";
-import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useCreateReview } from "@/apis/review";
-import { QUERY_KEYS } from "@/constants/queryKeys";
+import { useState } from 'react';
+import Image from 'next/image';
+import { X } from 'lucide-react';
+import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
+import { useAuthStore } from '@/store/useAuthStore';
+import { useCreateReview } from '@/apis/review';
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -32,19 +32,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     formState: { errors },
   } = useForm<ReviewFormData>({
     defaultValues: {
-      content: "",
+      content: '',
       point: 0,
       images: [],
     },
   });
 
   const createReviewMutation = useCreateReview();
-  const point = watch("point");
+  const point = watch('point');
   const queryClient = useQueryClient();
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 
   const handleStarClick = (star: number) => {
-    setValue("point", star);
+    setValue('point', star);
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,21 +61,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       const imagesToAdd = newImages.slice(0, remainingSlots);
       const updatedImages = [...uploadedImages, ...imagesToAdd];
       setUploadedImages(updatedImages);
-      setValue("images", updatedImages);
+      setValue('images', updatedImages);
     }
     // 같은 파일을 다시 선택할 수 있도록 input 값을 초기화
-    event.target.value = "";
+    event.target.value = '';
   };
 
   const handleRemoveImage = (index: number) => {
     const newImages = uploadedImages.filter((_, i) => i !== index);
     setUploadedImages(newImages);
-    setValue("images", newImages);
+    setValue('images', newImages);
   };
 
   const onSubmit = handleSubmit((data) => {
     if (data.point === 0) {
-      toast.error("별점을 선택해주세요");
+      toast.error('별점을 선택해주세요');
       return;
     }
 
@@ -88,17 +88,17 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       },
       {
         onSuccess: () => {
-          toast.success("리뷰가 등록되었습니다");
+          toast.success('리뷰가 등록되었습니다');
           queryClient.invalidateQueries({
             queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
           });
           onClickWriteReview(); // 성공 시 폼 닫기
         },
         onError: (error) => {
-          toast.error("리뷰 등록에 실패했습니다");
+          toast.error('리뷰 등록에 실패했습니다');
           console.error(error);
         },
-      }
+      },
     );
   });
 
@@ -118,12 +118,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                     type="button"
                     onClick={() => handleStarClick(star)}
                     className={`text-4xl hover:text-gray-400
-                    ${point >= star ? "text-yellow-400" : "text-gray-300"} `}
-                    aria-label={`${star}점`}
-                  >
+                    ${point >= star ? 'text-yellow-400' : 'text-gray-300'} `}
+                    aria-label={`${star}점`}>
                     ★
                   </button>
-                )
+                ),
               )}
             </div>
             {errors.point && (
@@ -151,8 +150,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                     type="button"
                     onClick={() => handleRemoveImage(index)}
                     className="absolute -top-1 -right-1 bg-white dark:bg-gray-800 md:dark:bg-gray-700 rounded p-1"
-                    aria-label={`이미지 ${index + 1} 삭제`}
-                  >
+                    aria-label={`이미지 ${index + 1} 삭제`}>
                     <X className="w-4 h-4" />
                   </button>
                 </div>
@@ -183,11 +181,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           <fieldset>
             <legend className="hidden">리뷰 작성</legend>
             <textarea
-              {...register("content", {
-                required: "리뷰를 작성해주세요",
+              {...register('content', {
+                required: '리뷰를 작성해주세요',
                 minLength: {
                   value: 10,
-                  message: "리뷰는 최소 10자 이상 작성해주세요",
+                  message: '리뷰는 최소 10자 이상 작성해주세요',
                 },
               })}
               placeholder="음식과 서비스는 어떠셨나요? (최소 10자 이상)"
@@ -204,17 +202,15 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <button
               type="button"
               className="flex-1 py-2 px-4 bg-gray-200 text-gray-400 rounded-lg hover:bg-gray-100"
-              onClick={onClickWriteReview}
-            >
+              onClick={onClickWriteReview}>
               취소
             </button>
 
             <button
               type="submit"
               disabled={createReviewMutation.isPending}
-              className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900 disabled:opacity-50"
-            >
-              {createReviewMutation.isPending ? "등록 중..." : "리뷰 등록"}
+              className="flex-1 py-2 px-4 bg-[#FF7058] md:dark:bg-gray-800 dark:bg-gray-700 text-white rounded-lg hover:bg-[#ff7158da] dark:hover:bg-gray-900 disabled:opacity-50">
+              {createReviewMutation.isPending ? '등록 중...' : '리뷰 등록'}
             </button>
           </div>
         </form>
@@ -229,14 +225,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <div className="flex-center gap-6">
               <button
                 onClick={onClickWriteReview}
-                className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500"
-              >
+                className="py-2 px-6 bg-gray-400 rounded-lg text-white hover:bg-gray-500">
                 취소
               </button>
               <a
                 href="/login"
-                className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]"
-              >
+                className="inline-block py-2 px-6 bg-[#FF7058] text-white font-bold rounded-lg hover:bg-[#ff7158da]">
                 로그인하기
               </a>
             </div>

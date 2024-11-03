@@ -1,7 +1,7 @@
 export const MARKER_COLORS = {
-  DEFAULT: "#FF7058",
-  SELECTED: "#FF7058",
-  CURRENT_LOCATION: "#4A6DFF",
+  DEFAULT: '#FF7058',
+  SELECTED: '#FF7058',
+  CURRENT_LOCATION: '#4A6DFF',
 } as const;
 
 export const MARKER_TEMPLATES = {

@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import { UserInfo } from "@/types/userInfo";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { UserInfo } from '@/types/userInfo';
 
 interface AuthState {
   accessToken: string | null;
@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "auth-storage",
+      name: 'auth-storage',
       storage: createJSONStorage(() => sessionStorage),
       // store의 전체 상태 중 저장하고싶은 부분만 저장
       partialize: (state) => ({
@@ -43,6 +43,6 @@ export const useAuthStore = create<AuthState>()(
         userInfo: state.userInfo,
         isLogin: state.isLogin,
       }),
-    }
-  )
+    },
+  ),
 );

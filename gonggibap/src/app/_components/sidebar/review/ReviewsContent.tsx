@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { ReviewForm, ReviewList } from "@/app/_components/sidebar/review";
-import { useDeleteReview, useGetReviews } from "@/apis/review";
-import { QUERY_KEYS } from "@/constants/queryKeys";
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
+import { useDeleteReview, useGetReviews } from '@/apis/review';
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
 type ReviewsContentProps = {
   restaurantId: number;
@@ -27,10 +27,10 @@ export const ReviewsContent = ({
         queryClient.invalidateQueries({
           queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
         });
-        toast.success("리뷰가 삭제되었습니다.");
+        toast.success('리뷰가 삭제되었습니다.');
       },
       onError: (error) => {
-        toast.error("리뷰 삭제에 실패했습니다.");
+        toast.error('리뷰 삭제에 실패했습니다.');
         console.error(error);
       },
     });
@@ -54,8 +54,7 @@ export const ReviewsContent = ({
             </div>
             <button
               onClick={onClickWriteReview}
-              className="p-2 rounded-lg text-white bg-[#FF7058] text-right"
-            >
+              className="p-2 rounded-lg text-white bg-[#FF7058] text-right">
               리뷰 작성
             </button>
           </div>

@@ -3,18 +3,18 @@ import {
   TouchEvent as ReactTouchEvent,
   useRef,
   useEffect,
-} from "react";
-import { MobilePosition } from "@/types/sidebar";
-import { Restaurant } from "@/types/restaurant";
-import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
-import { RestaurantDetailView } from "@/app/entry/[id]/_components/RestaurantDetailView";
+} from 'react';
+import { MobilePosition } from '@/types/sidebar';
+import { Restaurant } from '@/types/restaurant';
+import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
+import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
 
 interface MobileSidebarProps {
   restaurant: Restaurant;
 }
 
 export function MobileSidebar({ restaurant }: MobileSidebarProps) {
-  const [position, setPosition] = useState<MobilePosition>("peek");
+  const [position, setPosition] = useState<MobilePosition>('peek');
   const [touchState, setTouchState] = useState({
     startY: 0,
     currentY: 0,
@@ -28,7 +28,7 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!touchState.isDragging) return;
-      if (position !== "full") {
+      if (position !== 'full') {
         e.preventDefault();
       }
     };
@@ -40,10 +40,10 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
       }
     };
 
-    element.addEventListener("touchmove", touchMoveHandler, { passive: false });
+    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
 
     return () => {
-      element.removeEventListener("touchmove", touchMoveHandler);
+      element.removeEventListener('touchmove', touchMoveHandler);
     };
   }, [touchState.isDragging, position]);
 
@@ -66,7 +66,7 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
     const diff = touchState.startY - touchState.currentY;
     const threshold = 30;
     const contentElement = document.querySelector(
-      ".mobile-content"
+      '.mobile-content',
     ) as HTMLElement;
     const isScrolledToTop = contentElement?.scrollTop === 0;
 
@@ -77,15 +77,15 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
 
     if (diff > 0) {
       setPosition((prev) => {
-        if (prev === "peek") return "half";
-        if (prev === "half") return "full";
+        if (prev === 'peek') return 'half';
+        if (prev === 'half') return 'full';
         return prev;
       });
     } else {
-      if (position === "full" && isScrolledToTop) {
-        setPosition("half");
-      } else if (position === "half") {
-        setPosition("peek");
+      if (position === 'full' && isScrolledToTop) {
+        setPosition('half');
+      } else if (position === 'half') {
+        setPosition('peek');
       }
     }
 
@@ -93,9 +93,9 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
   };
 
   const positionToHeightClass = {
-    peek: "h-24",
-    half: "h-1/2",
-    full: "h-[85vh]",
+    peek: 'h-24',
+    half: 'h-1/2',
+    full: 'h-[85vh]',
   };
 
   return (
@@ -107,25 +107,22 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      aria-label="모바일 메뉴"
-    >
+      aria-label="모바일 메뉴">
       <div className="relative">
         <ThemeToggleBtn position={position} />
       </div>
       <div
         className="w-full h-6 touch-none drag-handle flex-center"
         role="button"
-        aria-label="스와이프로 메뉴 조절"
-      >
+        aria-label="스와이프로 메뉴 조절">
         <div className="w-10 h-1 bg-gray-600 rounded-full" />
       </div>
 
       <div
         className={`
           overflow-y-auto h-[calc(100%-1.5rem)] p-4 mobile-content
-          ${position === "full" ? "touch-auto" : "touch-none"}
-        `}
-      >
+          ${position === 'full' ? 'touch-auto' : 'touch-none'}
+        `}>
         <RestaurantDetailView restaurant={restaurant} />
       </div>
     </div>

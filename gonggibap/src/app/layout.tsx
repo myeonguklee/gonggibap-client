@@ -1,42 +1,42 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { RootProvider } from "@/providers";
-import { GoogleAnalytics } from "@/app/_components/GoogleAnalytics";
-import "./globals.css";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import { RootProvider } from '@/providers';
+import { GoogleAnalytics } from '@/app/_components/GoogleAnalytics';
+import './globals.css';
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gonggibap.co.kr/"),
-  title: "공기밥",
-  description: "맛집 추천 서비스",
+  metadataBase: new URL('https://gonggibap.co.kr/'),
+  title: '공기밥',
+  description: '맛집 추천 서비스',
   openGraph: {
-    title: "공기밥",
-    description: "공무원 업무추진비로 검증된 맛집을 찾아보세요",
+    title: '공기밥',
+    description: '공무원 업무추진비로 검증된 맛집을 찾아보세요',
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/images/ogImage.png`,
         width: 1200,
         height: 630,
-        alt: "공기밥 - 공무원 맛집 추천",
+        alt: '공기밥 - 공무원 맛집 추천',
       },
     ],
-    type: "website",
-    locale: "ko_KR",
+    type: 'website',
+    locale: 'ko_KR',
     url: process.env.NEXT_PUBLIC_CLIENT_URL,
-    siteName: "공기밥",
+    siteName: '공기밥',
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: '/favicon.ico',
   },
 };
 
@@ -67,24 +67,23 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["WebSite", "WebApplication"],
-              name: "공기밥",
-              description: "공무원 업무추진비로 검증된 맛집 추천 서비스",
-              url: "https://gonggibap.co.kr",
-              applicationCategory: "FoodEstablishmentReservation",
-              operatingSystem: "ALL",
+              '@context': 'https://schema.org',
+              '@type': ['WebSite', 'WebApplication'],
+              name: '공기밥',
+              description: '공무원 업무추진비로 검증된 맛집 추천 서비스',
+              url: 'https://gonggibap.co.kr',
+              applicationCategory: 'FoodEstablishmentReservation',
+              operatingSystem: 'ALL',
               offers: {
-                "@type": "Offer",
-                availability: "https://schema.org/OnlineOnly",
+                '@type': 'Offer',
+                availability: 'https://schema.org/OnlineOnly',
               },
             }),
           }}
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <RootProvider>
           {children}
           <GoogleAnalytics />

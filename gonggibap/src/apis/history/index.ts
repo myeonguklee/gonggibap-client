@@ -1,1 +1,1 @@
-export { useGetHistories } from "@/apis/history/useGetHistories";
+export { useGetHistories } from '@/apis/history/useGetHistories';

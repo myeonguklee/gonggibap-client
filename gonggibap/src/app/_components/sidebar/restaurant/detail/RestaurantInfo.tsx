@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Restaurant } from "@/types/restaurant";
-import { useAuthStore } from "@/store/useAuthStore";
-import { LoginConfirmationModal } from "@/components/LoginConfirmationModal";
+import { useState } from 'react';
+import { Restaurant } from '@/types/restaurant';
+import { useAuthStore } from '@/store/useAuthStore';
+import { LoginConfirmationModal } from '@/components/LoginConfirmationModal';
 import {
   useGetFavoriteRestaurantCheck,
   useCreateFavoriteRestaurant,
   useDeleteFavoriteRestaurant,
-} from "@/apis/favorite";
-import { IoCallOutline, IoLocationOutline } from "react-icons/io5";
-import { FaRegBookmark } from "react-icons/fa6";
-import { GoBookmarkSlash } from "react-icons/go";
+} from '@/apis/favorite';
+import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
+import { FaRegBookmark } from 'react-icons/fa6';
+import { GoBookmarkSlash } from 'react-icons/go';
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -47,20 +47,20 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
 
   // 평점 포멧팅 함수
   const formatPointAvg = (point: number | null | undefined) => {
-    return point ? point.toFixed(1) : "-";
+    return point ? point.toFixed(1) : '-';
   };
 
   // 좋아요 버튼 텍스트, 아이콘 결정 함수
   const getButtonState = () => {
     if (!isLogin || favoriteRestaurantCheckLoading)
-      return { text: "내 지도에 추가하기", icon: <FaRegBookmark /> };
+      return { text: '내 지도에 추가하기', icon: <FaRegBookmark /> };
     return favoriteRestaurantCheck?.favoriteStatus
       ? {
-          text: "내 지도에서 제거하기",
+          text: '내 지도에서 제거하기',
           icon: <GoBookmarkSlash />,
         }
       : {
-          text: "내 지도에 추가하기",
+          text: '내 지도에 추가하기',
           icon: <FaRegBookmark />,
         };
   };
@@ -71,8 +71,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
         <div className="inline-block">
           <span
             className="bg-black text-white px-4 py-1 rounded-xl text-sm dark:bg-white dark:text-black"
-            role="text"
-          >
+            role="text">
             {restaurant.publicOfficeName}
           </span>
         </div>
@@ -84,7 +83,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
           </div>
           <div className="flex items-center gap-2 font-semibold">
             <IoCallOutline aria-hidden="true" />
-            <span>{restaurant.phone ? restaurant.phone : "미제공"}</span>
+            <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
           </div>
         </address>
 
@@ -105,10 +104,9 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
           disabled={isMutating}
           onClick={handleFavoriteCreate}
           className={`bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl ${
-            isMutating ? "opacity-50 cursor-not-allowed" : ""
+            isMutating ? 'opacity-50 cursor-not-allowed' : ''
           }`}
-          aria-busy={isMutating}
-        >
+          aria-busy={isMutating}>
           {getButtonState().icon}
           <span>{getButtonState().text}</span>
         </button>

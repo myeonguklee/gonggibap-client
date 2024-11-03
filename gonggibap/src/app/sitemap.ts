@@ -1,13 +1,13 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_CLIENT_URL ?? "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_CLIENT_URL ?? 'http://localhost:3000';
 
   const urls: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "always",
+      changeFrequency: 'always',
       priority: 1.0,
     },
   ];

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Polygon, RestaurantDetailCategory } from "@/types/restaurant";
-import { useGetRestaurants } from "@/apis/restaurant";
+import { useState } from 'react';
+import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
+import { useGetRestaurants } from '@/apis/restaurant';
 
 export const useRestaurantSearch = () => {
   const [currentPage, setCurrentPage] = useState(0);

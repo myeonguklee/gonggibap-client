@@ -1,9 +1,9 @@
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant } from '@/types/restaurant';
 import {
   RestaurantCategory,
   RestaurantAddress,
   RestaurantStats,
-} from "@/app/_components/sidebar/restaurant/list";
+} from '@/app/_components/sidebar/restaurant/list';
 
 interface FavoritesRestaurantItemProps {
   restaurant: Restaurant;
@@ -20,8 +20,7 @@ export function FavoritesListItem({
   return (
     <button
       onClick={handleMoveDetail}
-      className="w-full text-left flex flex-col gap-2 pt-3 pb-4"
-    >
+      className="w-full text-left flex flex-col gap-2 pt-3 pb-4">
       <div className="w-full flex flex-col gap-3">
         <h3 className="font-bold text-lg text-single-line">
           {index + 1}. {restaurant.restaurantName}

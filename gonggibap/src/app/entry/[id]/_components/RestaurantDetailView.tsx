@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { Restaurant } from "@/types/restaurant";
-import { useAuthStore } from "@/store/useAuthStore";
-import { ReviewsContent } from "@/app/_components/sidebar/review";
-import { RestaurantInfo } from "@/app/_components/sidebar/restaurant/detail";
+import Image from 'next/image';
+import { Restaurant } from '@/types/restaurant';
+import { useAuthStore } from '@/store/useAuthStore';
+import { ReviewsContent } from '@/app/_components/sidebar/review';
+import { RestaurantInfo } from '@/app/_components/sidebar/restaurant/detail';
 
 interface RestaurantDetailViewProps {
   restaurant: Restaurant;

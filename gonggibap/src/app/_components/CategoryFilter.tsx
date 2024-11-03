@@ -1,10 +1,10 @@
-import { useState } from "react";
-import * as Popover from "@radix-ui/react-popover";
-import * as Dialog from "@radix-ui/react-dialog";
-import { RestaurantDetailCategory } from "@/types/restaurant";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { getCategoryIcon } from "@/utils/getCategoryIcon";
-import { RESTAURANT_CATEGORIES } from "@/constants/category";
+import { useState } from 'react';
+import * as Popover from '@radix-ui/react-popover';
+import * as Dialog from '@radix-ui/react-dialog';
+import { RestaurantDetailCategory } from '@/types/restaurant';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { getCategoryIcon } from '@/utils/getCategoryIcon';
+import { RESTAURANT_CATEGORIES } from '@/constants/category';
 
 interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;
@@ -16,7 +16,7 @@ export const CategoryFilter = ({
   onSelectCategory,
 }: CategoryFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const MAIN_CATEGORIES = isMobile
     ? RESTAURANT_CATEGORIES.slice(0, 2)
@@ -41,14 +41,13 @@ export const CategoryFilter = ({
         if (isMobile) setIsOpen(false);
       }}
       className={`px-3 py-1.5 text-sm whitespace-nowrap transition-colors flex items-center gap-2 w-full
-          ${!isMoreMenu ? "shadow-md rounded-2xl" : ""}
+          ${!isMoreMenu ? 'shadow-md rounded-2xl' : ''}
           ${
             selectedCategory === value
-              ? "bg-[#FF7058] font-semibold text-white hover:bg-[#FF8068]"
-              : "bg-white font-semibold text-gray-500 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-          }`}
-    >
-      {getCategoryIcon(value, "w-4 h-4")}
+              ? 'bg-[#FF7058] font-semibold text-white hover:bg-[#FF8068]'
+              : 'bg-white font-semibold text-gray-500 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+          }`}>
+      {getCategoryIcon(value, 'w-4 h-4')}
       {label}
     </button>
   );
@@ -60,9 +59,8 @@ export const CategoryFilter = ({
         <div
           key={category.key}
           className={`border-b border-r border-gray-200 dark:border-gray-600 
-            ${index >= OTHER_CATEGORIES.length - 2 ? "border-b-0" : ""} 
-            [&:nth-child(2n)]:border-r-0`}
-        >
+            ${index >= OTHER_CATEGORIES.length - 2 ? 'border-b-0' : ''} 
+            [&:nth-child(2n)]:border-r-0`}>
           <CategoryButton
             value={category.value}
             label={category.value}
@@ -76,9 +74,8 @@ export const CategoryFilter = ({
   return (
     <div
       className={
-        "fixed left-1/2 -translate-x-1/2 md:left-[21rem] md:-translate-x-0 top-4 md:top-4 z-10 transition-all duration-300"
-      }
-    >
+        'fixed left-1/2 -translate-x-1/2 md:left-[21rem] md:-translate-x-0 top-4 md:top-4 z-10 transition-all duration-300'
+      }>
       <div className="flex items-center gap-2 p-2 overflow-x-auto">
         <CategoryButton value={null} label="음식점" />
 
@@ -123,8 +120,7 @@ export const CategoryFilter = ({
               <Popover.Content
                 className="bg-white dark:bg-black rounded-lg overflow-hidden w-[280px] z-50"
                 sideOffset={5}
-                align="end"
-              >
+                align="end">
                 <MoreCategories />
                 <Popover.Arrow className="fill-white dark:fill-gray-800" />
               </Popover.Content>

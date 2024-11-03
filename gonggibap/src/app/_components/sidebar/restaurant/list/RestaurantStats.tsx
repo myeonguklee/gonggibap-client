@@ -11,7 +11,7 @@ export const RestaurantStats = ({
     <div className="flex-center gap-1">
       <p className="text-xs text-gray-500 dark:text-gray-400">평점</p>
       <div className="flex-center bg-[#FF7058] text-xs text-white min-w-8 rounded-full">
-        <p className="font-semibold">{pointAvg ? pointAvg.toFixed(1) : "-"}</p>
+        <p className="font-semibold">{pointAvg ? pointAvg.toFixed(1) : '-'}</p>
       </div>
     </div>
     <div className="flex-center gap-1">

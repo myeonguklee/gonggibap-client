@@ -1,3 +1,14 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "rules": {
+    // console.log 사용시 경고 (프로덕션에 실수로 배포하는 것 방지)
+    "no-console": 1,
+
+    // 변수나 함수를 선언하기 전에 사용할 경우 경고
+    "no-use-before-define": 1,
+
+    "no-unused-vars": 1, // 사용하지 않는 변수 경고
+    "no-empty-function": 1, // 빈 함수 경고
+    "no-duplicate-imports": 1 // 중복 import 경고
+  }
 }

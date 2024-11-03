@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 interface UseMapClusterProps {
   map: kakao.maps.Map | null;
@@ -10,29 +10,29 @@ export const useMapCluster = ({ map }: UseMapClusterProps) => {
   const getClusterStyles = () => [
     // 마커 수가 적을 때
     {
-      width: "50px",
-      height: "50px",
-      background: "#FF9A00",
-      color: "#fff",
-      textAlign: "center",
-      lineHeight: "50px",
-      borderRadius: "25px",
-      opacity: "0.9",
-      fontSize: "16px",
-      fontWeight: "bold",
+      width: '50px',
+      height: '50px',
+      background: '#FF9A00',
+      color: '#fff',
+      textAlign: 'center',
+      lineHeight: '50px',
+      borderRadius: '25px',
+      opacity: '0.9',
+      fontSize: '16px',
+      fontWeight: 'bold',
     },
     // 마커 수가 많을 때
     {
-      width: "60px",
-      height: "60px",
-      background: "#FF9A00",
-      color: "#fff",
-      textAlign: "center",
-      lineHeight: "60px",
-      borderRadius: "30px",
-      opacity: "0.7",
-      fontSize: "18px",
-      fontWeight: "bold",
+      width: '60px',
+      height: '60px',
+      background: '#FF9A00',
+      color: '#fff',
+      textAlign: 'center',
+      lineHeight: '60px',
+      borderRadius: '30px',
+      opacity: '0.7',
+      fontSize: '18px',
+      fontWeight: 'bold',
     },
   ];
 

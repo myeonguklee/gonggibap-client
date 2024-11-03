@@ -1,10 +1,10 @@
-import { useRef, useEffect, useCallback } from "react";
-import { Restaurant } from "@/types/restaurant";
+import { useRef, useEffect, useCallback } from 'react';
+import { Restaurant } from '@/types/restaurant';
 import {
   MARKER_TEMPLATES,
   MARKER_DIMENSIONS,
   MARKER_Z_INDEX,
-} from "@/constants/marker";
+} from '@/constants/marker';
 
 interface MarkerProps {
   map: kakao.maps.Map | null;
@@ -31,49 +31,49 @@ export const useMapMarkers = ({
   // 기본 마커 스타일
   const createMarkerImage = (number: number) => {
     const svg = MARKER_TEMPLATES.DEFAULT.replace(
-      "${number}",
-      number.toString()
+      '${number}',
+      number.toString(),
     );
     const markerSize = new window.kakao.maps.Size(
       MARKER_DIMENSIONS.DEFAULT.size.width,
-      MARKER_DIMENSIONS.DEFAULT.size.height
+      MARKER_DIMENSIONS.DEFAULT.size.height,
     );
     const markerOption = {
       offset: new window.kakao.maps.Point(
         MARKER_DIMENSIONS.DEFAULT.offset.x,
-        MARKER_DIMENSIONS.DEFAULT.offset.y
+        MARKER_DIMENSIONS.DEFAULT.offset.y,
       ),
     };
 
     return new window.kakao.maps.MarkerImage(
-      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg),
+      'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg),
       markerSize,
-      markerOption
+      markerOption,
     );
   };
 
   // 선택된 마커 스타일
   const createSelectedMarkerImage = (number: number) => {
     const svg = MARKER_TEMPLATES.SELECTED.replace(
-      "${number}",
-      number.toString()
+      '${number}',
+      number.toString(),
     );
 
     const markerSize = new window.kakao.maps.Size(
       MARKER_DIMENSIONS.SELECTED.size.width,
-      MARKER_DIMENSIONS.SELECTED.size.height
+      MARKER_DIMENSIONS.SELECTED.size.height,
     );
     const markerOption = {
       offset: new window.kakao.maps.Point(
         MARKER_DIMENSIONS.SELECTED.offset.x,
-        MARKER_DIMENSIONS.SELECTED.offset.y
+        MARKER_DIMENSIONS.SELECTED.offset.y,
       ),
     };
 
     return new window.kakao.maps.MarkerImage(
-      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg),
+      'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg),
       markerSize,
-      markerOption
+      markerOption,
     );
   };
 
@@ -84,7 +84,7 @@ export const useMapMarkers = ({
       const newMarkers = restaurants.map((restaurant, index) => {
         const markerPosition = new window.kakao.maps.LatLng(
           restaurant.restaurantLatitude,
-          restaurant.restaurantLongitude
+          restaurant.restaurantLongitude,
         );
 
         const marker = new window.kakao.maps.Marker({
@@ -97,7 +97,7 @@ export const useMapMarkers = ({
         marker.restaurantId = restaurant.restaurantId;
 
         // 클릭 이벤트 추가
-        window.kakao.maps.event.addListener(marker, "click", () => {
+        window.kakao.maps.event.addListener(marker, 'click', () => {
           onRestaurantSelect(restaurant.restaurantId);
         });
 

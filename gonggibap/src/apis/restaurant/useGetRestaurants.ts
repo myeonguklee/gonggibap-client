@@ -1,32 +1,32 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { BaseResponse, ErrorResponse } from "@/types/apiResponse";
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 import {
   GetRestaurantsResponse,
   Polygon,
   RestaurantDetailCategory,
-} from "@/types/restaurant";
-import { client } from "@/apis/core/client";
-import { QUERY_KEYS } from "@/constants/queryKeys";
+} from '@/types/restaurant';
+import { client } from '@/apis/core/client';
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const getRestaurants = async (
   polygon: Polygon,
   page: number,
-  category: RestaurantDetailCategory
+  category: RestaurantDetailCategory,
 ): Promise<GetRestaurantsResponse> => {
   const latitudes = [
     polygon.firstCoordinate.latitude,
     polygon.secondCoordinate.latitude,
     polygon.thirdCoordinate.latitude,
     polygon.fourthCoordinate.latitude,
-  ].join(",");
+  ].join(',');
 
   const longitudes = [
     polygon.firstCoordinate.longitude,
     polygon.secondCoordinate.longitude,
     polygon.thirdCoordinate.longitude,
     polygon.fourthCoordinate.longitude,
-  ].join(",");
+  ].join(',');
 
   const params: Record<string, string | number> = {
     latitudes,
@@ -39,7 +39,7 @@ const getRestaurants = async (
   }
 
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
-    url: "/restaurants",
+    url: '/restaurants',
     params,
   });
 
@@ -49,7 +49,7 @@ const getRestaurants = async (
 export const useGetRestaurants = (
   polygon: Polygon | null,
   page: number,
-  category: RestaurantDetailCategory = null
+  category: RestaurantDetailCategory = null,
 ): UseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
     queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page],
