@@ -18,8 +18,9 @@ export const RestaurantHeader = ({
 
   // 글자 길이에 따른 텍스트 크기 클래스 결정
   const getTextSizeClass = (text: string) => {
+    if (isMobile) return "text-2xl";
     if (text.length > 15) return "text-lg";
-    if (text.length > 12) return "text-xl";
+    if (text.length >= 12) return "text-xl";
     return "text-2xl";
   };
 
@@ -38,7 +39,7 @@ export const RestaurantHeader = ({
         <div className="flex items-center gap-2">
           <h1 className={`${textSizeClass} font-black`}>{restaurantName}</h1>
           {restaurantDetailCategory && (
-            <p className="text-gray-500 font-bold translate-y-1 flex-shrink-0">
+            <p className="text-gray-500 font-bold translate-y-0.5 flex-shrink-0">
               {restaurantDetailCategory}
             </p>
           )}

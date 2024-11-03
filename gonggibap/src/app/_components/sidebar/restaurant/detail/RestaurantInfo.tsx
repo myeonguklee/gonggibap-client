@@ -17,18 +17,18 @@ type RestaurantInfoProps = {
 
 export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { data: favoriteRestaurantCheck } = useGetFavoriteRestaurantCheck(
-    restaurant.restaurantId,
-    {
-      enabled: isLogin,
-    }
-  );
+  const {
+    data: favoriteRestaurantCheck,
+    isLoading: favoriteRestaurantCheckLoading,
+  } = useGetFavoriteRestaurantCheck(restaurant.restaurantId, {
+    enabled: isLogin,
+  });
 
   const { mutate: createFavoriteRestaurant, isPending: isCreating } =
     useCreateFavoriteRestaurant();
   const { mutate: deleteFavoriteRestaurant, isPending: isDeleting } =
     useDeleteFavoriteRestaurant();
-  const isLoading = isCreating || isDeleting;
+  const isMutating = isCreating || isDeleting;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,7 +52,7 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
 
   // 좋아요 버튼 텍스트, 아이콘 결정 함수
   const getButtonState = () => {
-    if (!isLogin)
+    if (!isLogin || favoriteRestaurantCheckLoading)
       return { text: "내 지도에 추가하기", icon: <FaRegBookmark /> };
     return favoriteRestaurantCheck?.favoriteStatus
       ? {
@@ -102,12 +102,12 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfoProps) => {
         </dl>
 
         <button
-          disabled={isLoading}
+          disabled={isMutating}
           onClick={handleFavoriteCreate}
           className={`bg-[#FF7058] py-3 gap-1 flex justify-center items-center text-white font-semibold rounded-xl ${
-            isLoading ? "opacity-50 cursor-not-allowed" : ""
+            isMutating ? "opacity-50 cursor-not-allowed" : ""
           }`}
-          aria-busy={isLoading}
+          aria-busy={isMutating}
         >
           {getButtonState().icon}
           <span>{getButtonState().text}</span>

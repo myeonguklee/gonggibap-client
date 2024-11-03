@@ -1,10 +1,15 @@
-import { PiNavigationArrowBold } from "react-icons/pi";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Restaurant, RestaurantDetailCategory } from "@/types/restaurant";
 import { RestaurantListView } from "@/app/_components/sidebar/restaurant/list";
-import { RestaurantDetailView } from "@/app/_components/sidebar/restaurant/detail/RestaurantDetailView";
 import { ThemeToggleBtn } from "@/app/_components/ThemeToggleBtn";
 import { MapPinLoading } from "@/app/_components/MapPinLoading";
-import { Suspense } from "react";
+import {
+  RestaurantDetailView,
+  RestaurantDetailSkeleton,
+  RestaurantDetailErrorFallback,
+} from "@/app/_components/sidebar/restaurant/detail";
+import { PiNavigationArrowBold } from "react-icons/pi";
 
 type DesktopSidebarProps = {
   restaurants?: Restaurant[];
@@ -58,10 +63,14 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         aria-hidden={!selectedRestaurantId}
       >
         {selectedRestaurant && (
-          <RestaurantDetailView
-            restaurantId={selectedRestaurant.restaurantId}
-            onClose={() => onRestaurantSelect(null)}
-          />
+          <ErrorBoundary FallbackComponent={RestaurantDetailErrorFallback}>
+            <Suspense fallback={<RestaurantDetailSkeleton />}>
+              <RestaurantDetailView
+                restaurantId={selectedRestaurant.restaurantId}
+                onClose={() => onRestaurantSelect(null)}
+              />
+            </Suspense>
+          </ErrorBoundary>
         )}
       </section>
       <button
