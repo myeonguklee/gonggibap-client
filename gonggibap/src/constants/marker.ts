@@ -1,6 +1,7 @@
 export const MARKER_COLORS = {
   DEFAULT: "#FF7058",
   SELECTED: "#FF7058",
+  CURRENT_LOCATION: "#4A6DFF",
 } as const;
 
 export const MARKER_TEMPLATES = {
@@ -51,6 +52,54 @@ export const MARKER_TEMPLATES = {
           font-weight="bold"
         >\${number}</text>
       </svg>`,
+  CURRENT_LOCATION: `
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        @keyframes pulse {
+          0% {
+            transform: scale(0.95);
+            opacity: 0.9;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(0.95);
+            opacity: 0.9;
+          }
+        }
+        @keyframes pulse-outer {
+          0% {
+            transform: scale(0.9);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(0.9);
+            opacity: 0.7;
+          }
+        }
+        .pulse-circle {
+          animation: pulse 2s infinite;
+          transform-origin: center;
+        }
+        .pulse-circle-outer {
+          animation: pulse-outer 2s infinite;
+          transform-origin: center;
+        }
+        .center-dot {
+          filter: drop-shadow(0 0 4px rgba(74, 109, 255, 0.8));
+        }
+      </style>
+      <circle class="pulse-circle-outer" cx="24" cy="24" r="20" fill="${MARKER_COLORS.CURRENT_LOCATION}" fill-opacity="0.2"/>
+      <circle class="pulse-circle" cx="24" cy="24" r="14" fill="${MARKER_COLORS.CURRENT_LOCATION}" fill-opacity="0.3"/>
+      <circle class="center-dot" cx="24" cy="24" r="8" fill="${MARKER_COLORS.CURRENT_LOCATION}"/>
+    </svg>
+  `,
 } as const;
 
 export const MARKER_DIMENSIONS = {
@@ -74,9 +123,20 @@ export const MARKER_DIMENSIONS = {
       y: 72,
     },
   },
+  CURRENT_LOCATION: {
+    size: {
+      width: 48,
+      height: 48,
+    },
+    offset: {
+      x: 24,
+      y: 24,
+    },
+  },
 } as const;
 
 export const MARKER_Z_INDEX = {
   DEFAULT: 1,
   SELECTED: 3,
+  CURRENT_LOCATION: 2,
 } as const;
