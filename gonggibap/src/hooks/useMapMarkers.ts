@@ -8,7 +8,6 @@ import {
   MARKER_Z_INDEX,
 } from '@/constants/marker';
 
-
 interface MarkerProps {
   map: kakao.maps.Map | null;
   restaurants: Restaurant[];

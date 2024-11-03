@@ -2,8 +2,8 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "prettier",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "prettier"
   ],
   "plugins": ["import", "tailwindcss"],
   "rules": {
@@ -25,6 +25,11 @@
           {
             "pattern": "{react,react-dom,next,next/*}",
             "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/providers",
+            "group": "internal",
             "position": "before"
           },
           {

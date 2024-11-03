@@ -3,8 +3,6 @@
 import Script from 'next/script';
 import { useCallback, useEffect, useState } from 'react';
 
-
-
 import { Polygon } from '@/types/restaurant';
 
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
@@ -18,8 +16,6 @@ import { useMapMarkers } from '@/hooks/useMapMarkers';
 import { DesktopSidebar } from './_components/DesktopSidebar';
 import { MobileSidebar } from './_components/MobileSidebar';
 import { SearchBar } from './_components/SearchBar';
-
-
 
 interface EntryPageProps {
   params: {

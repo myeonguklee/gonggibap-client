@@ -11,7 +11,6 @@ import { MobilePosition } from '@/types/sidebar';
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
 
-
 interface MobileSidebarProps {
   restaurant: Restaurant;
 }
@@ -105,7 +104,7 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
     <div
       ref={sidebarRef}
       className={`fixed bottom-0 left-0 z-20 w-full rounded-t-3xl bg-white
-        shadow-lg transition-all duration-300 ease-out dark:bg-gray-800${positionToHeightClass[position]}`}
+        shadow-lg transition-all duration-300 ease-out dark:bg-gray-800 ${positionToHeightClass[position]}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

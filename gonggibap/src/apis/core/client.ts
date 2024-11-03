@@ -1,12 +1,9 @@
-
-
 import axios, { AxiosInstance, AxiosRequestConfig, Method } from 'axios';
 
 import { useAuthStore } from '@/store/useAuthStore';
 
 import { HTTP_METHODS } from '@/constants/http';
 import { routeURL } from '@/constants/routeURL';
-
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

@@ -4,7 +4,6 @@ import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
 import { useGetRestaurants } from '@/apis/restaurant';
 
-
 export const useRestaurantSearch = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [polygon, setPolygon] = useState<Polygon | null>(null);

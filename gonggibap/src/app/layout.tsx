@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
 
-
 import localFont from 'next/font/local';
 
 import { RootProvider } from '@/providers';
 
 import { GoogleAnalytics } from '@/app/_components/GoogleAnalytics';
-
-
 
 import './globals.css';
 

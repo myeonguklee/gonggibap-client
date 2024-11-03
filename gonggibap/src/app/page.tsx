@@ -3,8 +3,6 @@
 import Script from 'next/script';
 import { useState } from 'react';
 
-
-
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
@@ -18,9 +16,6 @@ import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
 import { MdRefresh } from 'react-icons/md';
-
-
-
 
 export default function Home() {
   const [polygon, setPolygon] = useState<Polygon | null>(null);

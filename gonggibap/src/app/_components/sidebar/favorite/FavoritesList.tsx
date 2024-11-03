@@ -8,7 +8,6 @@ import { FavoritesListItem } from '@/app/_components/sidebar/favorite';
 
 import { useGetFavoriteRestaurants } from '@/apis/favorite';
 
-
 interface FavoritesListProps {
   onTabChange: (tab: string) => void;
 }

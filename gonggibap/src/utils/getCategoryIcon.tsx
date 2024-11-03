@@ -19,7 +19,6 @@ import { LuSalad } from 'react-icons/lu'; // 샐러드
 import { MdRamenDining } from 'react-icons/md'; // 분식
 import { RiBeerFill } from 'react-icons/ri';
 
-
 export const getCategoryIcon = (
   value: RestaurantDetailCategory | null,
   className?: string,
