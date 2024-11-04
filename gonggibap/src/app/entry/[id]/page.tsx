@@ -2,9 +2,10 @@
 
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { EntryPageContent } from './_components/EntryPageContent';
-import { MapPinLoading } from '@/app/_components/MapPinLoading';
 
+import { FirstLoading } from '@/app/entry/[id]/_components/FirstLoading';
+import { EntryPageContent } from '@/app/entry/[id]/_components//EntryPageContent';
+import { RestaurantDetailErrorFallback } from '@/app/_components/sidebar/restaurant/detail/RestaurantDetailErrorFallback';
 interface EntryPageProps {
   params: {
     id: string;
@@ -14,14 +15,8 @@ interface EntryPageProps {
 export default function EntryPage({ params }: EntryPageProps) {
   const restaurantId = Number(params.id);
   return (
-    <ErrorBoundary fallback={<div>에러가 발생했습니다.</div>}>
-      <Suspense 
-        fallback={
-          <div className="h-screen w-screen">
-            <MapPinLoading />
-          </div>
-        }
-      >
+    <ErrorBoundary FallbackComponent={RestaurantDetailErrorFallback}>
+      <Suspense fallback={<FirstLoading />}>
         <EntryPageContent restaurantId={restaurantId} />
       </Suspense>
     </ErrorBoundary>

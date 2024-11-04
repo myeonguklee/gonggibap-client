@@ -5,7 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Polygon } from '@/types/restaurant';
 
-import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
+import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
+import { SearchBar } from '@/app/entry/[id]/_components//SearchBar';
+import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
@@ -13,18 +16,14 @@ import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
-import { DesktopSidebar } from './DesktopSidebar';
-import { MobileSidebar } from './MobileSidebar';
-import { SearchBar } from './SearchBar';
+
 
 interface EntryPageProps {
   restaurantId: Number;
 }
 
 export function EntryPageContent({ restaurantId }: EntryPageProps) {
-  const { data: restaurant, isLoading } = useGetRestaurant(
-    Number(restaurantId),
-  );
+  const { data: restaurant } = useGetRestaurant(Number(restaurantId));
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
     number | null
@@ -93,35 +92,29 @@ export function EntryPageContent({ restaurantId }: EntryPageProps) {
     }
   }, [restaurant, mapInstance, restaurantId, handleRestaurantSelect]);
 
-  if (isLoading) {
-    return (
-      <div className="h-screen w-screen">
-        <MapPinLoading />
-      </div>
-    );
-  }
-
-  if (!restaurant) {
-    return <div>식당 정보가 존재하지 않습니다.</div>;
-  }
-
   return (
     <>
-      {/* 모바일 검색창 */}
-      <div className="absolute inset-x-4 top-4 z-10 md:hidden">
-        <SearchBar onSearch={handleSearch} />
-      </div>
-
-      <nav aria-label="사이드바">
-        <div className="hidden md:block" aria-label="데스크톱 사이드바">
-          <DesktopSidebar restaurant={restaurant}>
+      {/* 지도가 준비된 경우에만 UI 컴포넌트들을 표시 */}
+      {mapInstance ? (
+        <>
+          <div className="absolute inset-x-4 top-4 z-10 md:hidden">
             <SearchBar onSearch={handleSearch} />
-          </DesktopSidebar>
-        </div>
-        <div className="block md:hidden" aria-label="모바일 사이드바">
-          <MobileSidebar restaurant={restaurant} />
-        </div>
-      </nav>
+          </div>
+
+          <nav aria-label="사이드바">
+            <div className="hidden md:block" aria-label="데스크톱 사이드바">
+              <DesktopSidebar restaurant={restaurant}>
+                <SearchBar onSearch={handleSearch} />
+              </DesktopSidebar>
+            </div>
+            <div className="block md:hidden" aria-label="모바일 사이드바">
+              <MobileSidebar restaurant={restaurant} />
+            </div>
+          </nav>
+        </>
+      ) : (
+        <FirstLoading />
+      )}
 
       {/* 카카오맵 */}
       <Script
