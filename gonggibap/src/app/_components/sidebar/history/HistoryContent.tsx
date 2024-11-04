@@ -32,6 +32,10 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
     <>
       {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
+          <p className="text-xs text-gray-500">
+            해당 사용내역은 각 구청의 업무추진비 데이터를 수집/가공한 것이며,
+            원본 데이터는 각 구청에서 확인하실 수 있습니다.
+          </p>
           {histories?.content.map((history, index) => (
             <div key={index} className="flex flex-col gap-3">
               <div className="self-center rounded-full bg-black px-3 py-1 text-white dark:bg-white dark:text-black">
