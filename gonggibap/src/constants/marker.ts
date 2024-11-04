@@ -138,5 +138,5 @@ export const MARKER_DIMENSIONS = {
 export const MARKER_Z_INDEX = {
   DEFAULT: 1,
   SELECTED: 3,
-  CURRENT_LOCATION: 2,
+  CURRENT_LOCATION: 0,
 } as const;

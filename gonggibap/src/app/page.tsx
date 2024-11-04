@@ -25,11 +25,13 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] =
     useState<RestaurantDetailCategory>(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const { data: restaurants } = useGetRestaurants(
     polygon,
     currentPage,
     selectedCategory,
+    searchKeyword,
   );
 
   const handleRestaurantSelect = (id: number | null) => {
@@ -52,7 +54,19 @@ export default function Home() {
   // 카테고리 변경
   const handleCategorySelect = (category: RestaurantDetailCategory) => {
     setSelectedCategory(category);
-    setCurrentPage(0); // 카테고리 변경시 페이지 리셋
+    setCurrentPage(0); // 카테고리 변경 시 페이지 리셋
+    setSearchKeyword(''); // 카테고리 변경 시 검색어 리셋
+  };
+
+  // 검색 핸들러
+  const handleRestaurantSearch = (keyword: string) => {
+    setSearchKeyword(keyword);
+    setPolygon(null); // 검색시 polygon초기화
+    setCurrentPage(0);
+    // 검색시 전국 줌레벨로 이동
+    if (mapInstance) {
+      mapInstance.setLevel(13);
+    }
   };
 
   // 페이징
@@ -98,6 +112,7 @@ export default function Home() {
         currentPage={currentPage}
         onPageChange={handlePageChange}
         onSelectCategory={handleCategorySelect}
+        onRestaurantSearch={handleRestaurantSearch}
       />
       <Script
         strategy="afterInteractive"
@@ -113,6 +128,7 @@ export default function Home() {
           handleSearch();
           handlePageChange(0);
           setSelectedRestaurantId(null);
+          setSearchKeyword('');
         }}
         className="fixed left-1/2 top-20 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-base font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
         aria-label="현 지도에서 재검색">
