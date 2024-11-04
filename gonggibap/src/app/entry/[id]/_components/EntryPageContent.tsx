@@ -7,8 +7,8 @@ import { Polygon } from '@/types/restaurant';
 
 import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
 import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
-import { SearchBar } from '@/app/entry/[id]/_components//SearchBar';
 import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
+import { SearchBar } from '@/components//SearchBar';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
