@@ -22,23 +22,23 @@ export const LoginConfirmationModal = ({
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6 dark:bg-gray-700">
-          <Dialog.Title className="mb-6 text-center text-xl font-semibold">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 dark:bg-gray-700">
+          <Dialog.Title className="mb-4 text-center text-xl font-medium">
             로그인
           </Dialog.Title>
-          <Dialog.Description className="mb-6 text-center text-gray-600">
+          <Dialog.Description className="mb-6 text-center text-gray-600 dark:text-gray-300">
             로그인이 필요한 서비스입니다.
           </Dialog.Description>
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={onClose}
-              className="rounded-lg border px-4 py-2 hover:bg-gray-100 dark:border-gray-600 dark:text-white dark:hover:bg-gray-600 dark:hover:text-white">
-              취소
-            </button>
+          <div className="flex flex-col gap-2">
             <button
               onClick={handleLogin}
-              className="rounded-lg bg-[#FF7058] px-4 py-2 text-white hover:bg-[#FF7058]/90">
+              className="w-full rounded-lg bg-[#FF7058] px-4 py-3 font-medium text-white">
               로그인하기
+            </button>
+            <button
+              onClick={onClose}
+              className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium dark:border-gray-600 dark:bg-gray-700">
+              취소
             </button>
           </div>
         </Dialog.Content>
