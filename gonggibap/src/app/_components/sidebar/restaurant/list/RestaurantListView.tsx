@@ -10,6 +10,7 @@ import {
   RestaurantItem,
   trackRestaurantSelection,
 } from '@/app/_components/sidebar/restaurant/list';
+import { RestaurantEmptyState } from '@/app/_components/sidebar/restaurant/list/RestaurantEmptyState';
 import { TabNavigation } from '@/app/_components/sidebar/restaurant/list/TapNavigation';
 import { SearchBar } from '@/components/SearchBar';
 
@@ -82,9 +83,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
       {activeTab === 'list' ? (
         <>
           {onRestaurantSearch && <SearchBar onSearch={onRestaurantSearch} />}
-          {restaurants.length === 0 && (
-            <p className="text-center">검색된 식당이 없습니다.</p>
-          )}
+          {restaurants.length === 0 && <RestaurantEmptyState />}
           <ul className="flex w-full flex-col gap-2">
             {restaurants?.map((restaurant, index) => (
               <li key={restaurant.restaurantId}>
