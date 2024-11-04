@@ -21,6 +21,7 @@ import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list/Re
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 
 import { PiNavigationArrowBold } from 'react-icons/pi';
+import { MdOutlineFeedback } from 'react-icons/md';
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];
@@ -54,6 +55,10 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const selectedRestaurant = restaurants?.find(
     (r) => r.restaurantId === selectedRestaurantId,
   );
+
+  const handleFeedbackClick = () => {
+    window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
+  };
 
   useEffect(() => {
     const element = sidebarRef.current;
@@ -157,6 +162,13 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="모바일 메뉴">
       <div className="relative">
+        <button
+          onClick={handleFeedbackClick}
+          className={`absolute -top-48 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700
+            ${position === 'full' && 'hidden'}`}
+          aria-label="프로젝트 피드백">
+          <MdOutlineFeedback className="size-6 rotate-90 text-[#B3B3B3]" />
+        </button>
         <button
           onClick={() => {
             onCurrentLocation();
