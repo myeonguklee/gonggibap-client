@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useState } from 'react';
 
@@ -20,7 +20,7 @@ import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -29,9 +29,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] =
     useState<RestaurantDetailCategory>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [searchKeyword, setSearchKeyword] = useState<string>(
-    searchParams.get('keyword') || '', // URL에서 초기 검색어 가져오기
-  );
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const { data: restaurants } = useGetRestaurants(
     polygon,
