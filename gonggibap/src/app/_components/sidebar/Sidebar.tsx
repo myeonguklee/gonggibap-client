@@ -12,6 +12,7 @@ type SidebarProps = {
   currentPage: number;
   onPageChange: (page: number) => void;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
+  onRestaurantSearch: (keyword: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -23,6 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   currentPage,
   onPageChange,
   onSelectCategory,
+  onRestaurantSearch,
 }) => {
   return (
     <nav aria-label="사이드바">
@@ -36,6 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           currentPage={currentPage}
           onPageChange={onPageChange}
           onSelectCategory={onSelectCategory}
+          onRestaurantSearch={onRestaurantSearch}
         />
       </div>
       <div className="block md:hidden" aria-label="모바일 사이드바">

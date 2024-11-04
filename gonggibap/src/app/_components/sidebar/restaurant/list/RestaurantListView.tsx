@@ -11,6 +11,7 @@ import {
   trackRestaurantSelection,
 } from '@/app/_components/sidebar/restaurant/list';
 import { TabNavigation } from '@/app/_components/sidebar/restaurant/list/TapNavigation';
+import { SearchBar } from '@/components/SearchBar';
 
 type RestaurantListViewProps = {
   restaurants?: Restaurant[];
@@ -19,6 +20,7 @@ type RestaurantListViewProps = {
   onRestaurantSelect: (id: number | null) => void;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onRestaurantSearch?: (searchKeyword: string) => void;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
@@ -28,6 +30,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   totalPages,
   currentPage,
   onPageChange,
+  onRestaurantSearch,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -78,6 +81,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
       />
       {activeTab === 'list' ? (
         <>
+          {onRestaurantSearch && <SearchBar onSearch={onRestaurantSearch} />}
           {restaurants.length === 0 && (
             <p className="text-center">검색된 식당이 없습니다.</p>
           )}
