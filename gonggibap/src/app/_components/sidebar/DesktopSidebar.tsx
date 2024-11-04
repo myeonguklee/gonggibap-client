@@ -13,6 +13,7 @@ import {
 import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list';
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 
+import { MdOutlineFeedback } from 'react-icons/md';
 import { PiNavigationArrowBold } from 'react-icons/pi';
 
 type DesktopSidebarProps = {
@@ -42,6 +43,10 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
     selectedRestaurantId && restaurants
       ? restaurants.find((r) => r.restaurantId === selectedRestaurantId)
       : null;
+
+  const handleFeedbackClick = () => {
+    window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
+  };
 
   return (
     <div className="flex">
@@ -77,6 +82,12 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           </ErrorBoundary>
         )}
       </section>
+      <button
+        onClick={handleFeedbackClick}
+        className="fixed bottom-52 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
+        aria-label="프로젝트 피드백">
+        <MdOutlineFeedback className="size-6 rotate-90 text-[#B3B3B3]" />
+      </button>
       <button
         onClick={() => {
           onCurrentLocation();

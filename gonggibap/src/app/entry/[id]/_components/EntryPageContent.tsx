@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -7,8 +8,8 @@ import { Polygon } from '@/types/restaurant';
 
 import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
 import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
-import { SearchBar } from '@/app/entry/[id]/_components//SearchBar';
 import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
+import { SearchBar } from '@/components//SearchBar';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
@@ -21,6 +22,7 @@ interface EntryPageProps {
 }
 
 export function EntryPageContent({ restaurantId }: EntryPageProps) {
+  const router = useRouter();
   const { data: restaurant } = useGetRestaurant(Number(restaurantId));
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -28,8 +30,13 @@ export function EntryPageContent({ restaurantId }: EntryPageProps) {
   >(null);
 
   const handleSearch = (keyword: string) => {
-    // 검색 로직 구현
-    console.log('Search:', keyword);
+    // 검색어가 있으면 메인 페이지로 이동하면서 검색어 파라미터 추가
+    if (keyword) {
+      router.push(`/?keyword=${encodeURIComponent(keyword)}`);
+      // window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
+    } else {
+      router.push('/');
+    }
   };
 
   const { mapRef, mapInstance, onKakaoMapLoad } = useKakaoMap({

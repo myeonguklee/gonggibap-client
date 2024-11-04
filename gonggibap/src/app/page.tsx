@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useState } from 'react';
 
@@ -18,6 +19,9 @@ import { useMapMarkers } from '@/hooks/useMapMarkers';
 import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
     number | null
@@ -25,7 +29,9 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] =
     useState<RestaurantDetailCategory>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [searchKeyword, setSearchKeyword] = useState<string>(
+    searchParams.get('keyword') || '', // URL에서 초기 검색어 가져오기
+  );
 
   const { data: restaurants } = useGetRestaurants(
     polygon,
@@ -56,6 +62,8 @@ export default function Home() {
     setSelectedCategory(category);
     setCurrentPage(0); // 카테고리 변경 시 페이지 리셋
     setSearchKeyword(''); // 카테고리 변경 시 검색어 리셋
+    // 카테고리 변경시 검색어 파라미터 제거
+    router.push('/', { scroll: false });
   };
 
   // 검색 핸들러
@@ -65,6 +73,14 @@ export default function Home() {
     setPolygon(null); // 검색시 polygon초기화
     setSelectedRestaurantId(null);
     setCurrentPage(0);
+
+    // URL 업데이트
+    if (keyword) {
+      router.push(`?keyword=${encodeURIComponent(keyword)}`, { scroll: false });
+    } else {
+      router.push('/', { scroll: false });
+    }
+
     // 검색시 전국 줌레벨로 이동
     if (mapInstance) {
       mapInstance.setLevel(13);
