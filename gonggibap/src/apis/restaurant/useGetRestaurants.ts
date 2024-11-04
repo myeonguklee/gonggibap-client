@@ -13,32 +13,43 @@ import { client } from '@/apis/core/client';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const getRestaurants = async (
-  polygon: Polygon,
+  polygon: Polygon | null,
   page: number,
   category: RestaurantDetailCategory,
+  search?: string,
 ): Promise<GetRestaurantsResponse> => {
-  const latitudes = [
-    polygon.firstCoordinate.latitude,
-    polygon.secondCoordinate.latitude,
-    polygon.thirdCoordinate.latitude,
-    polygon.fourthCoordinate.latitude,
-  ].join(',');
-
-  const longitudes = [
-    polygon.firstCoordinate.longitude,
-    polygon.secondCoordinate.longitude,
-    polygon.thirdCoordinate.longitude,
-    polygon.fourthCoordinate.longitude,
-  ].join(',');
-
   const params: Record<string, string | number> = {
-    latitudes,
-    longitudes,
     page,
   };
+
+  // polygon이 있을때만 coodinates 추가
+  if (polygon) {
+    const latitudes = [
+      polygon.firstCoordinate.latitude,
+      polygon.secondCoordinate.latitude,
+      polygon.thirdCoordinate.latitude,
+      polygon.fourthCoordinate.latitude,
+    ].join(',');
+
+    const longitudes = [
+      polygon.firstCoordinate.longitude,
+      polygon.secondCoordinate.longitude,
+      polygon.thirdCoordinate.longitude,
+      polygon.fourthCoordinate.longitude,
+    ].join(',');
+
+    params.latitudes = latitudes;
+    params.longitudes = longitudes;
+  }
+
   // category가 null이 아닐때만 params에 추가
   if (category !== null) {
     params.category = category;
+  }
+
+  // search가 있을때만 params에 추가
+  if (search) {
+    params.search = search;
   }
 
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
@@ -53,11 +64,13 @@ export const useGetRestaurants = (
   polygon: Polygon | null,
   page: number,
   category: RestaurantDetailCategory = null,
+  search?: string,
 ): UseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
-    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page],
-    queryFn: () => getRestaurants(polygon!, page, category),
-    enabled: !!polygon,
+    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page, search],
+    queryFn: () => getRestaurants(polygon, page, category, search),
+    // search가 있을때는 polygon없어도 enabled
+    enabled: !!polygon || !!search,
     staleTime: 1000 * 60 * 5,
   });
 };
