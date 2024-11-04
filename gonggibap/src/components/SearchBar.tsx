@@ -8,6 +8,7 @@ type SearchBarProps = {
   placeholder?: string;
   className?: string;
   inputClassName?: string;
+  isMobile?: boolean;
 };
 
 export const SearchBar = ({
@@ -15,6 +16,7 @@ export const SearchBar = ({
   placeholder = '검색어를 입력해주세요',
   className = '',
   inputClassName = '',
+  isMobile = false,
 }: SearchBarProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -37,10 +39,8 @@ export const SearchBar = ({
   return (
     <form role="search" onSubmit={handleSubmit} className={className}>
       <fieldset
-        className="flex items-center gap-2 rounded-lg px-3 py-2"
-        style={{
-          border: '2px solid #FF7058',
-        }}>
+        className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 dark:bg-gray-700"
+        style={isMobile ? undefined : { border: '2px solid #FF7058' }}>
         <label htmlFor="search" className="sr-only">
           검색
         </label>

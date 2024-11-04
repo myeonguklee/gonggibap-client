@@ -8,16 +8,19 @@ import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
 import { MapCrosshair } from '@/app/_components/MapCrosshair';
 import { Sidebar } from '@/app/_components/sidebar/Sidebar';
+import { SearchBar } from '@/components/SearchBar';
 
 import { useGetRestaurants } from '@/apis/restaurant';
 
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
     number | null
@@ -99,6 +102,14 @@ export default function Home() {
 
   return (
     <>
+      {isMobile && (
+        <SearchBar
+          onSearch={handleRestaurantSearch}
+          placeholder="장소, 지역 검색"
+          className="fixed left-1/2 top-5 z-10 min-w-[332px] -translate-x-1/2 rounded-2xl shadow-lg"
+          isMobile
+        />
+      )}
       <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategorySelect}
@@ -130,7 +141,7 @@ export default function Home() {
           setSelectedRestaurantId(null);
           setSearchKeyword('');
         }}
-        className="fixed left-1/2 top-20 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-base font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
+        className="fixed left-1/2 top-28 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-sm font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
         aria-label="현 지도에서 재검색">
         <MdRefresh />현 지도에서 재검색
       </button>
