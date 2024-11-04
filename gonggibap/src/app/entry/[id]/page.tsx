@@ -1,11 +1,12 @@
 'use client';
 
 import { Suspense } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { FirstLoading } from '@/app/entry/[id]/_components/FirstLoading';
-import { EntryPageContent } from '@/app/entry/[id]/_components//EntryPageContent';
 import { RestaurantDetailErrorFallback } from '@/app/_components/sidebar/restaurant/detail/RestaurantDetailErrorFallback';
+import { EntryPageContent } from '@/app/entry/[id]/_components//EntryPageContent';
+import { FirstLoading } from '@/app/entry/[id]/_components/FirstLoading';
 interface EntryPageProps {
   params: {
     id: string;

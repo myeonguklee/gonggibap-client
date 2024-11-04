@@ -5,10 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Polygon } from '@/types/restaurant';
 
-import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
+import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
 import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
 import { SearchBar } from '@/app/entry/[id]/_components//SearchBar';
-import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
+import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
 
@@ -16,10 +16,8 @@ import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
-
-
 interface EntryPageProps {
-  restaurantId: Number;
+  restaurantId: number;
 }
 
 export function EntryPageContent({ restaurantId }: EntryPageProps) {

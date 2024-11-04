@@ -29,7 +29,7 @@ export function FavoritesList({ onTabChange }: FavoritesListProps) {
           <div className="flex gap-3">
             <button
               onClick={() => onTabChange('list')}
-              className="rounded-lg min-w-[8rem] bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
+              className="min-w-32 rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
               취소
             </button>
             <a
