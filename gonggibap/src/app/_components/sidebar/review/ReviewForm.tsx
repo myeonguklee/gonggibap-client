@@ -229,7 +229,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
             <div className="gap-6 flex-center">
               <button
                 onClick={onClickWriteReview}
-                className="rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
+                className="rounded-lg bg-gray-400 px-6 py-2 min-w-[8rem] text-white hover:bg-gray-500">
                 취소
               </button>
               <a
