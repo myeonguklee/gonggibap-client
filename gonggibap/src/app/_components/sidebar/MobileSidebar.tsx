@@ -20,8 +20,8 @@ import {
 import { RestaurantListView } from '@/app/_components/sidebar/restaurant/list/RestaurantListView';
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 
-import { PiNavigationArrowBold } from 'react-icons/pi';
 import { MdOutlineFeedback } from 'react-icons/md';
+import { PiNavigationArrowBold } from 'react-icons/pi';
 
 type MobileSidebarProps = {
   restaurants?: Restaurant[];

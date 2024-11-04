@@ -1,7 +1,7 @@
 'use client';
 
-import Script from 'next/script';
 import { useRouter } from 'next/navigation';
+import Script from 'next/script';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Polygon } from '@/types/restaurant';

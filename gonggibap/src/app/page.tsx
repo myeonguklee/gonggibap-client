@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
