@@ -30,6 +30,7 @@ export const SearchBar = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSearch();
+    setSearchTerm('');
   };
 
   const handleClear = () => {
