@@ -33,6 +33,7 @@ export function EntryPageContent({ restaurantId }: EntryPageProps) {
     // 검색어가 있으면 메인 페이지로 이동하면서 검색어 파라미터 추가
     if (keyword) {
       router.push(`/?keyword=${encodeURIComponent(keyword)}`);
+      // window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
     } else {
       router.push('/');
     }
