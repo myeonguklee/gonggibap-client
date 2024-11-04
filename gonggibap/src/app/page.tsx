@@ -61,6 +61,7 @@ export default function Home() {
   // 검색 핸들러
   const handleRestaurantSearch = (keyword: string) => {
     setSearchKeyword(keyword);
+    setSelectedCategory(null);
     setPolygon(null); // 검색시 polygon초기화
     setCurrentPage(0);
     // 검색시 전국 줌레벨로 이동
@@ -102,6 +103,7 @@ export default function Home() {
       <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategorySelect}
+        onSearch={handleRestaurantSearch}
       />
       <Sidebar
         restaurants={restaurants?.content}
@@ -130,7 +132,7 @@ export default function Home() {
           setSelectedRestaurantId(null);
           setSearchKeyword('');
         }}
-        className="fixed left-1/2 top-20 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-base font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
+        className="fixed left-1/2 top-28 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-sm font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
         aria-label="현 지도에서 재검색">
         <MdRefresh />현 지도에서 재검색
       </button>
