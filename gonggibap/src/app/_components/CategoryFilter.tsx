@@ -5,17 +5,18 @@ import * as Popover from '@radix-ui/react-popover';
 
 import { RestaurantDetailCategory } from '@/types/restaurant';
 
+import { SearchBar } from '@/components/SearchBar';
+
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { getCategoryIcon } from '@/utils/getCategoryIcon';
 
 import { RESTAURANT_CATEGORIES } from '@/constants/category';
-import { SearchBar } from '@/components/SearchBar';
 
 interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
-  onSearch?: (keyword: string) => void;
+  onSearch: (keyword: string) => void;
 }
 
 export const CategoryFilter = ({
@@ -82,7 +83,7 @@ export const CategoryFilter = ({
   return (
     <div className="fixed left-1/2 top-4 z-10 -translate-x-1/2 transition-all duration-300 md:left-[21rem] md:top-4 md:-translate-x-0">
       <div className="flex flex-col gap-2 p-2">
-        {isMobile && onSearch && (
+        {isMobile && (
           <SearchBar
             onSearch={onSearch}
             placeholder="장소, 지역 검색"

@@ -8,19 +8,16 @@ import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
 import { MapCrosshair } from '@/app/_components/MapCrosshair';
 import { Sidebar } from '@/app/_components/sidebar/Sidebar';
-import { SearchBar } from '@/components/SearchBar';
 
 import { useGetRestaurants } from '@/apis/restaurant';
 
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
     number | null
@@ -64,6 +61,7 @@ export default function Home() {
   // 검색 핸들러
   const handleRestaurantSearch = (keyword: string) => {
     setSearchKeyword(keyword);
+    setSelectedCategory(null);
     setPolygon(null); // 검색시 polygon초기화
     setCurrentPage(0);
     // 검색시 전국 줌레벨로 이동
@@ -105,7 +103,7 @@ export default function Home() {
       <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategorySelect}
-        onSearch={isMobile ? handleRestaurantSearch : undefined}
+        onSearch={handleRestaurantSearch}
       />
       <Sidebar
         restaurants={restaurants?.content}
