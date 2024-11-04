@@ -26,10 +26,10 @@ export function FavoritesList({ onTabChange }: FavoritesListProps) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex-center">
         <div className="flex flex-col gap-5 text-center">
           <p className="text-white">로그인이 필요합니다</p>
-          <div className="flex gap-6">
+          <div className="flex gap-3">
             <button
               onClick={() => onTabChange('list')}
-              className="rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
+              className="min-w-32 rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
               취소
             </button>
             <a
