@@ -79,7 +79,7 @@ export const CategoryFilter = ({
   return (
     <div
       className={
-        'fixed left-1/2 top-4 z-10 -translate-x-1/2 transition-all duration-300 md:left-[21rem] md:top-4 md:-translate-x-0'
+        'fixed left-1/2 top-16 z-10 -translate-x-1/2 transition-all duration-300 md:left-[21rem] md:top-4 md:-translate-x-0'
       }>
       <div className="flex items-center gap-2 overflow-x-auto p-2">
         <CategoryButton value={null} label="음식점" />
