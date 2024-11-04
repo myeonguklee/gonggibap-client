@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_REPO = 'sonjiseokk/client'
         DOCKER_HUB_CREDENTIALS_ID = 'DOCKER_HUB_CREDENTIALS_ID'
-        NETWORK_NAME = 'my-network'
+        NETWORK_NAME = 'monitor'
         GITLAB_CREDENTIALS_ID = 'GITLAB_CREDENTIALS_ID' // GitLab 인증 정보 ID
         GITHUB_CREDENTIALS_ID = 'GITHUB_CREDENTIALS_ID'
         
