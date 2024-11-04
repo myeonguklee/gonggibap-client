@@ -63,6 +63,7 @@ export default function Home() {
     setSearchKeyword(keyword);
     setSelectedCategory(null);
     setPolygon(null); // 검색시 polygon초기화
+    setSelectedRestaurantId(null);
     setCurrentPage(0);
     // 검색시 전국 줌레벨로 이동
     if (mapInstance) {
