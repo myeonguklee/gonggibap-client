@@ -102,17 +102,10 @@ export default function Home() {
 
   return (
     <>
-      {isMobile && (
-        <SearchBar
-          onSearch={handleRestaurantSearch}
-          placeholder="장소, 지역 검색"
-          className="fixed left-1/2 top-5 z-10 min-w-[332px] -translate-x-1/2 rounded-2xl shadow-lg"
-          isMobile
-        />
-      )}
       <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategorySelect}
+        onSearch={isMobile ? handleRestaurantSearch : undefined}
       />
       <Sidebar
         restaurants={restaurants?.content}
