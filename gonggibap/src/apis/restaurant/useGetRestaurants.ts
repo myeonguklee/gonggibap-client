@@ -70,7 +70,7 @@ export const useGetRestaurants = (
     queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page, search],
     queryFn: () => getRestaurants(polygon, page, category, search),
     // search가 있을때는 polygon없어도 enabled
-    enabled: !!polygon || !!search,
+    enabled: !!polygon || !!search || !!category,
     staleTime: 1000 * 60 * 5,
   });
 };

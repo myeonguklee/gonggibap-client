@@ -58,9 +58,12 @@ export function PageContent() {
 
   // 카테고리 변경
   const handleCategorySelect = (category: RestaurantDetailCategory) => {
-    setSelectedCategory(category);
     setCurrentPage(0); // 카테고리 변경 시 페이지 리셋
     setSearchKeyword(''); // 카테고리 변경 시 검색어 리셋
+    setSelectedCategory(category);
+    if (!polygon && mapInstance) {
+      mapInstance.setLevel(13);
+    }
     // 카테고리 변경시 검색어 파라미터 제거
     router.push('/', { scroll: false });
   };
