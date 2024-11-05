@@ -2,8 +2,6 @@ import Image from 'next/image';
 
 import { Restaurant } from '@/types/restaurant';
 
-import { useAuthStore } from '@/store/useAuthStore';
-
 import { RestaurantInfo } from '@/app/_components/sidebar/restaurant/detail';
 import { ReviewsContent } from '@/app/_components/sidebar/review';
 
@@ -14,8 +12,6 @@ interface RestaurantDetailViewProps {
 export function RestaurantDetailView({
   restaurant,
 }: RestaurantDetailViewProps) {
-  const auth = useAuthStore();
-
   return (
     <div className="flex flex-col gap-5 px-4">
       <div className="flex items-end gap-2">
@@ -39,10 +35,7 @@ export function RestaurantDetailView({
       </div>
 
       <div>
-        <ReviewsContent
-          restaurantId={restaurant.restaurantId}
-          currentUserId={auth.userInfo?.id}
-        />
+        <ReviewsContent restaurantId={restaurant.restaurantId} />
       </div>
     </div>
   );

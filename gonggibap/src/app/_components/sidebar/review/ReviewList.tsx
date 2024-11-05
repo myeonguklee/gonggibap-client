@@ -4,16 +4,12 @@ import { ReviewListItem } from './ReviewListItem';
 
 type ReviewListProps = {
   reviews: Review[];
-  currentUserId?: number;
-  onDeleteReview: (reviewId: number) => void;
-  isDeleting: boolean;
+  restaurantId: number;
 };
 
 export const ReviewList = ({
   reviews,
-  currentUserId,
-  onDeleteReview,
-  isDeleting,
+  restaurantId,
 }: ReviewListProps) => {
   if (reviews.length === 0) {
     return <p className="mt-10 text-center">작성된 리뷰가 없습니다.</p>;
@@ -25,9 +21,7 @@ export const ReviewList = ({
         <ReviewListItem
           key={review.reviewId}
           review={review}
-          currentUserId={currentUserId}
-          onDeleteReview={onDeleteReview}
-          isDeleting={isDeleting}
+          restaurantId={restaurantId}
         />
       ))}
     </ul>

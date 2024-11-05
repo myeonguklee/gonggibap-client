@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { useAuthStore } from '@/store/useAuthStore';
-
 import { HistoryContent } from '@/app/_components/sidebar/history';
 import {
   RestaurantHeader,
@@ -24,17 +22,16 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   onClose,
   onBack,
 }) => {
-  const auth = useAuthStore();
   const { data: restaurant } = useGetRestaurant(restaurantId);
-  const [activeTab, setActiveTab] = useState('reviews');
+  const [activeTab, setActiveTab] = useState('history');
 
   const tabs = [
-    { id: 'reviews', label: '리뷰', ariaLabel: '음식점 리뷰 탭' },
     {
       id: 'history',
       label: '공공기관 사용내역',
       ariaLabel: '공공기관 사용내역 탭',
     },
+    { id: 'reviews', label: '리뷰', ariaLabel: '음식점 리뷰 탭' },
   ];
 
   const handleTabChange = (tab: string) => {
@@ -85,15 +82,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         aria-live="polite"
         role="tabpanel"
         aria-label={
-          activeTab === 'reviews' ? '리뷰 목록' : '공공기관 사용내역'
+          activeTab === 'history' ? '공공기관 사용내역' : '리뷰 목록'
         }>
-        {activeTab === 'reviews' ? (
-          <ReviewsContent
-            restaurantId={restaurant.restaurantId}
-            currentUserId={auth.userInfo?.id}
-          />
-        ) : (
+        {activeTab === 'history' ? (
           <HistoryContent restaurantId={restaurant.restaurantId} />
+        ) : (
+          <ReviewsContent restaurantId={restaurant.restaurantId} />
         )}
       </section>
     </article>
