@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
+import { FirstLoading } from '@/app/_components/FirstLoading';
 import { MapCrosshair } from '@/app/_components/MapCrosshair';
 import { Sidebar } from '@/app/_components/sidebar/Sidebar';
 
@@ -17,7 +18,6 @@ import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
 import { MdRefresh } from 'react-icons/md';
-import { FirstLoading } from '@/app/_components/FirstLoading';
 
 export function PageContent() {
   const router = useRouter();
@@ -32,7 +32,7 @@ export function PageContent() {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
 
-  const { data: restaurants, isLoading } = useGetRestaurants(
+  const { data: restaurants } = useGetRestaurants(
     polygon,
     currentPage,
     selectedCategory,
@@ -121,7 +121,7 @@ export function PageContent() {
       handleRestaurantSearch(keyword);
     }
   }, [mapInstance]);
-  
+
   return (
     <>
       {mapInstance ? (

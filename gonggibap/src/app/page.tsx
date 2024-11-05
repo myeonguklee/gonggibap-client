@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { PageContent } from '@/app/_components/PageContent';
 import { FirstLoading } from '@/app/_components/FirstLoading';
+import { PageContent } from '@/app/_components/PageContent';
 import { RestaurantDetailErrorFallback } from '@/app/_components/sidebar/restaurant/detail';
 
 export default function Home() {

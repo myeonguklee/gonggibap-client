@@ -4,9 +4,9 @@ import { Suspense } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
+import { FirstLoading } from '@/app/_components/FirstLoading';
 import { RestaurantDetailErrorFallback } from '@/app/_components/sidebar/restaurant/detail/RestaurantDetailErrorFallback';
 import { EntryPageContent } from '@/app/entry/[id]/_components//EntryPageContent';
-import { FirstLoading } from '@/app/_components/FirstLoading';
 interface EntryPageProps {
   params: {
     id: string;
