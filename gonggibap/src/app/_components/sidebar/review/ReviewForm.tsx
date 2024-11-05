@@ -42,7 +42,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
     },
   });
 
-  const createReviewMutation = useCreateReview();
+  const { mutate, isPending } = useCreateReview({
+    onSuccess: onClickWriteReview,
+  });
+
   const point = watch('point');
   const queryClient = useQueryClient();
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
@@ -83,27 +86,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       return;
     }
 
-    createReviewMutation.mutate(
-      {
-        restaurantId,
-        content: data.content,
-        point: data.point,
-        images: uploadedImages,
-      },
-      {
-        onSuccess: () => {
-          toast.success('리뷰가 등록되었습니다');
-          queryClient.invalidateQueries({
-            queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
-          });
-          onClickWriteReview(); // 성공 시 폼 닫기
-        },
-        onError: (error) => {
-          toast.error('리뷰 등록에 실패했습니다');
-          console.error(error);
-        },
-      },
-    );
+    mutate({
+      restaurantId,
+      content: data.content,
+      point: data.point,
+      images: uploadedImages,
+    });
   });
 
   return (
@@ -212,9 +200,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
             <button
               type="submit"
-              disabled={createReviewMutation.isPending}
+              disabled={isPending}
               className="flex-1 rounded-lg bg-[#FF7058] px-4 py-2 text-white hover:bg-[#ff7158da] disabled:opacity-50 dark:bg-gray-700 dark:hover:bg-gray-900 md:dark:bg-gray-800">
-              {createReviewMutation.isPending ? '등록 중...' : '리뷰 등록'}
+              {isPending ? '등록 중...' : '리뷰 등록'}
             </button>
           </div>
         </form>
