@@ -1,12 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Polygon } from '@/types/restaurant';
 
-import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
+import { FirstLoading } from '@/app/_components/FirstLoading';
 import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
 import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
 import { SearchBar } from '@/components//SearchBar';
@@ -22,7 +21,6 @@ interface EntryPageProps {
 }
 
 export function EntryPageContent({ restaurantId }: EntryPageProps) {
-  const router = useRouter();
   const { data: restaurant } = useGetRestaurant(Number(restaurantId));
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -32,10 +30,7 @@ export function EntryPageContent({ restaurantId }: EntryPageProps) {
   const handleSearch = (keyword: string) => {
     // 검색어가 있으면 메인 페이지로 이동하면서 검색어 파라미터 추가
     if (keyword) {
-      router.push(`/?keyword=${encodeURIComponent(keyword)}`);
-      // window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
-    } else {
-      router.push('/');
+      window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
     }
   };
 
