@@ -98,7 +98,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           {/* Rating selection */}
           <fieldset>
             <legend className="hidden">별점</legend>
-            <div className="gap-2 flex-center">
+            <div className="flex-center gap-2">
               {Array.from({ length: 5 }, (_, index) => index + 1).map(
                 (star) => (
                   <button
@@ -145,8 +145,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               ))}
 
               {uploadedImages.length < 4 && (
-                <label className="h-20 w-full cursor-pointer rounded bg-gray-100 flex-col-center hover:bg-gray-200 dark:bg-gray-700  dark:hover:bg-gray-900 md:dark:bg-gray-800">
-                  <span className="size-full text-xs flex-center">
+                <label className="flex-col-center h-20 w-full cursor-pointer rounded bg-gray-100 hover:bg-gray-200 dark:bg-gray-700  dark:hover:bg-gray-900 md:dark:bg-gray-800">
+                  <span className="flex-center size-full text-xs">
                     사진 추가
                   </span>
                   <input
@@ -205,12 +205,12 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
       </div>
       {/* Login Overlay */}
       {!isLogin && (
-        <div className="absolute inset-0 rounded-lg bg-black/50 backdrop-blur-sm flex-center">
+        <div className="flex-center absolute inset-0 rounded-lg bg-black/50 backdrop-blur-sm">
           <div className="text-center">
             <p className="mb-4 text-white">
               리뷰를 작성하려면 로그인이 필요합니다
             </p>
-            <div className="gap-6 flex-center">
+            <div className="flex-center gap-6">
               <button
                 onClick={onClickWriteReview}
                 className="min-w-32 rounded-lg bg-gray-400 px-6 py-2 text-white hover:bg-gray-500">
