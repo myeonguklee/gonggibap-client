@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { useAuthStore } from '@/store/useAuthStore';
-
 import { HistoryContent } from '@/app/_components/sidebar/history';
 import {
   RestaurantHeader,
@@ -24,7 +22,6 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   onClose,
   onBack,
 }) => {
-  const auth = useAuthStore();
   const { data: restaurant } = useGetRestaurant(restaurantId);
   const [activeTab, setActiveTab] = useState('reviews');
 
@@ -90,7 +87,6 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         {activeTab === 'reviews' ? (
           <ReviewsContent
             restaurantId={restaurant.restaurantId}
-            currentUserId={auth.userInfo?.id}
           />
         ) : (
           <HistoryContent restaurantId={restaurant.restaurantId} />

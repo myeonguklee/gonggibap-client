@@ -4,14 +4,12 @@ import { ReviewListItem } from './ReviewListItem';
 
 type ReviewListProps = {
   reviews: Review[];
-  currentUserId?: number;
   onDeleteReview: (reviewId: number) => void;
   isDeleting: boolean;
 };
 
 export const ReviewList = ({
   reviews,
-  currentUserId,
   onDeleteReview,
   isDeleting,
 }: ReviewListProps) => {
@@ -25,7 +23,6 @@ export const ReviewList = ({
         <ReviewListItem
           key={review.reviewId}
           review={review}
-          currentUserId={currentUserId}
           onDeleteReview={onDeleteReview}
           isDeleting={isDeleting}
         />

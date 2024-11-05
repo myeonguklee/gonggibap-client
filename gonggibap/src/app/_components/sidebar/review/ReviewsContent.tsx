@@ -11,12 +11,10 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 
 type ReviewsContentProps = {
   restaurantId: number;
-  currentUserId?: number;
 };
 
 export const ReviewsContent = ({
   restaurantId,
-  currentUserId,
 }: ReviewsContentProps) => {
   const queryClient = useQueryClient();
   const { data: reviews } = useGetReviews(restaurantId);
@@ -67,7 +65,6 @@ export const ReviewsContent = ({
             {reviews && (
               <ReviewList
                 reviews={reviews}
-                currentUserId={currentUserId}
                 onDeleteReview={handleDeleteReview}
                 isDeleting={deleteReviewMutation.isPending}
               />

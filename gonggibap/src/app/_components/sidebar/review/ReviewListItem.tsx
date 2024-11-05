@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/store/useAuthStore';
+
 import { Review } from '@/types/review';
 
 import { StarRating, ReviewImages } from '@/app/_components/sidebar/review';
@@ -17,6 +19,9 @@ export const ReviewListItem = ({
   onDeleteReview,
   isDeleting,
 }: ReviewListItemProps) => {
+
+  const auth = useAuthStore();
+
   return (
     <li className="flex flex-col gap-1 border-b pb-4 dark:border-gray-500">
       <div className="flex items-center gap-2">
@@ -37,7 +42,7 @@ export const ReviewListItem = ({
             {getRelativeTime(review.date)}
           </div>
         </div>
-        {review.userId === currentUserId && (
+        {review.userId === auth.userInfo?.userId && (
           <button
             onClick={() => onDeleteReview(review.reviewId)}
             disabled={isDeleting}
