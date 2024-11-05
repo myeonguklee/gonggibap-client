@@ -1,8 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
@@ -20,7 +20,7 @@ import { MdRefresh } from 'react-icons/md';
 
 export default function Home() {
   const router = useRouter();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -112,6 +112,14 @@ export default function Home() {
     selectedRestaurantId,
     onRestaurantSelect: handleRestaurantSelect,
   });
+
+  useEffect(() => {
+    const keyword = searchParams.get('keyword');
+    // mapInstance가 존재하고 완전히 초기화되었는지 확인
+    if (keyword && mapInstance && mapInstance.getCenter()) {
+      handleRestaurantSearch(keyword);
+    }
+  }, [mapInstance]);
 
   return (
     <>
