@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Polygon } from '@/types/restaurant';
 
-import { FirstLoading } from '@/app/entry/[id]/_components//FirstLoading';
+import { FirstLoading } from '@/app/_components/FirstLoading';
 import { MobileSidebar } from '@/app/entry/[id]/_components//MobileSidebar';
 import { DesktopSidebar } from '@/app/entry/[id]/_components/DesktopSidebar';
 import { SearchBar } from '@/components//SearchBar';
@@ -31,7 +31,7 @@ export function EntryPageContent({ restaurantId }: EntryPageProps) {
     // 검색어가 있으면 메인 페이지로 이동하면서 검색어 파라미터 추가
     if (keyword) {
       window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
-    } 
+    }
   };
 
   const { mapRef, mapInstance, onKakaoMapLoad } = useKakaoMap({
