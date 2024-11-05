@@ -23,15 +23,15 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
   onBack,
 }) => {
   const { data: restaurant } = useGetRestaurant(restaurantId);
-  const [activeTab, setActiveTab] = useState('reviews');
+  const [activeTab, setActiveTab] = useState('history');
 
   const tabs = [
-    { id: 'reviews', label: '리뷰', ariaLabel: '음식점 리뷰 탭' },
     {
       id: 'history',
       label: '공공기관 사용내역',
       ariaLabel: '공공기관 사용내역 탭',
     },
+    { id: 'reviews', label: '리뷰', ariaLabel: '음식점 리뷰 탭' },
   ];
 
   const handleTabChange = (tab: string) => {
@@ -82,14 +82,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         aria-live="polite"
         role="tabpanel"
         aria-label={
-          activeTab === 'reviews' ? '리뷰 목록' : '공공기관 사용내역'
+          activeTab === 'history' ? '공공기관 사용내역' : '리뷰 목록'
         }>
-        {activeTab === 'reviews' ? (
-          <ReviewsContent
-            restaurantId={restaurant.restaurantId}
-          />
-        ) : (
+        {activeTab === 'history' ? (
           <HistoryContent restaurantId={restaurant.restaurantId} />
+        ) : (
+          <ReviewsContent restaurantId={restaurant.restaurantId} />
         )}
       </section>
     </article>
