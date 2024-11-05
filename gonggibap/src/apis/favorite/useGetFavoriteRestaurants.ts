@@ -23,7 +23,7 @@ export const useGetFavoriteRestaurants = (): UseQueryResult<
 > => {
   const { isLogin } = useAuthStore();
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
-    queryKey: [QUERY_KEYS.FAVORITE.ALL],
+    queryKey: QUERY_KEYS.FAVORITE.ALL,
     queryFn: () => getFavoriteRestaurants(),
     enabled: isLogin,
     staleTime: 1000 * 60 * 5,
