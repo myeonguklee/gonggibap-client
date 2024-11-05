@@ -1,6 +1,6 @@
-import { useAuthStore } from '@/store/useAuthStore';
-
 import { Review } from '@/types/review';
+
+import { useAuthStore } from '@/store/useAuthStore';
 
 import { StarRating, ReviewImages } from '@/app/_components/sidebar/review';
 
@@ -8,14 +8,12 @@ import { getRelativeTime } from '@/utils/getRelativeTime';
 
 type ReviewListItemProps = {
   review: Review;
-  currentUserId?: number;
   onDeleteReview: (reviewId: number) => void;
   isDeleting: boolean;
 };
 
 export const ReviewListItem = ({
   review,
-  currentUserId,
   onDeleteReview,
   isDeleting,
 }: ReviewListItemProps) => {
