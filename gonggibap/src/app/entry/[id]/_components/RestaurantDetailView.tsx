@@ -12,7 +12,6 @@ interface RestaurantDetailViewProps {
 export function RestaurantDetailView({
   restaurant,
 }: RestaurantDetailViewProps) {
-
   return (
     <div className="flex flex-col gap-5 px-4">
       <div className="flex items-end gap-2">
@@ -36,9 +35,7 @@ export function RestaurantDetailView({
       </div>
 
       <div>
-        <ReviewsContent
-          restaurantId={restaurant.restaurantId}
-        />
+        <ReviewsContent restaurantId={restaurant.restaurantId} />
       </div>
     </div>
   );

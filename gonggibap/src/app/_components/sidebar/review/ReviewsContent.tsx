@@ -13,9 +13,7 @@ type ReviewsContentProps = {
   restaurantId: number;
 };
 
-export const ReviewsContent = ({
-  restaurantId,
-}: ReviewsContentProps) => {
+export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
   const queryClient = useQueryClient();
   const { data: reviews } = useGetReviews(restaurantId);
   const deleteReviewMutation = useDeleteReview();

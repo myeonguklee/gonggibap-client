@@ -4,11 +4,12 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 
 import { client } from '@/apis/core/client';
-import { toast } from 'react-toastify';
+
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
 interface CreateReviewDTO {

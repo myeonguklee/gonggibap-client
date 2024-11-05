@@ -17,7 +17,6 @@ export const ReviewListItem = ({
   onDeleteReview,
   isDeleting,
 }: ReviewListItemProps) => {
-
   const auth = useAuthStore();
 
   return (
