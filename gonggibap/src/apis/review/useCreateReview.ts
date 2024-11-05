@@ -1,5 +1,4 @@
 import {
-  UseMutationOptions,
   UseMutationResult,
   useMutation,
   useQueryClient,
@@ -59,7 +58,7 @@ export const useCreateReview = (
     onSuccess: (_, formData) => {
       toast.success('리뷰가 등록되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId)],
+        queryKey: QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId),
       });
       options?.onSuccess?.();
     },

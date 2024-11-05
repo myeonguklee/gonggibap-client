@@ -27,7 +27,7 @@ export const ReviewsContent = ({
     deleteReviewMutation.mutate(reviewId, {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.REVIEW.DETAIL(restaurantId)],
+          queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId),
         });
         toast.success('리뷰가 삭제되었습니다.');
       },
