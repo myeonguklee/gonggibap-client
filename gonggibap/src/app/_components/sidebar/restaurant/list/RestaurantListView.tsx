@@ -35,36 +35,14 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   onRestaurantSearch,
   onFavoriteRestaurantFilter,
 }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // URL의 tab 파라미터를 읽어와 초기 상태로 설정
-  const initialTab = searchParams.get('tab') || 'list';
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState("list");
 
   const tabs = [
     { id: 'list', label: '맛집 리스트' },
     { id: 'favorite', label: '내가 찜한' },
   ];
 
-  // URL 파라미터가 변경될 때마다 탭 상태 업데이트
-  useEffect(() => {
-    const tabParam = searchParams.get('tab');
-    if (tabParam && (tabParam === 'list' || tabParam === 'favorite')) {
-      setActiveTab(tabParam);
-    }
-  }, [searchParams]);
-
   const handleTabChange = (tab: string) => {
-    // 현재 URL의 검색 파라미터를 유지하면서 tab 파라미터만 업데이트
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-    current.set('tab', tab);
-
-    // URL 업데이트
-    const search = current.toString();
-    const query = search ? `?${search}` : '';
-    router.push(`${window.location.pathname}${query}`, { scroll: false });
-
     setActiveTab(tab);
   };
 
