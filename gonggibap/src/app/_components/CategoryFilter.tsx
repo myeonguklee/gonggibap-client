@@ -93,7 +93,7 @@ export const CategoryFilter = ({
         )}
 
         <div className="flex items-center gap-2 overflow-x-auto">
-          <CategoryButton value={null} label="전체" />
+          <CategoryButton value={'음식점'} label="음식점" />
           {MAIN_CATEGORIES.map((category) => (
             <CategoryButton
               key={category.key}

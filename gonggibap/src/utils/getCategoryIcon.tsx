@@ -24,7 +24,7 @@ export const getCategoryIcon = (
   className?: string,
 ): ReactElement | null => {
   switch (value) {
-    case null:
+    case '음식점':
       return <ImSpoonKnife className={className} />;
     case '카페':
       return <BiSolidCoffeeAlt className={className} />;
