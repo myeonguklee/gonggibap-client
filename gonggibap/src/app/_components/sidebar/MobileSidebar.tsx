@@ -64,41 +64,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
   };
 
-  useEffect(() => {
-    const element = sidebarRef.current;
-    if (!element) return;
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!touchState.isDragging) return;
-      if (position !== 'full') {
-        e.preventDefault();
-      }
-    };
-
-    // TouchEvent 타입을 명시적으로 처리
-    const touchMoveHandler: EventListener = (e: Event) => {
-      if (e instanceof TouchEvent) {
-        handleTouchMove(e);
-      }
-    };
-
-    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
-
-    return () => {
-      element.removeEventListener('touchmove', touchMoveHandler);
-    };
-  }, [touchState.isDragging, position]);
-
-  useEffect(() => {
-    if (selectedRestaurantId) {
-      setView('detail');
-      setPosition('half');
-    } else {
-      setView('list');
-      setPosition('peek');
-    }
-  }, [selectedRestaurantId]);
-
   const handleBackToList = () => {
     setView('list');
     onRestaurantSelect(null);
@@ -155,6 +120,47 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     half: 'h-1/2',
     full: 'h-[85vh]',
   };
+
+  useEffect(() => {
+    const element = sidebarRef.current;
+    if (!element) return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!touchState.isDragging) return;
+      if (position !== 'full') {
+        e.preventDefault();
+      }
+    };
+
+    // TouchEvent 타입을 명시적으로 처리
+    const touchMoveHandler: EventListener = (e: Event) => {
+      if (e instanceof TouchEvent) {
+        handleTouchMove(e);
+      }
+    };
+
+    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
+
+    return () => {
+      element.removeEventListener('touchmove', touchMoveHandler);
+    };
+  }, [touchState.isDragging, position]);
+
+  useEffect(() => {
+    if (selectedRestaurantId) {
+      setView('detail');
+      setPosition('half');
+    } else {
+      setView('list');
+      setPosition('peek');
+    }
+  }, [selectedRestaurantId]);
+
+  useEffect(() => {
+    if (restaurants && restaurants.length > 0) {
+      setPosition('half');
+    }
+  }, [restaurants]);
 
   return (
     <div
