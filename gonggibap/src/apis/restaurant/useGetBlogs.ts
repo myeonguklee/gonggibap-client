@@ -1,8 +1,11 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+
 import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
 import { Blog } from '@/types/restaurant';
+
 import { client } from '@/apis/core/client';
+
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const getBlogs = async (restaurantId: number): Promise<Blog[]> => {

@@ -7,10 +7,7 @@ type ReviewListProps = {
   restaurantId: number;
 };
 
-export const ReviewList = ({
-  reviews,
-  restaurantId,
-}: ReviewListProps) => {
+export const ReviewList = ({ reviews, restaurantId }: ReviewListProps) => {
   if (reviews.length === 0) {
     return <p className="mt-10 text-center">작성된 리뷰가 없습니다.</p>;
   }
