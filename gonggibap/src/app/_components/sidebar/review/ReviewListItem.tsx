@@ -38,7 +38,7 @@ export const ReviewListItem = ({
   return (
     <li className="flex flex-col gap-1 border-b pb-4 dark:border-gray-500">
       <div className="flex items-center gap-2">
-        <p className="text-lg font-bold">{review.userName}</p>
+        <p className="text-md font-bold">{review.userName}</p>
         <div className="flex gap-1 text-xs font-semibold">
           <p className="text-gray-500">리뷰</p>
           <p>{review.userReviewCount}</p>

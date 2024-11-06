@@ -4,3 +4,4 @@ export { RestaurantInfo } from '@/app/_components/sidebar/restaurant/detail/Rest
 export { RestaurantTapNavigation } from '@/app/_components/sidebar/restaurant/detail/RestaurantTapNavigation';
 export { RestaurantDetailErrorFallback } from '@/app/_components/sidebar/restaurant/detail/RestaurantDetailErrorFallback';
 export { RestaurantDetailSkeleton } from '@/app/_components/sidebar/restaurant/detail/RestaurantDetailSkeleton';
+export { BlogReview } from '@/app/_components/sidebar/restaurant/detail/BlogReview';
