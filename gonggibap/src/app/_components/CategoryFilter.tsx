@@ -46,7 +46,7 @@ export const CategoryFilter = ({
   }) => (
     <button
       onClick={() => {
-        onSelectCategory(value);
+        onSelectCategory(selectedCategory === value ? null : value);
         if (isMobile) setIsOpen(false);
       }}
       className={`flex w-full items-center gap-2 whitespace-nowrap px-3 py-1.5 text-sm transition-colors

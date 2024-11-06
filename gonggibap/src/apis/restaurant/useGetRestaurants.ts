@@ -41,13 +41,10 @@ const getRestaurants = async (
     params.latitudes = latitudes;
     params.longitudes = longitudes;
   }
-
-  // category가 null이 아닐때만 params에 추가
-  if (category !== null) {
+  if (category) {
     params.category = category;
   }
 
-  // search가 있을때만 params에 추가
   if (search) {
     params.search = search;
   }
@@ -69,8 +66,6 @@ export const useGetRestaurants = (
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
     queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page, search],
     queryFn: () => getRestaurants(polygon, page, category, search),
-    // search가 있을때는 polygon없어도 enabled
-    enabled: !!polygon || !!search || !!category,
     staleTime: 1000 * 60 * 5,
   });
 };
