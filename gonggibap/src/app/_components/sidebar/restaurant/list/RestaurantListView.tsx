@@ -22,6 +22,7 @@ type RestaurantListViewProps = {
   currentPage: number;
   onPageChange: (page: number) => void;
   onRestaurantSearch?: (searchKeyword: string) => void;
+  onFavoriteRestaurantFilter?: (value: boolean) => void;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
@@ -32,6 +33,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   currentPage,
   onPageChange,
   onRestaurantSearch,
+  onFavoriteRestaurantFilter,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();

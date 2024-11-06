@@ -128,7 +128,7 @@ export function PageContent() {
   }, [mapInstance]);
 
   // 찜한 목록 보기
-  const handleFavorite = (value: boolean) => {
+  const handleFavoriteRestaurantFilter = (value: boolean) => {
     setFavorite(value);
     setSelectedRestaurantId(null);
   };
@@ -162,6 +162,7 @@ export function PageContent() {
             onPageChange={handlePageChange}
             onSelectCategory={handleCategorySelect}
             onRestaurantSearch={handleRestaurantSearch}
+            onFavoriteRestaurantFilter={handleFavoriteRestaurantFilter}
           />
           <button
             onClick={() => {
