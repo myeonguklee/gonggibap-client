@@ -18,10 +18,13 @@ import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
 import { MdRefresh } from 'react-icons/md';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function PageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const auth = useAuthStore();
 
   const [polygon, setPolygon] = useState<Polygon | null>(null);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState<
@@ -47,13 +50,13 @@ export function PageContent() {
     if (id && mapInstance && restaurants?.content) {
       const selected = restaurants.content.find((r) => r.restaurantId === id);
       if (selected) {
+        mapInstance.setLevel(3);
         mapInstance.setCenter(
           new kakao.maps.LatLng(
             selected.restaurantLatitude,
             selected.restaurantLongitude,
           ),
         );
-        mapInstance.setLevel(3);
       }
     }
   };
@@ -127,10 +130,18 @@ export function PageContent() {
     }
   }, [mapInstance]);
 
+  const handleMoveToCurrentLocation = () => {
+    moveToCurrentLocation();
+    setFavorite(false);
+  }
+
   // 찜한 목록 보기
   const handleFavoriteRestaurantFilter = (value: boolean) => {
     setFavorite(value);
     setSelectedRestaurantId(null);
+    if (auth.isLogin) {
+      setPolygon(null);
+    }
   };
 
   // favorite 상태 변경시
@@ -139,7 +150,6 @@ export function PageContent() {
       mapInstance?.setLevel(13);
     } else if (favorite === false) {
       moveToCurrentLocation();
-      handleCategorySelect(null);
     }
   }, [favorite]);
 
@@ -151,31 +161,37 @@ export function PageContent() {
             selectedCategory={selectedCategory}
             onSelectCategory={handleCategorySelect}
             onSearch={handleRestaurantSearch}
+            isFavorite={favorite}
           />
           <Sidebar
             restaurants={restaurants?.content}
             totalPages={restaurants?.totalPages}
             selectedRestaurantId={selectedRestaurantId}
             onRestaurantSelect={handleRestaurantSelect}
-            onCurrentLocation={moveToCurrentLocation}
+            onCurrentLocation={handleMoveToCurrentLocation}
             currentPage={currentPage}
             onPageChange={handlePageChange}
             onSelectCategory={handleCategorySelect}
             onRestaurantSearch={handleRestaurantSearch}
+            isFavorite={favorite}
             onFavoriteRestaurantFilter={handleFavoriteRestaurantFilter}
           />
-          <button
-            onClick={() => {
-              clearMapMarkers();
-              handleSearch();
-              handlePageChange(0);
-              setSelectedRestaurantId(null);
-              setSearchKeyword('');
-            }}
-            className="fixed left-1/2 top-28 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-sm font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
-            aria-label="현 지도에서 재검색">
-            <MdRefresh />현 지도에서 재검색
-          </button>
+
+          {!favorite && (
+            <button
+              onClick={() => {
+                clearMapMarkers();
+                handleSearch();
+                handlePageChange(0);
+                setSelectedRestaurantId(null);
+                setSearchKeyword('');
+                setFavorite(false);
+              }}
+              className="fixed left-1/2 top-28 z-10 -translate-x-1/2 gap-1 rounded-3xl bg-[#FF7058] px-4 py-2 text-sm font-semibold text-white shadow-lg flex-center hover:bg-[#FF6147] focus:outline-none md:bottom-12 md:left-[calc(50%+10rem)] md:top-auto md:px-6 md:py-3 md:text-lg"
+              aria-label="현 지도에서 재검색">
+              <MdRefresh />현 지도에서 재검색
+            </button>
+          )}
         </>
       ) : (
         <FirstLoading />
