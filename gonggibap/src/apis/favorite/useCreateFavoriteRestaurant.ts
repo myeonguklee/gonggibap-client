@@ -31,7 +31,7 @@ export const useCreateFavoriteRestaurant = (): UseMutationResult<
     onSuccess: (_, restaurantId) => {
       toast.success('나의 맛집 리스트에 저장됐습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.FAVORITE.ALL,
+        queryKey: [QUERY_KEYS.RESTAURANT.ALL],
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.FAVORITE.CHECK(restaurantId),

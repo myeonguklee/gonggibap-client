@@ -20,22 +20,21 @@ const deleteFavoriteRestaurant = async (
   });
 };
 
-export const useDeleteFavoriteRestaurant = (): UseMutationResult<
-  void,
-  AxiosError<ErrorResponse>,
-  number
-> => {
+export const useDeleteFavoriteRestaurant = (options?: {
+  onSuccess?: () => void;
+}): UseMutationResult<void, AxiosError<ErrorResponse>, number> => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteFavoriteRestaurant,
     onSuccess: (_, restaurantId) => {
       toast.success('찜한 식당 삭제');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.FAVORITE.ALL,
+        queryKey: [QUERY_KEYS.RESTAURANT.ALL],
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.FAVORITE.CHECK(restaurantId),
       });
+      options?.onSuccess?.();
     },
     onError: (error) => {
       switch (error.response?.status) {
