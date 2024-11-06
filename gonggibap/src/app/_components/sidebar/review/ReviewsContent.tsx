@@ -25,15 +25,15 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
         <>
           <div className="flex flex-between-center">
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-black">리뷰</h1>
-              <h2 className="translate-y-1 font-bold text-gray-500">
+              <h1 className="text-lg font-black text-[#FF7058]">리뷰</h1>
+              <h2 className="translate-y-0.5 font-bold text-gray-500">
                 {reviews?.length}개
               </h2>
             </div>
             <button
               onClick={onClickWriteReview}
               className="rounded-lg bg-[#FF7058] p-2 text-right text-white">
-              리뷰 작성
+              작성
             </button>
           </div>
 

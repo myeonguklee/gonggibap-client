@@ -7,6 +7,7 @@ import {
   RestaurantInfo,
   RestaurantTapNavigation,
 } from '@/app/_components/sidebar/restaurant/detail';
+import { BlogReview } from '@/app/_components/sidebar/restaurant/detail';
 import { ReviewsContent } from '@/app/_components/sidebar/review';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
@@ -89,6 +90,9 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         ) : (
           <ReviewsContent restaurantId={restaurant.restaurantId} />
         )}
+      </section>
+      <section>
+        <BlogReview restaurantId={restaurantId} />
       </section>
     </article>
   );
