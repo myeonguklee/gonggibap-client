@@ -23,7 +23,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
         />
       ) : (
         <>
-          <div className="flex-between-center flex">
+          <div className="flex flex-between-center">
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-black">리뷰</h1>
               <h2 className="translate-y-1 font-bold text-gray-500">
@@ -39,10 +39,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
 
           <div className="flex flex-col gap-2">
             {reviews && (
-              <ReviewList
-                reviews={reviews}
-                restaurantId={restaurantId}
-              />
+              <ReviewList reviews={reviews} restaurantId={restaurantId} />
             )}
           </div>
         </>
