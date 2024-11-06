@@ -34,6 +34,7 @@ export interface Polygon {
 }
 
 export type RestaurantDetailCategory =
+  | '음식점'
   | '한식'
   | '카페'
   | '간식'
