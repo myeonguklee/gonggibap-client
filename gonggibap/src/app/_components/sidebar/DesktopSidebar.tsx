@@ -26,6 +26,8 @@ type DesktopSidebarProps = {
   onPageChange: (page: number) => void;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
   onRestaurantSearch: (keyword: string) => void;
+  isFavorite: boolean;
+  onFavoriteRestaurantFilter: (value: boolean) => void;
 };
 
 export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
@@ -38,6 +40,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   onPageChange,
   onSelectCategory,
   onRestaurantSearch,
+  isFavorite,
+  onFavoriteRestaurantFilter,
 }) => {
   const selectedRestaurant =
     selectedRestaurantId && restaurants
@@ -62,6 +66,8 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
             currentPage={currentPage}
             onPageChange={onPageChange}
             onRestaurantSearch={onRestaurantSearch}
+            isFavorite={isFavorite}
+            onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
           />
         </Suspense>
       </div>

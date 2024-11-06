@@ -32,6 +32,8 @@ type MobileSidebarProps = {
   currentPage: number;
   onPageChange: (page: number) => void;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
+  isFavorite: boolean;
+  onFavoriteRestaurantFilter: (value: boolean) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
@@ -42,6 +44,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   currentPage,
   onPageChange,
   onSelectCategory,
+  isFavorite,
+  onFavoriteRestaurantFilter,
 }) => {
   const [position, setPosition] = useState<MobilePosition>('peek');
   const [view, setView] = useState<MobileView>('list');
@@ -59,41 +63,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const handleFeedbackClick = () => {
     window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
   };
-
-  useEffect(() => {
-    const element = sidebarRef.current;
-    if (!element) return;
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!touchState.isDragging) return;
-      if (position !== 'full') {
-        e.preventDefault();
-      }
-    };
-
-    // TouchEvent 타입을 명시적으로 처리
-    const touchMoveHandler: EventListener = (e: Event) => {
-      if (e instanceof TouchEvent) {
-        handleTouchMove(e);
-      }
-    };
-
-    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
-
-    return () => {
-      element.removeEventListener('touchmove', touchMoveHandler);
-    };
-  }, [touchState.isDragging, position]);
-
-  useEffect(() => {
-    if (selectedRestaurantId) {
-      setView('detail');
-      setPosition('half');
-    } else {
-      setView('list');
-      setPosition('peek');
-    }
-  }, [selectedRestaurantId]);
 
   const handleBackToList = () => {
     setView('list');
@@ -152,6 +121,47 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     full: 'h-[85vh]',
   };
 
+  useEffect(() => {
+    const element = sidebarRef.current;
+    if (!element) return;
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!touchState.isDragging) return;
+      if (position !== 'full') {
+        e.preventDefault();
+      }
+    };
+
+    // TouchEvent 타입을 명시적으로 처리
+    const touchMoveHandler: EventListener = (e: Event) => {
+      if (e instanceof TouchEvent) {
+        handleTouchMove(e);
+      }
+    };
+
+    element.addEventListener('touchmove', touchMoveHandler, { passive: false });
+
+    return () => {
+      element.removeEventListener('touchmove', touchMoveHandler);
+    };
+  }, [touchState.isDragging, position]);
+
+  useEffect(() => {
+    if (selectedRestaurantId) {
+      setView('detail');
+      setPosition('half');
+    } else {
+      setView('list');
+      setPosition('peek');
+    }
+  }, [selectedRestaurantId]);
+
+  useEffect(() => {
+    if (restaurants && restaurants.length > 0) {
+      setPosition('half');
+    }
+  }, [restaurants]);
+
   return (
     <div
       ref={sidebarRef}
@@ -203,6 +213,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
               onRestaurantSelect={onRestaurantSelect}
               currentPage={currentPage}
               onPageChange={onPageChange}
+              isFavorite={isFavorite}
+              onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
             />
           </Suspense>
         ) : (
