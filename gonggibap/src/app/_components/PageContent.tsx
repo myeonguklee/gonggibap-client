@@ -31,12 +31,14 @@ export function PageContent() {
     useState<RestaurantDetailCategory>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [favorite, setFavorite] = useState<boolean>(false);
 
   const { data: restaurants } = useGetRestaurants(
     polygon,
     currentPage,
     selectedCategory,
     searchKeyword,
+    favorite,
   );
 
   const handleRestaurantSelect = (id: number | null) => {
@@ -124,6 +126,22 @@ export function PageContent() {
       handleRestaurantSearch(keyword);
     }
   }, [mapInstance]);
+
+  // 찜한 목록 보기
+  const handleFavorite = (value: boolean) => {
+    setFavorite(value);
+    setSelectedRestaurantId(null);
+  };
+
+  // favorite 상태 변경시
+  useEffect(() => {
+    if (favorite === true) {
+      mapInstance?.setLevel(13);
+    } else if (favorite === false) {
+      moveToCurrentLocation();
+      handleCategorySelect(null);
+    }
+  }, [favorite]);
 
   return (
     <>

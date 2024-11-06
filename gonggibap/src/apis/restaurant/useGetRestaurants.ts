@@ -17,8 +17,9 @@ const getRestaurants = async (
   page: number,
   category: RestaurantDetailCategory,
   search?: string,
+  favorite?: boolean,
 ): Promise<GetRestaurantsResponse> => {
-  const params: Record<string, string | number> = {
+  const params: Record<string, string | number | boolean> = {
     page,
   };
 
@@ -49,6 +50,11 @@ const getRestaurants = async (
     params.search = search;
   }
 
+  // favorite가 있을때만 params에 추가
+  if (favorite) {
+    params.favorite = favorite;
+  }
+
   const response = await client.get<BaseResponse<GetRestaurantsResponse>>({
     url: '/restaurants',
     params,
@@ -62,10 +68,18 @@ export const useGetRestaurants = (
   page: number,
   category: RestaurantDetailCategory = null,
   search?: string,
+  favorite?: boolean,
 ): UseQueryResult<GetRestaurantsResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetRestaurantsResponse, AxiosError<ErrorResponse>>({
-    queryKey: [QUERY_KEYS.RESTAURANT.ALL, polygon, category, page, search],
-    queryFn: () => getRestaurants(polygon, page, category, search),
+    queryKey: [
+      QUERY_KEYS.RESTAURANT.ALL,
+      polygon,
+      category,
+      page,
+      search,
+      favorite,
+    ],
+    queryFn: () => getRestaurants(polygon, page, category, search, favorite),
     staleTime: 1000 * 60 * 5,
   });
 };
