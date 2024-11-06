@@ -55,7 +55,11 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         onBack={onBack}
       />
 
-      <RestaurantInfo restaurant={restaurant} />
+      <RestaurantInfo
+        restaurant={restaurant}
+        onClose={onClose}
+        onBack={onBack}
+      />
       <figure className="relative h-[300px] w-full md:h-[180px]">
         <Image
           src={restaurant.restaurantImage}
