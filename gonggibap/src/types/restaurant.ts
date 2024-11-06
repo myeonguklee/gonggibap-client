@@ -51,3 +51,12 @@ export type RestaurantDetailCategory =
   | '샐러드'
   | '도시락'
   | null;
+
+export interface Blog {
+  title: string;
+  contents: string;
+  url: string;
+  name: string;
+  thumbnail: string;
+  datetime: string;
+}
