@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import { Restaurant } from '@/types/restaurant';
 
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
@@ -35,26 +33,6 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   isFavorite,
   onFavoriteRestaurantFilter,
 }) => {
-  const [activeTab, setActiveTab] = useState(isFavorite ? 'favorite' : 'list');
-
-  useEffect(() => {
-    setActiveTab(isFavorite ? 'favorite' : 'list');
-  }, [isFavorite]);
-
-  const tabs = [
-    { id: 'list', label: '맛집 리스트', favorite: false },
-    { id: 'favorite', label: '내가 찜한', favorite: true },
-  ];
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    // tab.id에 해당하는 tab 객체를 찾아서 favorite 값을 전달
-    const selectedTab = tabs.find((t) => t.id === tab);
-    if (selectedTab) {
-      onFavoriteRestaurantFilter(selectedTab.favorite);
-    }
-  };
-
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     trackRestaurantSelection(restaurant);
     onRestaurantSelect(restaurant.restaurantId);
@@ -65,9 +43,8 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   return (
     <div className="flex flex-col gap-3">
       <TabNavigation
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
+        isFavorite={isFavorite}
+        onTabChange={onFavoriteRestaurantFilter}
       />
       <>
         {onRestaurantSearch && !isFavorite && (
