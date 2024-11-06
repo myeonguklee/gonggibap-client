@@ -52,6 +52,7 @@ axiosInstance.interceptors.response.use(
 
 const createApiMethod =
   (_axiosInstance: AxiosInstance, methodType: Method) =>
+  // Promise 타입 반환하도록 정의하면 api호출부에서 Promise 한번 더 안써줘도 됨
   <T>(config: AxiosRequestConfig): Promise<T> => {
     return _axiosInstance({
       ...config,
