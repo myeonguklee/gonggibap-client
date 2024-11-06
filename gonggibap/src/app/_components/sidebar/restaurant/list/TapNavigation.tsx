@@ -1,6 +1,7 @@
 interface Tab {
   id: string;
   label: string;
+  favorite: boolean;
 }
 
 interface TabNavigationProps {

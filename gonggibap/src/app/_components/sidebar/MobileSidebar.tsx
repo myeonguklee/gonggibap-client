@@ -32,6 +32,7 @@ type MobileSidebarProps = {
   currentPage: number;
   onPageChange: (page: number) => void;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
+  isFavorite: boolean;
   onFavoriteRestaurantFilter: (value: boolean) => void;
 };
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
@@ -43,6 +44,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   currentPage,
   onPageChange,
   onSelectCategory,
+  isFavorite,
   onFavoriteRestaurantFilter,
 }) => {
   const [position, setPosition] = useState<MobilePosition>('peek');
@@ -205,6 +207,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
               onRestaurantSelect={onRestaurantSelect}
               currentPage={currentPage}
               onPageChange={onPageChange}
+              isFavorite={isFavorite}
               onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
             />
           </Suspense>

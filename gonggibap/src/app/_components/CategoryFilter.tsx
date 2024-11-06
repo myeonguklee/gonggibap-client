@@ -17,12 +17,14 @@ interface CategoryFilterProps {
   selectedCategory: RestaurantDetailCategory;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
   onSearch: (keyword: string) => void;
+  isFavorite: boolean;
 }
 
 export const CategoryFilter = ({
   selectedCategory,
   onSelectCategory,
   onSearch,
+  isFavorite,
 }: CategoryFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -83,7 +85,7 @@ export const CategoryFilter = ({
   return (
     <div className="fixed left-1/2 top-4 z-10 -translate-x-1/2 transition-all duration-300 md:left-[21rem] md:top-4 md:-translate-x-0">
       <div className="flex flex-col gap-2 p-2">
-        {isMobile && (
+        {isMobile && !isFavorite && (
           <SearchBar
             onSearch={onSearch}
             placeholder="장소, 지역 검색"

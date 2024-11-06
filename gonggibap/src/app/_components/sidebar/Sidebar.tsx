@@ -13,6 +13,7 @@ type SidebarProps = {
   onPageChange: (page: number) => void;
   onSelectCategory: (category: RestaurantDetailCategory) => void;
   onRestaurantSearch: (keyword: string) => void;
+  isFavorite: boolean;
   onFavoriteRestaurantFilter: (value: boolean) => void;
 };
 
@@ -26,6 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onPageChange,
   onSelectCategory,
   onRestaurantSearch,
+  isFavorite,
   onFavoriteRestaurantFilter,
 }) => {
   return (
@@ -41,6 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onPageChange={onPageChange}
           onSelectCategory={onSelectCategory}
           onRestaurantSearch={onRestaurantSearch}
+          isFavorite={isFavorite}
           onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
         />
       </div>
@@ -54,6 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           currentPage={currentPage}
           onPageChange={onPageChange}
           onSelectCategory={onSelectCategory}
+          isFavorite={isFavorite}
           onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
         />
       </div>
