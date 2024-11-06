@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 import { Polygon, RestaurantDetailCategory } from '@/types/restaurant';
 
+import { useAuthStore } from '@/store/useAuthStore';
+
 import { CategoryFilter } from '@/app/_components/CategoryFilter';
 import { FirstLoading } from '@/app/_components/FirstLoading';
 import { MapCrosshair } from '@/app/_components/MapCrosshair';
@@ -18,7 +20,6 @@ import { useMapCluster } from '@/hooks/useMapCluster';
 import { useMapMarkers } from '@/hooks/useMapMarkers';
 
 import { MdRefresh } from 'react-icons/md';
-import { useAuthStore } from '@/store/useAuthStore';
 
 export function PageContent() {
   const router = useRouter();
@@ -44,12 +45,23 @@ export function PageContent() {
     favorite,
   );
 
+    // 찜한 목록 보기
+    const handleFavoriteRestaurantFilter = (value: boolean) => {
+      setFavorite(value);
+      setSelectedRestaurantId(null);
+      if (auth.isLogin) {
+        setPolygon(null);
+      }
+    };
+
+  // 상세 정보 조회
   const handleRestaurantSelect = (id: number | null) => {
     setSelectedRestaurantId(id);
     // 선택된 식당 위치로 지도 이동
     if (id && mapInstance && restaurants?.content) {
       const selected = restaurants.content.find((r) => r.restaurantId === id);
       if (selected) {
+        // zoom 조정 후 이동
         mapInstance.setLevel(3);
         mapInstance.setCenter(
           new kakao.maps.LatLng(
@@ -94,7 +106,7 @@ export function PageContent() {
     }
   };
 
-  // 페이징
+  // 페이지 변경
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -130,19 +142,11 @@ export function PageContent() {
     }
   }, [mapInstance]);
 
+  // 현재 위치 + favorite 상태 초기화
   const handleMoveToCurrentLocation = () => {
     moveToCurrentLocation();
     setFavorite(false);
   }
-
-  // 찜한 목록 보기
-  const handleFavoriteRestaurantFilter = (value: boolean) => {
-    setFavorite(value);
-    setSelectedRestaurantId(null);
-    if (auth.isLogin) {
-      setPolygon(null);
-    }
-  };
 
   // favorite 상태 변경시
   useEffect(() => {
