@@ -12,10 +12,11 @@ import {
   useDeleteFavoriteRestaurant,
 } from '@/apis/favorite';
 
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
 import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -23,7 +24,11 @@ type RestaurantInfoProps = {
   onBack?: () => void;
 };
 
-export const RestaurantInfo = ({ restaurant, onClose, onBack }: RestaurantInfoProps) => {
+export const RestaurantInfo = ({
+  restaurant,
+  onClose,
+  onBack,
+}: RestaurantInfoProps) => {
   const isLogin = useAuthStore((state) => state.isLogin);
   const isMobile = useMediaQuery('(max-width: 768px)');
   const {
@@ -36,9 +41,9 @@ export const RestaurantInfo = ({ restaurant, onClose, onBack }: RestaurantInfoPr
   const { mutate: createFavoriteRestaurant, isPending: isCreating } =
     useCreateFavoriteRestaurant();
   const { mutate: deleteFavoriteRestaurant, isPending: isDeleting } =
-  useDeleteFavoriteRestaurant({
-    onSuccess: isMobile ? onBack : onClose,
-  });
+    useDeleteFavoriteRestaurant({
+      onSuccess: isMobile ? onBack : onClose,
+    });
   const isMutating = isCreating || isDeleting;
 
   const [isModalOpen, setIsModalOpen] = useState(false);

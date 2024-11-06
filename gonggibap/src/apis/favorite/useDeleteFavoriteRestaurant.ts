@@ -20,13 +20,9 @@ const deleteFavoriteRestaurant = async (
   });
 };
 
-export const useDeleteFavoriteRestaurant = (
-  options?: { onSuccess?: () => void },
-): UseMutationResult<
-  void,
-  AxiosError<ErrorResponse>,
-  number
-> => {
+export const useDeleteFavoriteRestaurant = (options?: {
+  onSuccess?: () => void;
+}): UseMutationResult<void, AxiosError<ErrorResponse>, number> => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteFavoriteRestaurant,

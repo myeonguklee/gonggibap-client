@@ -45,14 +45,14 @@ export function PageContent() {
     favorite,
   );
 
-    // 찜한 목록 보기
-    const handleFavoriteRestaurantFilter = (value: boolean) => {
-      setFavorite(value);
-      setSelectedRestaurantId(null);
-      if (auth.isLogin) {
-        setPolygon(null);
-      }
-    };
+  // 찜한 목록 보기
+  const handleFavoriteRestaurantFilter = (value: boolean) => {
+    setFavorite(value);
+    setSelectedRestaurantId(null);
+    if (auth.isLogin) {
+      setPolygon(null);
+    }
+  };
 
   // 상세 정보 조회
   const handleRestaurantSelect = (id: number | null) => {
@@ -146,7 +146,7 @@ export function PageContent() {
   const handleMoveToCurrentLocation = () => {
     moveToCurrentLocation();
     setFavorite(false);
-  }
+  };
 
   // favorite 상태 변경시
   useEffect(() => {
