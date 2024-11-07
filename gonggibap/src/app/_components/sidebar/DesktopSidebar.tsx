@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -51,6 +51,14 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   const handleFeedbackClick = () => {
     window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
   };
+  
+  const detailSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (detailSectionRef.current) {
+      detailSectionRef.current.scrollTop = 0;
+    }
+  }, [selectedRestaurantId]);
 
   return (
     <div className="flex">
@@ -72,6 +80,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
         </Suspense>
       </div>
       <section
+        ref={detailSectionRef}
         className={`fixed left-[21rem] top-[2%] z-10 h-[96%] w-96 overflow-y-auto rounded-xl bg-white
           p-4 transition-transform duration-300 ease-in-out dark:bg-gray-700
           ${selectedRestaurantId ? 'translate-x-0' : '-translate-x-[25rem]'}`}
