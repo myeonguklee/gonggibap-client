@@ -58,10 +58,11 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
               </header>
 
               <div className="flex-between-center">
-                <div className="flex items-center gap-2">
-                  <dt>금액</dt>
+                <div
+                  className="flex items-center"
+                  onClick={() => toggleDetails(index)}>
+                  <dt className='cursor-pointer'>금액</dt>
                   <button
-                    onClick={() => toggleDetails(index)}
                     className="flex items-center text-gray-400 hover:text-gray-600"
                     aria-expanded={expandedItems.includes(index)}
                     aria-label={
@@ -84,7 +85,10 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                 <details open className="text-gray-400">
                   <summary className="hidden">상세 정보</summary>
                   <p>
-                    {history.useContent} ({history.peopleCount}명)
+                    {history.useContent}
+                    {history.peopleCount && (
+                      <span> ({history.peopleCount}명)</span>
+                    )}
                   </p>
                 </details>
               )}
