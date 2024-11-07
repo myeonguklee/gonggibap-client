@@ -51,7 +51,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   const handleFeedbackClick = () => {
     window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
   };
-  
+
   const detailSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   return (
     <div className="flex">
       <div
-        className="fixed left-0 top-0 z-20 h-screen w-80 overflow-y-auto bg-white p-4 dark:bg-gray-700"
+        className="fixed left-0 top-0 z-20 h-screen w-80 pt-4 px-4 overflow-y-auto bg-white dark:bg-gray-700"
         role="navigation">
         <Suspense fallback={<MapPinLoading />}>
           <RestaurantListView

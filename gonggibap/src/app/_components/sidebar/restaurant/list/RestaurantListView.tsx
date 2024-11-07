@@ -1,4 +1,5 @@
 import { Restaurant } from '@/types/restaurant';
+import { MobilePosition } from '@/types/sidebar';
 
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
 import { Pagination } from '@/app/_components/Pagination';
@@ -20,6 +21,7 @@ type RestaurantListViewProps = {
   onRestaurantSearch?: (searchKeyword: string) => void;
   isFavorite: boolean;
   onFavoriteRestaurantFilter: (value: boolean) => void;
+  mobilePosition?: MobilePosition;
 };
 
 export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
@@ -32,6 +34,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   onRestaurantSearch,
   isFavorite,
   onFavoriteRestaurantFilter,
+  mobilePosition,
 }) => {
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     trackRestaurantSelection(restaurant);
@@ -50,6 +53,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
         {onRestaurantSearch && !isFavorite && (
           <SearchBar onSearch={onRestaurantSearch} />
         )}
+
         {restaurants.length === 0 && <RestaurantEmptyState />}
         <ul className="flex w-full flex-col gap-2">
           {restaurants?.map((restaurant, index) => (
@@ -67,7 +71,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
             </li>
           ))}
         </ul>
-        {restaurants.length > 0 && (
+        {restaurants.length > 0 && (!mobilePosition || mobilePosition !== 'peek') && (
           <Pagination
             totalPages={totalPages ? totalPages : 1}
             currentPage={currentPage}
