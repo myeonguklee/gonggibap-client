@@ -18,8 +18,8 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
-import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
 import { GoLinkExternal } from 'react-icons/go';
+import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
 import { PiLinkBold } from 'react-icons/pi';
 
 type RestaurantInfoProps = {
@@ -142,7 +142,7 @@ export const RestaurantInfo = ({
           </dl>
           <button
             onClick={handleShare}
-            className="gap-1 flex-center text-gray-500 hover:text-black dark:text-white">
+            className="gap-1 text-gray-500 flex-center hover:text-black dark:text-white">
             <PiLinkBold />
             <span>공유하기</span>
           </button>

@@ -16,7 +16,7 @@ export default function LoginPage() {
     <div className="flex h-screen flex-col items-center justify-center">
       <div className="w-full max-w-md px-6">
         <div className="mb-5 text-center text-4xl font-bold">카카오 로그인</div>
-        <div className="mb-10 text-center text-base md:text-lg text-gray-500">
+        <div className="mb-10 text-center text-base text-gray-500 md:text-lg">
           카카오 계정으로 쉽고 빠르게 로그인하세요
         </div>
         <button
