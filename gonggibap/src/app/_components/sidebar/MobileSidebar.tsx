@@ -55,6 +55,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
     isDragging: false,
   });
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const selectedRestaurant = restaurants?.find(
     (r) => r.restaurantId === selectedRestaurantId,
@@ -67,7 +68,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const handleBackToList = () => {
     setView('list');
     onRestaurantSelect(null);
-    setPosition('half');
   };
 
   const handleTouchStart = (e: ReactTouchEvent<HTMLDivElement>) => {
@@ -152,7 +152,10 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       setPosition('half');
     } else {
       setView('list');
-      setPosition('peek');
+      setPosition('half');
+    }
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
     }
   }, [selectedRestaurantId]);
 
@@ -200,6 +203,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       </div>
 
       <div
+        ref={contentRef}
         className={`
           mobile-content h-[calc(100%-1.5rem)] overflow-y-auto p-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
