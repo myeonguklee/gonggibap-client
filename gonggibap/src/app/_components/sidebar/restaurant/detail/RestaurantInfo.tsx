@@ -141,9 +141,7 @@ export const RestaurantInfo = ({
               <dd>{restaurant.visitCount}</dd>
             </div>
           </dl>
-          <button
-            onClick={handleShare}
-            className="flex-center gap-1">
+          <button onClick={handleShare} className="flex-center gap-1">
             <FaRegShareFromSquare />
             <span>공유하기</span>
           </button>
@@ -152,9 +150,10 @@ export const RestaurantInfo = ({
         <button
           disabled={isMutating}
           onClick={handleFavoriteCreate}
-          className={`flex items-center justify-center gap-1 rounded-xl bg-[#FF7058] py-3 font-semibold text-white ${
-            isMutating ? 'cursor-not-allowed opacity-50' : ''
-          }`}
+          className={`flex items-center justify-center gap-1 rounded-xl  py-3 font-semibold text-white
+            ${isMutating ? 'cursor-not-allowed opacity-50' : ''}
+            ${favoriteRestaurantCheck?.favoriteStatus ? 'bg-gray-400' : 'bg-[#FF7058]'}
+            `}
           aria-busy={isMutating}>
           {getButtonState().icon}
           <span>{getButtonState().text}</span>
