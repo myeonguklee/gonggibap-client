@@ -27,7 +27,7 @@ export const useDeleteFavoriteRestaurant = (options?: {
   return useMutation({
     mutationFn: deleteFavoriteRestaurant,
     onSuccess: (_, restaurantId) => {
-      toast.success('찜한 식당 삭제');
+      toast.success('나의 맛집 리스트에서 제거됐습니다.');
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.RESTAURANT.ALL],
       });
