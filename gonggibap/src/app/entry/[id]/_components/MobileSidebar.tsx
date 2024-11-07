@@ -3,13 +3,15 @@ import {
   TouchEvent as ReactTouchEvent,
   useRef,
   useEffect,
+  Suspense,
 } from 'react';
 
 import { Restaurant } from '@/types/restaurant';
 import { MobilePosition } from '@/types/sidebar';
 
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { RestaurantDetailView } from '@/app/_components/sidebar/restaurant/detail';
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
-import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
 
 interface MobileSidebarProps {
   restaurant: Restaurant;
@@ -124,7 +126,9 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
           mobile-content h-[calc(100%-1.5rem)] overflow-y-auto p-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
-        <RestaurantDetailView restaurant={restaurant} />
+        <Suspense fallback={<MapPinLoading />}>
+          <RestaurantDetailView restaurantId={restaurant.restaurantId} />
+        </Suspense>
       </div>
     </div>
   );

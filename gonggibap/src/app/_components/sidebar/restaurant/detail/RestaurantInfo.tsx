@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { Restaurant } from '@/types/restaurant';
 
 import { useAuthStore } from '@/store/useAuthStore';
@@ -14,9 +16,10 @@ import {
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-import { FaRegBookmark } from 'react-icons/fa6';
+import { FaRegBookmark, FaRegShareFromSquare } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
+import { SiOpenstreetmap } from 'react-icons/si';
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -81,6 +84,20 @@ export const RestaurantInfo = ({
         };
   };
 
+  const handleShare = () => {
+    navigator.clipboard.writeText(
+      `https://gonggibap.co.kr/entry/${restaurant.restaurantId}`,
+    );
+    toast.info('주소가 복사되었습니다.');
+  };
+
+  const handleMoveKakaoMap = () => {
+    window.open(
+      `https://place.map.kakao.com/${restaurant.restaurantLink}`,
+      '_blank',
+    );
+  };
+
   return (
     <>
       <section className="flex flex-col gap-4" aria-label="음식점 기본 정보">
@@ -92,36 +109,51 @@ export const RestaurantInfo = ({
           </span>
         </div>
 
-        <address className="flex flex-col gap-1 not-italic">
-          <div className="flex items-center gap-2 font-semibold">
-            <IoLocationOutline aria-hidden="true" />
-            <span>{restaurant.restaurantAddressName}</span>
-          </div>
-          <div className="flex items-center gap-2 font-semibold">
-            <IoCallOutline aria-hidden="true" />
-            <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
-          </div>
-        </address>
+        <div className="flex flex-col gap-1">
+          <address className="flex flex-col gap-1 not-italic">
+            <div className="flex items-center gap-2 font-semibold">
+              <IoLocationOutline aria-hidden="true" />
+              <span>{restaurant.restaurantAddressName}</span>
+            </div>
+            <div className="flex items-center gap-2 font-semibold">
+              <IoCallOutline aria-hidden="true" />
+              <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
+            </div>
+          </address>
+          <button
+            onClick={handleMoveKakaoMap}
+            className="flex items-center gap-2 font-semibold">
+            <SiOpenstreetmap />
+            <span>카카오맵 상세보기</span>
+          </button>
+        </div>
 
-        <dl className="flex gap-4">
-          <div className="flex gap-1">
-            <dt className="text-gray-500">평점</dt>
-            <dd className="rounded-xl bg-[#FF7058] px-3 text-white">
-              {formatPointAvg(restaurant.pointAvg)}
-            </dd>
-          </div>
-          <div className="flex gap-1">
-            <dt className="text-gray-500">방문수</dt>
-            <dd>{restaurant.visitCount}</dd>
-          </div>
-        </dl>
+        <div className="flex-between-center">
+          <dl className="flex gap-4">
+            <div className="flex gap-1">
+              <dt className="text-gray-500">평점</dt>
+              <dd className="rounded-xl bg-[#FF7058] px-3 text-white">
+                {formatPointAvg(restaurant.pointAvg)}
+              </dd>
+            </div>
+            <div className="flex gap-1">
+              <dt className="text-gray-500">방문수</dt>
+              <dd>{restaurant.visitCount}</dd>
+            </div>
+          </dl>
+          <button onClick={handleShare} className="gap-1 flex-center">
+            <FaRegShareFromSquare />
+            <span>공유하기</span>
+          </button>
+        </div>
 
         <button
           disabled={isMutating}
           onClick={handleFavoriteCreate}
-          className={`flex items-center justify-center gap-1 rounded-xl bg-[#FF7058] py-3 font-semibold text-white ${
-            isMutating ? 'cursor-not-allowed opacity-50' : ''
-          }`}
+          className={`flex items-center justify-center gap-1 rounded-xl  py-3 font-semibold text-white
+            ${isMutating ? 'cursor-not-allowed opacity-50' : ''}
+            ${favoriteRestaurantCheck?.favoriteStatus ? 'bg-gray-400' : 'bg-[#FF7058]'}
+            `}
           aria-busy={isMutating}>
           {getButtonState().icon}
           <span>{getButtonState().text}</span>

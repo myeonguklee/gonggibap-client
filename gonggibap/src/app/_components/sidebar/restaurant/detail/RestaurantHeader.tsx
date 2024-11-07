@@ -17,7 +17,6 @@ export const RestaurantHeader = ({
 }: RestaurantHeaderProps) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  // 글자 길이에 따른 텍스트 크기 클래스 결정
   const getTextSizeClass = (text: string) => {
     if (isMobile) return 'text-2xl';
     if (text.length > 15) return 'text-lg';
@@ -27,15 +26,23 @@ export const RestaurantHeader = ({
 
   const textSizeClass = getTextSizeClass(restaurantName);
 
+  const shouldShowBackButton = isMobile && onBack;
+  const shouldShowCloseButton = !isMobile && onClose;
+  const shouldShowMobileCloseButton = isMobile && onClose && !onBack;
+
   return (
     <header className="flex-between-center">
       <div className="flex items-center gap-2">
-        <button
-          onClick={isMobile ? onBack : onClose}
-          className="rounded hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
-          aria-label={isMobile ? '뒤로 가기' : '닫기'}>
-          <ChevronLeft size="1.5rem" />
-        </button>
+        {(shouldShowBackButton ||
+          shouldShowMobileCloseButton ||
+          shouldShowCloseButton) && (
+          <button
+            onClick={isMobile ? onBack || onClose : onClose}
+            className="rounded hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+            aria-label={isMobile ? (onBack ? '뒤로 가기' : '닫기') : '닫기'}>
+            <ChevronLeft size="1.5rem" />
+          </button>
+        )}
         <div className="flex items-center gap-2">
           <h1 className={`${textSizeClass} font-black`}>{restaurantName}</h1>
           {restaurantDetailCategory && (
@@ -46,7 +53,7 @@ export const RestaurantHeader = ({
         </div>
       </div>
 
-      {!isMobile && (
+      {shouldShowCloseButton && (
         <button
           onClick={onClose}
           className="hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -57,3 +64,5 @@ export const RestaurantHeader = ({
     </header>
   );
 };
+
+export default RestaurantHeader;
