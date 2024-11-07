@@ -16,10 +16,11 @@ import {
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-import { FaRegBookmark, FaRegShareFromSquare } from 'react-icons/fa6';
+import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
-import { SiOpenstreetmap } from 'react-icons/si';
+import { GoLinkExternal } from 'react-icons/go';
+import { PiLinkBold } from 'react-icons/pi';
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -109,40 +110,40 @@ export const RestaurantInfo = ({
           </span>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <address className="flex flex-col gap-1 not-italic">
-            <div className="flex items-center gap-2 font-semibold">
+        <div className="flex flex-col">
+          <address className="flex flex-col gap-2.5 not-italic">
+            <div className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
               <IoLocationOutline aria-hidden="true" />
               <span>{restaurant.restaurantAddressName}</span>
             </div>
-            <div className="flex items-center gap-2 font-semibold">
+            <div className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
               <IoCallOutline aria-hidden="true" />
               <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
             </div>
+            <button
+              onClick={handleMoveKakaoMap}
+              className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
+              <GoLinkExternal />
+              <span>카카오맵 상세보기</span>
+            </button>
           </address>
-          <button
-            onClick={handleMoveKakaoMap}
-            className="flex items-center gap-2 font-semibold">
-            <SiOpenstreetmap />
-            <span>카카오맵 상세보기</span>
-          </button>
         </div>
 
         <div className="flex-between-center">
-          <dl className="flex gap-4">
-            <div className="flex gap-1">
-              <dt className="text-gray-500">평점</dt>
-              <dd className="rounded-xl bg-[#FF7058] px-3 text-white">
-                {formatPointAvg(restaurant.pointAvg)}
-              </dd>
-            </div>
-            <div className="flex gap-1">
-              <dt className="text-gray-500">방문수</dt>
-              <dd>{restaurant.visitCount}</dd>
-            </div>
+          <dl className="flex gap-1">
+            <dt className="text-gray-500 dark:text-white">평점</dt>
+            <dd className="rounded-xl bg-[#FF7058] px-3 text-white">
+              {formatPointAvg(restaurant.pointAvg)}
+            </dd>
           </dl>
-          <button onClick={handleShare} className="gap-1 flex-center">
-            <FaRegShareFromSquare />
+          <dl className="flex gap-1">
+            <dt className="text-gray-500 dark:text-white">방문수</dt>
+            <dd>{restaurant.visitCount}</dd>
+          </dl>
+          <button
+            onClick={handleShare}
+            className="gap-1 flex-center text-gray-500 hover:text-black dark:text-white">
+            <PiLinkBold />
             <span>공유하기</span>
           </button>
         </div>
