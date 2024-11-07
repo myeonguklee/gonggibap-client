@@ -172,11 +172,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
               {...register('content', {
                 required: '리뷰를 작성해주세요',
                 minLength: {
-                  value: 10,
-                  message: '리뷰는 최소 10자 이상 작성해주세요',
+                  value: 5,
+                  message: '리뷰는 최소 5자 이상 작성해주세요',
                 },
               })}
-              placeholder="음식과 서비스는 어떠셨나요? (최소 10자 이상)"
+              placeholder="음식과 서비스는 어떠셨나요? (최소 5자 이상)"
               className="h-32 w-full resize-none rounded-lg bg-gray-100 px-3 py-2 dark:bg-gray-700 md:dark:bg-gray-800"
             />
             {errors.content && (
