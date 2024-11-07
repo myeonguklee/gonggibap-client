@@ -20,7 +20,7 @@ export const RestaurantHeader = ({
   const getTextSizeClass = (text: string) => {
     if (isMobile) return 'text-2xl';
     if (text.length > 15) return 'text-lg';
-    if (text.length >= 12) return 'text-xl';
+    if (text.length >= 11) return 'text-xl';
     return 'text-2xl';
   };
 
