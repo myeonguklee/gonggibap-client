@@ -60,7 +60,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
         onClose={onClose}
         onBack={onBack}
       />
-      <figure className="relative h-[300px] w-full md:h-[180px]">
+      <figure className="relative h-[180px] w-full">
         <Image
           src={restaurant.restaurantImage}
           alt={`${restaurant.restaurantName} 이미지`}
