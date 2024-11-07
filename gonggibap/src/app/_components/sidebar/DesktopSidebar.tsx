@@ -51,7 +51,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   const handleFeedbackClick = () => {
     window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
   };
-  
+
   const detailSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
