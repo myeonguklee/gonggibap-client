@@ -124,7 +124,7 @@ export const RestaurantInfo = ({
             onClick={handleMoveKakaoMap}
             className="flex items-center gap-2 font-semibold">
             <SiOpenstreetmap />
-            <p>카카오맵 상세보기</p>
+            <span>카카오맵 상세보기</span>
           </button>
         </div>
 
@@ -143,10 +143,9 @@ export const RestaurantInfo = ({
           </dl>
           <button
             onClick={handleShare}
-            className="flex-center gap-1"
-            aria-label="공유 페이지 URL 복사">
+            className="flex-center gap-1">
             <FaRegShareFromSquare />
-            <p>공유하기</p>
+            <span>공유하기</span>
           </button>
         </div>
 
