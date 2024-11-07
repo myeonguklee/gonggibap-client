@@ -10,7 +10,7 @@ import { Restaurant } from '@/types/restaurant';
 import { MobilePosition } from '@/types/sidebar';
 
 import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
-import { RestaurantDetailView } from '@/app/entry/[id]/_components/RestaurantDetailView';
+import { RestaurantDetailView } from '@/app/_components/sidebar/restaurant/detail';
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
 
 interface MobileSidebarProps {
@@ -127,7 +127,7 @@ export function MobileSidebar({ restaurant }: MobileSidebarProps) {
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
         <Suspense fallback={<MapPinLoading />}>
-          <RestaurantDetailView restaurant={restaurant} />
+          <RestaurantDetailView restaurantId={restaurant.restaurantId} />
         </Suspense>
       </div>
     </div>
