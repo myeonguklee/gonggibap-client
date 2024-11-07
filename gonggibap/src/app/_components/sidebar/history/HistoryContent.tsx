@@ -61,9 +61,11 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                 <div
                   className="flex items-center"
                   onClick={() => toggleDetails(index)}>
-                  <dt className="cursor-pointer">금액</dt>
+                  <dt className="cursor-pointer text-gray-500 dark:text-white">
+                    상세내역
+                  </dt>
                   <button
-                    className="flex items-center text-gray-400 hover:text-gray-600"
+                    className="flex items-center text-gray-500 hover:text-gray-800 dark:text-white"
                     aria-expanded={expandedItems.includes(index)}
                     aria-label={
                       expandedItems.includes(index)

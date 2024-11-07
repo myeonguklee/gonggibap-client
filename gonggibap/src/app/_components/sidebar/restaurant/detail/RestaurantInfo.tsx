@@ -112,17 +112,17 @@ export const RestaurantInfo = ({
 
         <div className="flex flex-col">
           <address className="flex flex-col gap-2.5 not-italic">
-            <div className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
+            <div className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
               <IoLocationOutline aria-hidden="true" />
               <span>{restaurant.restaurantAddressName}</span>
             </div>
-            <div className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
+            <div className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
               <IoCallOutline aria-hidden="true" />
               <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
             </div>
             <button
               onClick={handleMoveKakaoMap}
-              className="flex items-center gap-2 font-semibold text-gray-500 dark:text-white">
+              className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
               <GoLinkExternal />
               <span>카카오맵 상세보기</span>
             </button>
