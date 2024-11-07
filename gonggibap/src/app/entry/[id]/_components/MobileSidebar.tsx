@@ -9,9 +9,9 @@ import {
 import { Restaurant } from '@/types/restaurant';
 import { MobilePosition } from '@/types/sidebar';
 
-import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
-import { RestaurantDetailView } from '@/app/_components/sidebar/restaurant/detail';
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { RestaurantDetailView } from '@/app/_components/sidebar/restaurant/detail';
+import { ThemeToggleBtn } from '@/app/_components/ThemeToggleBtn';
 
 interface MobileSidebarProps {
   restaurant: Restaurant;

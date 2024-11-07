@@ -141,7 +141,7 @@ export const RestaurantInfo = ({
               <dd>{restaurant.visitCount}</dd>
             </div>
           </dl>
-          <button onClick={handleShare} className="flex-center gap-1">
+          <button onClick={handleShare} className="gap-1 flex-center">
             <FaRegShareFromSquare />
             <span>공유하기</span>
           </button>

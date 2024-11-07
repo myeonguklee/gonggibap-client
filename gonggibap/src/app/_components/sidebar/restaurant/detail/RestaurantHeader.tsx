@@ -33,7 +33,9 @@ export const RestaurantHeader = ({
   return (
     <header className="flex-between-center">
       <div className="flex items-center gap-2">
-        {(shouldShowBackButton || shouldShowMobileCloseButton || shouldShowCloseButton) && (
+        {(shouldShowBackButton ||
+          shouldShowMobileCloseButton ||
+          shouldShowCloseButton) && (
           <button
             onClick={isMobile ? onBack || onClose : onClose}
             className="rounded hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"

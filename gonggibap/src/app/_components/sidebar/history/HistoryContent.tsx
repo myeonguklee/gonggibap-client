@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import { ChevronDown, ChevronUp } from 'lucide-react';
+
 import { MapPinLoading } from '@/app/_components/MapPinLoading';
 import { Pagination } from '@/app/_components/Pagination';
 
 import { useGetHistories } from '@/apis/history';
-
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface HistoryContentProps {
   restaurantId: number;
@@ -61,7 +61,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                 <div
                   className="flex items-center"
                   onClick={() => toggleDetails(index)}>
-                  <dt className='cursor-pointer'>금액</dt>
+                  <dt className="cursor-pointer">금액</dt>
                   <button
                     className="flex items-center text-gray-400 hover:text-gray-600"
                     aria-expanded={expandedItems.includes(index)}
@@ -71,9 +71,9 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                         : '상세 정보 펼치기'
                     }>
                     {expandedItems.includes(index) ? (
-                      <ChevronUp className="h-4 w-4" />
+                      <ChevronUp className="size-4" />
                     ) : (
-                      <ChevronDown className="h-4 w-4" />
+                      <ChevronDown className="size-4" />
                     )}
                   </button>
                 </div>
