@@ -35,6 +35,7 @@ type MobileSidebarProps = {
   isFavorite: boolean;
   onFavoriteRestaurantFilter: (value: boolean) => void;
 };
+
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   restaurants,
   totalPages,
@@ -51,7 +52,9 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const [view, setView] = useState<MobileView>('list');
   const [touchState, setTouchState] = useState({
     startY: 0,
+    startX: 0,
     currentY: 0,
+    currentX: 0,
     isDragging: false,
   });
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -73,32 +76,55 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
   const handleTouchStart = (e: ReactTouchEvent<HTMLDivElement>) => {
     setTouchState({
       startY: e.touches[0].clientY,
+      startX: e.touches[0].clientX,
       currentY: e.touches[0].clientY,
+      currentX: e.touches[0].clientX,
       isDragging: true,
     });
   };
 
   const handleTouchMove = (e: ReactTouchEvent<HTMLDivElement>) => {
     if (!touchState.isDragging) return;
-    setTouchState((prev) => ({ ...prev, currentY: e.touches[0].clientY }));
+    setTouchState((prev) => ({
+      ...prev,
+      currentY: e.touches[0].clientY,
+      currentX: e.touches[0].clientX,
+    }));
   };
 
   const handleTouchEnd = () => {
     if (!touchState.isDragging) return;
 
-    const diff = touchState.startY - touchState.currentY;
-    const threshold = 30;
+    const verticalDiff = touchState.startY - touchState.currentY;
+    const horizontalDiff = touchState.startX - touchState.currentX;
+    const verticalThreshold = 30;
+    const horizontalThreshold = 50;
     const contentElement = document.querySelector(
       '.mobile-content',
     ) as HTMLElement;
     const isScrolledToTop = contentElement?.scrollTop === 0;
 
-    if (Math.abs(diff) < threshold) {
+    // Handle horizontal swipe only in detail view
+    if (
+      view === 'detail' &&
+      Math.abs(horizontalDiff) > horizontalThreshold &&
+      Math.abs(horizontalDiff) > Math.abs(verticalDiff)
+    ) {
+      if (horizontalDiff < 0) {  // Changed from > 0 to < 0 to reverse swipe direction
+        // Swipe right
+        handleBackToList();
+      }
       setTouchState((prev) => ({ ...prev, isDragging: false }));
       return;
     }
 
-    if (diff > 0) {
+    // Handle vertical swipe
+    if (Math.abs(verticalDiff) < verticalThreshold) {
+      setTouchState((prev) => ({ ...prev, isDragging: false }));
+      return;
+    }
+
+    if (verticalDiff > 0) {
       setPosition((prev) => {
         if (prev === 'peek') return 'half';
         if (prev === 'half') return 'full';
@@ -132,7 +158,6 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       }
     };
 
-    // TouchEvent 타입을 명시적으로 처리
     const touchMoveHandler: EventListener = (e: Event) => {
       if (e instanceof TouchEvent) {
         handleTouchMove(e);
@@ -205,7 +230,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       <div
         ref={contentRef}
         className={`
-          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto p-4
+          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto pt-4 px-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
         {view === 'list' ? (
@@ -219,6 +244,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
               onPageChange={onPageChange}
               isFavorite={isFavorite}
               onFavoriteRestaurantFilter={onFavoriteRestaurantFilter}
+              mobilePosition={position}
             />
           </Suspense>
         ) : (
