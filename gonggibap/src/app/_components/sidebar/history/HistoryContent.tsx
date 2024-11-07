@@ -5,12 +5,15 @@ import { Pagination } from '@/app/_components/Pagination';
 
 import { useGetHistories } from '@/apis/history';
 
+import { ChevronDown, ChevronUp } from 'lucide-react';
+
 interface HistoryContentProps {
   restaurantId: number;
 }
 
 export function HistoryContent({ restaurantId }: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [expandedItems, setExpandedItems] = useState<number[]>([]);
   const { data: histories, isLoading } = useGetHistories(
     restaurantId,
     currentPage,
@@ -20,8 +23,15 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
     setCurrentPage(page);
   };
 
+  const toggleDetails = (index: number) => {
+    setExpandedItems((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
+    );
+  };
+
   useEffect(() => {
     setCurrentPage(0);
+    setExpandedItems([]);
   }, [restaurantId]);
 
   if (isLoading) {
@@ -29,46 +39,73 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
   }
 
   return (
-    <>
+    <section className="history-section">
       {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
-          <p className="text-xs text-gray-500">
+          <aside className="text-xs text-gray-500">
             해당 사용내역은 각 구청의 업무추진비 데이터를 수집/가공한 것이며,
             원본 데이터는 각 구청에서 확인하실 수 있습니다.
-          </p>
+          </aside>
           {histories?.content.map((history, index) => (
-            <div key={index} className="flex flex-col gap-3">
-              <div className="self-center rounded-full bg-black px-3 py-1 text-white dark:bg-white dark:text-black">
-                <p>{history.historyDate.split('T')[0]}</p>
-              </div>
-              <p className="font-bold">
+            <article key={index} className="flex flex-col gap-3">
+              <time
+                dateTime={history.historyDate}
+                className="self-center rounded-full bg-black px-3 py-1 text-white dark:bg-white dark:text-black">
+                {history.historyDate.split('T')[0]}
+              </time>
+              <header className="font-bold">
                 {history.publicOfficeName} {history.consumer}
-              </p>
+              </header>
+
               <div className="flex-between-center">
-                <p>금액 </p>
-                <p className="font-bold text-[#FF7058]">
+                <div className="flex items-center gap-2">
+                  <dt>금액</dt>
+                  <button
+                    onClick={() => toggleDetails(index)}
+                    className="flex items-center text-gray-400 hover:text-gray-600"
+                    aria-expanded={expandedItems.includes(index)}
+                    aria-label={
+                      expandedItems.includes(index)
+                        ? '상세 정보 접기'
+                        : '상세 정보 펼치기'
+                    }>
+                    {expandedItems.includes(index) ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+                <dd className="font-bold text-[#FF7058]">
                   {history.price.toLocaleString()}원
-                </p>
+                </dd>
               </div>
-              <p className="text-gray-400">
-                {history.useContent} ({history.peopleCount}명)
-              </p>
+              {expandedItems.includes(index) && (
+                <details open className="text-gray-400">
+                  <summary className="hidden">상세 정보</summary>
+                  <p>
+                    {history.useContent} ({history.peopleCount}명)
+                  </p>
+                </details>
+              )}
               {index !== histories.content.length - 1 && (
                 <div className="flex items-center">
                   <div className="w-full border-b border-dashed border-gray-300"></div>
                 </div>
               )}
-            </div>
+            </article>
           ))}
-          <Pagination
-            totalPages={histories?.totalPages ? histories.totalPages : 1}
-            currentPage={currentPage}
-            onPageChange={handleHistoryPageChange}
-          />
+          <nav>
+            <Pagination
+              totalPages={histories?.totalPages ? histories.totalPages : 1}
+              currentPage={currentPage}
+              onPageChange={handleHistoryPageChange}
+            />
+          </nav>
         </div>
       ) : (
         <p className="text-center">검색된 이용 내역이 없습니다.</p>
       )}
-    </>
+    </section>
   );
 }
