@@ -173,7 +173,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                     key={star}
                     type="button"
                     onClick={() => handleStarClick(star)}
-                    className={`text-4xl hover:text-gray-400
+                    className={`text-4xl
                     ${point >= star ? 'text-yellow-400' : 'text-gray-300'} `}
                     aria-label={`${star}점`}>
                     ★
