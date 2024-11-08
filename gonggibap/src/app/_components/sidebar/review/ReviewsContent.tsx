@@ -4,6 +4,7 @@ import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
 
 import { useGetReviews } from '@/apis/review';
 import { Review } from '@/types/review';
+import Pagination from '../../Pagination';
 
 interface ReviewFormMode {
   isOpen: boolean;
@@ -13,15 +14,20 @@ interface ReviewFormMode {
 
 interface ReviewsContentProps {
   restaurantId: number;
-};
+}
 
 export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
-  const { data: reviews } = useGetReviews(restaurantId);
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data: reviews } = useGetReviews(restaurantId, currentPage);
   const [formState, setFormState] = useState<ReviewFormMode>({
     isOpen: false,
     mode: 'create',
-
   });
+
+  const handleReviewPageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   const handleOpenForm = (mode: 'create' | 'edit', review?: Review) => {
     setFormState({
       isOpen: true,
@@ -45,14 +51,13 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
           mode={formState.mode}
           review={formState.review}
         />
-
       ) : (
         <>
           <div className="flex flex-between-center">
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-black text-[#FF7058]">리뷰</h1>
               <h2 className="translate-y-0.5 font-bold text-gray-500">
-                {reviews?.length}개
+                {reviews?.content?.length}개
               </h2>
             </div>
             <button
@@ -64,7 +69,18 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
 
           <div className="flex flex-col gap-2">
             {reviews && (
-              <ReviewList reviews={reviews} restaurantId={restaurantId} handleOpenForm={handleOpenForm} />
+              <>
+                <ReviewList
+                  reviews={reviews.content}
+                  restaurantId={restaurantId}
+                  handleOpenForm={handleOpenForm}
+                />
+                <Pagination
+                  totalPages={reviews.totalPages}
+                  currentPage={currentPage}
+                  onPageChange={handleReviewPageChange}
+                />
+              </>
             )}
           </div>
         </>

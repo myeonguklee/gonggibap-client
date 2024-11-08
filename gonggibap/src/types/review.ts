@@ -1,3 +1,8 @@
+export interface GetReviewResponse {
+  totalPages: number;
+  content: Review[];
+}
+
 export interface Review {
   reviewId: number;
   userId: number;
