@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Review } from '@/types/review';
 
@@ -20,11 +20,14 @@ interface ReviewsContentProps {
 
 export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: reviews } = useGetReviews(restaurantId, currentPage);
   const [formState, setFormState] = useState<ReviewFormMode>({
     isOpen: false,
     mode: 'create',
   });
+  const reviewRef = useRef<HTMLDivElement>(null);
+  
+  const { data: reviews } = useGetReviews(restaurantId, currentPage);
+
 
   const handleReviewPageChange = (page: number) => {
     setCurrentPage(page);
@@ -44,8 +47,15 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
       mode: 'create',
     });
   };
+
+  useEffect(() => {
+    if (reviewRef.current) {
+      reviewRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentPage]);
+
   return (
-    <div className="flex flex-col gap-4">
+    <div ref={reviewRef} className="flex flex-col gap-4">
       {formState.isOpen ? (
         <ReviewForm
           restaurantId={restaurantId}

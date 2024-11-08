@@ -14,7 +14,6 @@ interface HistoryContentProps {
 export function HistoryContent({ restaurantId }: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
-
   const sectionRef = useRef<HTMLElement>(null); // 섹션에 대한 ref 추가
 
   const { data: histories, isLoading } = useGetHistories(
