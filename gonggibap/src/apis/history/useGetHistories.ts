@@ -48,7 +48,7 @@ export const useGetHistories = (
             queryClient.prefetchQuery({
               queryKey: QUERY_KEYS.HISTORY.DETAIL(restaurantId, targetPage),
               queryFn: () => getHistories(restaurantId, targetPage),
-              staleTime: 1000 * 60 * 5,
+              staleTime: Infinity,
             });
           }
         });
