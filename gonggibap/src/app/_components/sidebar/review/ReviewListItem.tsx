@@ -65,7 +65,7 @@ export const ReviewListItem = ({
             <button
               onClick={() => handleOpenForm('edit', review)}
               disabled={isDeleting}
-              className={`rounded-xl bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300${
+              className={`rounded-xl bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300 dark:bg-gray-400${
                 isDeleting ? ' cursor-not-allowed opacity-50' : ''
               }`}
               aria-label="리뷰 수정">
@@ -74,7 +74,7 @@ export const ReviewListItem = ({
             <button
               onClick={() => setIsDeleteDialogOpen(true)}
               disabled={isDeleting}
-              className={`rounded-xl bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300${
+              className={`rounded-xl bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300 dark:bg-gray-400${
                 isDeleting ? ' cursor-not-allowed opacity-50' : ''
               }`}
               aria-label="리뷰 삭제">
