@@ -6,8 +6,8 @@ import {
   RestaurantHeader,
   RestaurantInfo,
   RestaurantTapNavigation,
+  BlogReview,
 } from '@/app/_components/sidebar/restaurant/detail';
-import { BlogReview } from '@/app/_components/sidebar/restaurant/detail';
 import { ReviewsContent } from '@/app/_components/sidebar/review';
 
 import { useGetRestaurant } from '@/apis/restaurant/useGetRestaurant';
