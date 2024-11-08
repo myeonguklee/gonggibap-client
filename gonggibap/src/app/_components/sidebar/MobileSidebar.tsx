@@ -110,7 +110,8 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       Math.abs(horizontalDiff) > horizontalThreshold &&
       Math.abs(horizontalDiff) > Math.abs(verticalDiff)
     ) {
-      if (horizontalDiff < 0) {  // Changed from > 0 to < 0 to reverse swipe direction
+      if (horizontalDiff < 0) {
+        // Changed from > 0 to < 0 to reverse swipe direction
         // Swipe right
         handleBackToList();
       }
@@ -230,7 +231,7 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({
       <div
         ref={contentRef}
         className={`
-          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto pt-4 px-4
+          mobile-content h-[calc(100%-1.5rem)] overflow-y-auto px-4 pt-4
           ${position === 'full' ? 'touch-auto' : 'touch-none'}
         `}>
         {view === 'list' ? (

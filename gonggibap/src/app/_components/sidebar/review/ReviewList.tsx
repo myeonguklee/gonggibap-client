@@ -5,9 +5,14 @@ import { ReviewListItem } from './ReviewListItem';
 type ReviewListProps = {
   reviews: Review[];
   restaurantId: number;
+  handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
 };
 
-export const ReviewList = ({ reviews, restaurantId }: ReviewListProps) => {
+export const ReviewList = ({
+  reviews,
+  restaurantId,
+  handleOpenForm,
+}: ReviewListProps) => {
   if (reviews.length === 0) {
     return (
       <p className="my-10 text-center text-gray-500">작성된 리뷰가 없습니다.</p>
@@ -21,6 +26,7 @@ export const ReviewList = ({ reviews, restaurantId }: ReviewListProps) => {
           key={review.reviewId}
           review={review}
           restaurantId={restaurantId}
+          handleOpenForm={handleOpenForm}
         />
       ))}
     </ul>
