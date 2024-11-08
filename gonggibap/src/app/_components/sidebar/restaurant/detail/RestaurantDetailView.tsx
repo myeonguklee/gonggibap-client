@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { HistoryContent } from '@/app/_components/sidebar/history';
 import {
@@ -25,6 +25,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 }) => {
   const { data: restaurant } = useGetRestaurant(restaurantId);
   const [activeTab, setActiveTab] = useState('history');
+  const navRef = useRef<HTMLElement>(null);
 
   const tabs = [
     {
@@ -37,6 +38,12 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
+  };
+
+  const handleMoveNav = () => {
+    if (navRef.current) {
+      navRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   if (!restaurant) {
@@ -74,7 +81,7 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
       </figure>
 
       {/* 탭 네비게이션 */}
-      <nav aria-label="음식점 리뷰 사용내역 탭 메뉴">
+      <nav ref={navRef} aria-label="음식점 리뷰 사용내역 탭 메뉴">
         <RestaurantTapNavigation
           tabs={tabs}
           activeTab={activeTab}
@@ -90,9 +97,9 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           activeTab === 'history' ? '공공기관 사용내역' : '리뷰 목록'
         }>
         {activeTab === 'history' ? (
-          <HistoryContent restaurantId={restaurant.restaurantId} />
+          <HistoryContent restaurantId={restaurant.restaurantId} onMoveNav={handleMoveNav} />
         ) : (
-          <ReviewsContent restaurantId={restaurant.restaurantId} />
+          <ReviewsContent restaurantId={restaurant.restaurantId} onMoveNav={handleMoveNav}/>
         )}
       </section>
       <section>

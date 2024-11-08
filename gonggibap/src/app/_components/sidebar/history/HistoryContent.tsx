@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -9,12 +9,15 @@ import { useGetHistories } from '@/apis/history';
 
 interface HistoryContentProps {
   restaurantId: number;
+  onMoveNav: () => void;
 }
 
-export function HistoryContent({ restaurantId }: HistoryContentProps) {
+export function HistoryContent({
+  restaurantId,
+  onMoveNav,
+}: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
-  const sectionRef = useRef<HTMLElement>(null); // 섹션에 대한 ref 추가
 
   const { data: histories, isLoading } = useGetHistories(
     restaurantId,
@@ -23,6 +26,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
 
   const handleHistoryPageChange = (page: number) => {
     setCurrentPage(page);
+    onMoveNav();
   };
 
   const toggleDetails = (index: number) => {
@@ -36,19 +40,12 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
     setExpandedItems([]);
   }, [restaurantId]);
 
-  // 페이지가 변경될 때마다 섹션의 시작 부분으로 스크롤
-  useEffect(() => {
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [currentPage]);
-
   if (isLoading) {
     return <MapPinLoading />;
   }
 
   return (
-    <section ref={sectionRef} className="history-section">
+    <section className="history-section">
       {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
           <aside className="text-xs text-gray-500">
