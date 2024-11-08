@@ -58,7 +58,7 @@ export const ReviewListItem = ({
           </div>
         </div>
         {review.userId === auth.userInfo?.userId && (
-          <div className='flex gap-1'>
+          <div className="flex gap-1">
             <button
               onClick={() => handleOpenForm('edit', review)}
               disabled={isDeleting}

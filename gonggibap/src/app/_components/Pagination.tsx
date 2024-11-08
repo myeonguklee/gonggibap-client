@@ -51,7 +51,7 @@ export const Pagination = ({
   const isLastPage = displayPage === totalPages;
 
   return (
-    <div className="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-700 sticky bottom-0 py-2">
+    <div className="sticky bottom-0 flex w-full items-center justify-center gap-2 bg-white py-2 dark:bg-gray-700">
       <button
         onClick={() => handlePageChange(displayPage - 1)}
         disabled={isFirstPage}

@@ -7,7 +7,6 @@ import { GetReviewResponse } from '@/types/review';
 import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
-import page from '@/app/page';
 
 const getReviews = async (
   restaurantId: number,

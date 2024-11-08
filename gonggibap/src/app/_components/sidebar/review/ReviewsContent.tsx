@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
+import { Review } from '@/types/review';
+
 import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
 
 import { useGetReviews } from '@/apis/review';
-import { Review } from '@/types/review';
+
 import Pagination from '../../Pagination';
 
 interface ReviewFormMode {

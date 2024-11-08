@@ -5,9 +5,11 @@ import { X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { useAuthStore } from '@/store/useAuthStore';
-import { useCreateReview, useUpdateReview } from '@/apis/review';
 import { Review } from '@/types/review';
+
+import { useAuthStore } from '@/store/useAuthStore';
+
+import { useCreateReview, useUpdateReview } from '@/apis/review';
 
 type ReviewFormProps = {
   restaurantId: number;
@@ -125,7 +127,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 
     Promise.all(processExistingImages).then((existingFiles) => {
       // null이 아닌 파일들만 필터링
-      const validExistingFiles = existingFiles.filter((file): file is File => file !== null);
+      const validExistingFiles = existingFiles.filter(
+        (file): file is File => file !== null,
+      );
       // 기존 이미지와 새 이미지를 합침
       const allImages = [...validExistingFiles, ...uploadedImages];
 
@@ -135,14 +139,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           restaurantId,
           content: data.content,
           point: data.point,
-          images: allImages
+          images: allImages,
         });
       } else {
         createReview({
           restaurantId,
           content: data.content,
           point: data.point,
-          images: uploadedImages
+          images: uploadedImages,
         });
       }
     });
@@ -151,7 +155,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
   return (
     <div className="relative">
       <div className="flex flex-col gap-4">
-        <h2 className="sr-only">{mode === 'edit' ? '리뷰 수정' : '리뷰 작성'}</h2>
+        <h2 className="sr-only">
+          {mode === 'edit' ? '리뷰 수정' : '리뷰 작성'}
+        </h2>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           {/* Rating selection */}
           <fieldset>
@@ -283,8 +289,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
                   ? '수정 중...'
                   : '등록 중...'
                 : mode === 'edit'
-                ? '리뷰 수정'
-                : '리뷰 등록'}
+                  ? '리뷰 수정'
+                  : '리뷰 등록'}
             </button>
           </div>
         </form>

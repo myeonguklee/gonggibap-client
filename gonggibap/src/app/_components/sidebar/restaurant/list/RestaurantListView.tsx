@@ -71,15 +71,16 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
             </li>
           ))}
         </ul>
-        {restaurants.length > 0 && (!mobilePosition || mobilePosition !== 'peek') && (
-          <Pagination
-            totalPages={totalPages ? totalPages : 1}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
-            selectedRestaurantId={selectedRestaurantId}
-            onRestaurantSelect={onRestaurantSelect}
-          />
-        )}
+        {restaurants.length > 0 &&
+          (!mobilePosition || mobilePosition !== 'peek') && (
+            <Pagination
+              totalPages={totalPages ? totalPages : 1}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+              selectedRestaurantId={selectedRestaurantId}
+              onRestaurantSelect={onRestaurantSelect}
+            />
+          )}
       </>
     </div>
   );
