@@ -27,7 +27,7 @@ export const useGetReviews = (
   page: number,
 ): UseQueryResult<GetReviewResponse, AxiosError<ErrorResponse>> => {
   return useQuery<GetReviewResponse, AxiosError<ErrorResponse>>({
-    queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId),
+    queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId, page),
     queryFn: () => getReviews(restaurantId, page),
     enabled: !!restaurantId,
     staleTime: 1000 * 60 * 5,
