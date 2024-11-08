@@ -60,9 +60,9 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
         <ReviewForm
           restaurantId={restaurantId}
           onClickWriteReview={handleCloseForm}
+          currentPage={currentPage}
           mode={formState.mode}
           review={formState.review}
-          currentPage={currentPage}
         />
       ) : (
         <>
@@ -84,9 +84,9 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
             {reviews && (
               <ReviewList
                 reviews={reviews.content}
+                currentPage={currentPage}
                 restaurantId={restaurantId}
                 handleOpenForm={handleOpenForm}
-                currentPage={currentPage}
               />
             )}
 

@@ -4,16 +4,16 @@ import { ReviewListItem } from './ReviewListItem';
 
 type ReviewListProps = {
   reviews: Review[];
+  currentPage: number;
   restaurantId: number;
   handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
-  currentPage: number;
 };
 
 export const ReviewList = ({
   reviews,
+  currentPage,
   restaurantId,
   handleOpenForm,
-  currentPage,
 }: ReviewListProps) => {
   if (reviews.length === 0) {
     return (
@@ -27,9 +27,9 @@ export const ReviewList = ({
         <ReviewListItem
           key={review.reviewId}
           review={review}
+          currentPage={currentPage}
           restaurantId={restaurantId}
           handleOpenForm={handleOpenForm}
-          currentPage={currentPage}
         />
       ))}
     </ul>
