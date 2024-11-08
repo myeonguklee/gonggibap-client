@@ -1,4 +1,10 @@
-import { UseQueryResult, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
+
+import {
+  UseQueryResult,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { BaseResponse, ErrorResponse } from '@/types/apiResponse';
@@ -6,9 +12,9 @@ import { GetReviewResponse } from '@/types/review';
 
 import { client } from '@/apis/core/client';
 
-import { QUERY_KEYS } from '@/constants/queryKeys';
-import { useEffect } from 'react';
 import { getVisiblePageNumbers } from '@/utils/getVisiblePageNumbers ';
+
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const getReviews = async (
   restaurantId: number,
@@ -30,31 +36,27 @@ export const useGetReviews = (
 ): UseQueryResult<GetReviewResponse, AxiosError<ErrorResponse>> => {
   const queryClient = useQueryClient();
 
-
-
   const query = useQuery<GetReviewResponse, AxiosError<ErrorResponse>>({
     queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId, page),
     queryFn: () => getReviews(restaurantId, page),
     staleTime: 1000 * 60 * 5,
   });
 
+  useEffect(() => {
+    if (query.data?.totalPages) {
+      const visiblePages = getVisiblePageNumbers(page, query.data.totalPages);
 
-    // 프리페칭 로직
-    useEffect(() => {
-      if (query.data?.totalPages) {
-        const visiblePages = getVisiblePageNumbers(page, query.data.totalPages);
-        
-        visiblePages.forEach((targetPage) => {
-          if (targetPage !== page) {
-            queryClient.prefetchQuery({
-              queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId, targetPage),
-              queryFn: () => getReviews(restaurantId, targetPage),
-              staleTime: 1000 * 60 * 5,
-            });
-          }
-        });
-      }
-    }, [queryClient, page, query.data?.totalPages]);
-  
-    return query;
+      visiblePages.forEach((targetPage) => {
+        if (targetPage !== page) {
+          queryClient.prefetchQuery({
+            queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId, targetPage),
+            queryFn: () => getReviews(restaurantId, targetPage),
+            staleTime: 1000 * 60 * 5,
+          });
+        }
+      });
+    }
+  }, [restaurantId, queryClient, page, query.data?.totalPages]);
+
+  return query;
 };
