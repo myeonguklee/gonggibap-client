@@ -12,7 +12,7 @@ import { client } from '@/apis/core/client';
 
 import { QUERY_KEYS } from '@/constants/queryKeys';
 
-interface CreateReviewDTO {
+export interface CreateReviewDTO {
   restaurantId: number;
   content: string;
   point: number;
