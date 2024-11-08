@@ -6,12 +6,14 @@ type ReviewListProps = {
   reviews: Review[];
   restaurantId: number;
   handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
+  currentPage: number;
 };
 
 export const ReviewList = ({
   reviews,
   restaurantId,
   handleOpenForm,
+  currentPage,
 }: ReviewListProps) => {
   if (reviews.length === 0) {
     return (
@@ -27,6 +29,7 @@ export const ReviewList = ({
           review={review}
           restaurantId={restaurantId}
           handleOpenForm={handleOpenForm}
+          currentPage={currentPage}
         />
       ))}
     </ul>

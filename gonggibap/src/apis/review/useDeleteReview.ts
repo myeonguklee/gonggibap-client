@@ -15,6 +15,7 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 interface DeleteReviewParams {
   reviewId: number;
   restaurantId: number;
+  page: number;
 }
 
 const deleteReview = async ({
@@ -37,7 +38,7 @@ export const useDeleteReview = (): UseMutationResult<
       // 리뷰 삭제 성공 시
       toast.success('리뷰가 삭제되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.REVIEW.DETAIL(params.restaurantId),
+        queryKey: QUERY_KEYS.REVIEW.DETAIL(params.restaurantId, params.page),
       });
     },
     onError: (error) => {

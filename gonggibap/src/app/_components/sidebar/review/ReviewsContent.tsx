@@ -62,6 +62,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
           onClickWriteReview={handleCloseForm}
           mode={formState.mode}
           review={formState.review}
+          currentPage={currentPage}
         />
       ) : (
         <>
@@ -85,6 +86,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
                 reviews={reviews.content}
                 restaurantId={restaurantId}
                 handleOpenForm={handleOpenForm}
+                currentPage={currentPage}
               />
             )}
 

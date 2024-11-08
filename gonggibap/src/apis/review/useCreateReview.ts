@@ -14,6 +14,7 @@ import { QUERY_KEYS } from '@/constants/queryKeys';
 
 export interface CreateReviewDTO {
   restaurantId: number;
+  page: number;
   content: string;
   point: number;
   images?: File[];
@@ -59,7 +60,7 @@ export const useCreateReview = (
     onSuccess: (_, formData) => {
       toast.success('리뷰가 등록되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId),
+        queryKey: QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId, formData.page),
       });
       options?.onSuccess?.();
     },

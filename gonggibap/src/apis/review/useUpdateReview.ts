@@ -56,7 +56,7 @@ export const useUpdateReview = (
     onSuccess: (_, formData) => {
       toast.success('리뷰가 수정되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId),
+        queryKey: QUERY_KEYS.REVIEW.DETAIL(formData.restaurantId, formData.page),
       });
       options?.onSuccess?.();
     },
