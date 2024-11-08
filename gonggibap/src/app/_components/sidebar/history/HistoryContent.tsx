@@ -9,11 +9,16 @@ import { useGetHistories } from '@/apis/history';
 
 interface HistoryContentProps {
   restaurantId: number;
+  onMoveNav: () => void;
 }
 
-export function HistoryContent({ restaurantId }: HistoryContentProps) {
+export function HistoryContent({
+  restaurantId,
+  onMoveNav,
+}: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
+
   const { data: histories, isLoading } = useGetHistories(
     restaurantId,
     currentPage,
@@ -21,6 +26,7 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
 
   const handleHistoryPageChange = (page: number) => {
     setCurrentPage(page);
+    onMoveNav();
   };
 
   const toggleDetails = (index: number) => {
@@ -54,7 +60,8 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                 {history.historyDate.split('T')[0]}
               </time>
               <header className="font-bold">
-                {history.publicOfficeName} {history.consumer}
+                {history.publicOfficeName}{' '}
+                {history.consumer === 'Unknown' ? '' : history.consumer}
               </header>
 
               <div className="flex-between-center">

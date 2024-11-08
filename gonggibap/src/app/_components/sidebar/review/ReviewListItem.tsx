@@ -18,12 +18,14 @@ type ReviewListItemProps = {
   review: Review;
   restaurantId: number;
   handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
+  currentPage: number;
 };
 
 export const ReviewListItem = ({
   review,
   restaurantId,
   handleOpenForm,
+  currentPage,
 }: ReviewListItemProps) => {
   const auth = useAuthStore();
   const { mutate: onDeleteReview, isPending: isDeleting } = useDeleteReview();
@@ -33,6 +35,7 @@ export const ReviewListItem = ({
     onDeleteReview({
       reviewId: review.reviewId,
       restaurantId,
+      page: currentPage,
     });
     setIsDeleteDialogOpen(false);
   };

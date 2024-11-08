@@ -4,12 +4,14 @@ import { ReviewListItem } from './ReviewListItem';
 
 type ReviewListProps = {
   reviews: Review[];
+  currentPage: number;
   restaurantId: number;
   handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
 };
 
 export const ReviewList = ({
   reviews,
+  currentPage,
   restaurantId,
   handleOpenForm,
 }: ReviewListProps) => {
@@ -25,6 +27,7 @@ export const ReviewList = ({
         <ReviewListItem
           key={review.reviewId}
           review={review}
+          currentPage={currentPage}
           restaurantId={restaurantId}
           handleOpenForm={handleOpenForm}
         />

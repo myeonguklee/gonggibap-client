@@ -14,6 +14,7 @@ import { useCreateReview, useUpdateReview } from '@/apis/review';
 type ReviewFormProps = {
   restaurantId: number;
   onClickWriteReview: () => void;
+  currentPage: number;
   mode?: 'create' | 'edit';
   review?: Review;
 };
@@ -27,6 +28,7 @@ interface ReviewFormData {
 export const ReviewForm: React.FC<ReviewFormProps> = ({
   restaurantId,
   onClickWriteReview,
+  currentPage,
   mode = 'create',
   review,
 }) => {
@@ -140,6 +142,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           content: data.content,
           point: data.point,
           images: allImages,
+          page: currentPage,
         });
       } else {
         createReview({
@@ -147,6 +150,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
           content: data.content,
           point: data.point,
           images: uploadedImages,
+          page: currentPage,
         });
       }
     });

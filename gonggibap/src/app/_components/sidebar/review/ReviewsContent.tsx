@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import { Review } from '@/types/review';
 
+import { MapPinLoading } from '@/app/_components/MapPinLoading';
+import { Pagination } from '@/app/_components/Pagination';
 import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
 
 import { useGetReviews } from '@/apis/review';
-
-import Pagination from '../../Pagination';
 
 interface ReviewFormMode {
   isOpen: boolean;
@@ -16,18 +16,24 @@ interface ReviewFormMode {
 
 interface ReviewsContentProps {
   restaurantId: number;
+  onMoveNav: () => void;
 }
 
-export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
+export const ReviewsContent = ({
+  restaurantId,
+  onMoveNav,
+}: ReviewsContentProps) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: reviews } = useGetReviews(restaurantId, currentPage);
   const [formState, setFormState] = useState<ReviewFormMode>({
     isOpen: false,
     mode: 'create',
   });
 
+  const { data: reviews, isLoading } = useGetReviews(restaurantId, currentPage);
+
   const handleReviewPageChange = (page: number) => {
     setCurrentPage(page);
+    onMoveNav();
   };
 
   const handleOpenForm = (mode: 'create' | 'edit', review?: Review) => {
@@ -44,18 +50,24 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
       mode: 'create',
     });
   };
+
+  if (isLoading) {
+    return <MapPinLoading />;
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {formState.isOpen ? (
         <ReviewForm
           restaurantId={restaurantId}
           onClickWriteReview={handleCloseForm}
+          currentPage={currentPage}
           mode={formState.mode}
           review={formState.review}
         />
       ) : (
         <>
-          <div className="flex flex-between-center">
+          <div className="flex-between-center">
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-black text-[#FF7058]">리뷰</h1>
               <h2 className="translate-y-0.5 font-bold text-gray-500">
@@ -73,6 +85,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
             {reviews && (
               <ReviewList
                 reviews={reviews.content}
+                currentPage={currentPage}
                 restaurantId={restaurantId}
                 handleOpenForm={handleOpenForm}
               />

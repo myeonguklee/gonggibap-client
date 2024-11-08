@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { Restaurant } from '@/types/restaurant';
 import { MobilePosition } from '@/types/sidebar';
 
@@ -36,6 +38,21 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   onFavoriteRestaurantFilter,
   mobilePosition,
 }) => {
+  const refTap = useRef<HTMLDivElement>(null);
+
+  const handleMoveTap = () => {
+    if (refTap.current) {
+      refTap.current.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    onPageChange(page);
+    handleMoveTap();
+  };
+
   const handleRestaurantSelect = (restaurant: Restaurant) => {
     trackRestaurantSelection(restaurant);
     onRestaurantSelect(restaurant.restaurantId);
@@ -44,7 +61,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
   if (!restaurants) return <MapPinLoading />;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div ref={refTap} className="flex flex-col gap-3">
       <TabNavigation
         isFavorite={isFavorite}
         onTabChange={onFavoriteRestaurantFilter}
@@ -76,7 +93,7 @@ export const RestaurantListView: React.FC<RestaurantListViewProps> = ({
             <Pagination
               totalPages={totalPages ? totalPages : 1}
               currentPage={currentPage}
-              onPageChange={onPageChange}
+              onPageChange={handlePageChange}
               selectedRestaurantId={selectedRestaurantId}
               onRestaurantSelect={onRestaurantSelect}
             />
