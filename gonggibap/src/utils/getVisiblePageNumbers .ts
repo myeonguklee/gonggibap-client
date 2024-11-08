@@ -1,7 +1,7 @@
 export const getVisiblePageNumbers = (
-  currentPage: number, 
-  totalPages: number, 
-  maxVisible: number = 5
+  currentPage: number,
+  totalPages: number,
+  maxVisible: number = 5,
 ) => {
   const half = Math.floor(maxVisible / 2);
   let start = currentPage - half;
@@ -13,7 +13,7 @@ export const getVisiblePageNumbers = (
   }
 
   if (end >= totalPages) {
-    start -= (end - totalPages + 1);
+    start -= end - totalPages + 1;
     end = totalPages - 1;
   }
 

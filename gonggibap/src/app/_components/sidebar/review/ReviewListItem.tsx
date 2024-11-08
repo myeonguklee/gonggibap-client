@@ -25,7 +25,7 @@ export const ReviewListItem = ({
   review,
   restaurantId,
   handleOpenForm,
-  currentPage
+  currentPage,
 }: ReviewListItemProps) => {
   const auth = useAuthStore();
   const { mutate: onDeleteReview, isPending: isDeleting } = useDeleteReview();

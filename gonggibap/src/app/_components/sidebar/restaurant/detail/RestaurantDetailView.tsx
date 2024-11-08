@@ -97,9 +97,15 @@ export const RestaurantDetailView: React.FC<RestaurantDetailViewProps> = ({
           activeTab === 'history' ? '공공기관 사용내역' : '리뷰 목록'
         }>
         {activeTab === 'history' ? (
-          <HistoryContent restaurantId={restaurant.restaurantId} onMoveNav={handleMoveNav} />
+          <HistoryContent
+            restaurantId={restaurant.restaurantId}
+            onMoveNav={handleMoveNav}
+          />
         ) : (
-          <ReviewsContent restaurantId={restaurant.restaurantId} onMoveNav={handleMoveNav}/>
+          <ReviewsContent
+            restaurantId={restaurant.restaurantId}
+            onMoveNav={handleMoveNav}
+          />
         )}
       </section>
       <section>

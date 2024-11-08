@@ -67,7 +67,7 @@ export const ReviewsContent = ({
         />
       ) : (
         <>
-          <div className="flex-between-center flex">
+          <div className="flex-between-center">
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-black text-[#FF7058]">리뷰</h1>
               <h2 className="translate-y-0.5 font-bold text-gray-500">
