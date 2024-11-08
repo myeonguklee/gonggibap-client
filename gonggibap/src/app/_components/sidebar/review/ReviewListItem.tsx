@@ -17,11 +17,13 @@ import { getRelativeTime } from '@/utils/getRelativeTime';
 type ReviewListItemProps = {
   review: Review;
   restaurantId: number;
+  handleOpenForm: (mode: 'create' | 'edit', review?: Review) => void;
 };
 
 export const ReviewListItem = ({
   review,
   restaurantId,
+  handleOpenForm,
 }: ReviewListItemProps) => {
   const auth = useAuthStore();
   const { mutate: onDeleteReview, isPending: isDeleting } = useDeleteReview();
@@ -56,7 +58,16 @@ export const ReviewListItem = ({
           </div>
         </div>
         {review.userId === auth.userInfo?.userId && (
-          <>
+          <div className='flex gap-1'>
+            <button
+              onClick={() => handleOpenForm('edit', review)}
+              disabled={isDeleting}
+              className={`rounded-xl bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300${
+                isDeleting ? ' cursor-not-allowed opacity-50' : ''
+              }`}
+              aria-label="리뷰 수정">
+              수정
+            </button>
             <button
               onClick={() => setIsDeleteDialogOpen(true)}
               disabled={isDeleting}
@@ -72,7 +83,7 @@ export const ReviewListItem = ({
               isDeleting={isDeleting}
               onDelete={handleDeleteReview}
             />
-          </>
+          </div>
         )}
       </div>
 

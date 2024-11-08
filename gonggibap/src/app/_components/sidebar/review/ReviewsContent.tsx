@@ -3,24 +3,49 @@ import { useState } from 'react';
 import { ReviewForm, ReviewList } from '@/app/_components/sidebar/review';
 
 import { useGetReviews } from '@/apis/review';
+import { Review } from '@/types/review';
 
-type ReviewsContentProps = {
+interface ReviewFormMode {
+  isOpen: boolean;
+  mode: 'create' | 'edit';
+  review?: Review;
+}
+
+interface ReviewsContentProps {
   restaurantId: number;
 };
 
 export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
   const { data: reviews } = useGetReviews(restaurantId);
-  const [isWriting, setIsWriting] = useState<boolean>(false);
+  const [formState, setFormState] = useState<ReviewFormMode>({
+    isOpen: false,
+    mode: 'create',
 
-  const onClickWriteReview = () => setIsWriting((prev) => !prev);
+  });
+  const handleOpenForm = (mode: 'create' | 'edit', review?: Review) => {
+    setFormState({
+      isOpen: true,
+      mode,
+      review,
+    });
+  };
 
+  const handleCloseForm = () => {
+    setFormState({
+      isOpen: false,
+      mode: 'create',
+    });
+  };
   return (
     <div className="flex flex-col gap-4">
-      {isWriting ? (
+      {formState.isOpen ? (
         <ReviewForm
           restaurantId={restaurantId}
-          onClickWriteReview={onClickWriteReview}
+          onClickWriteReview={handleCloseForm}
+          mode={formState.mode}
+          review={formState.review}
         />
+
       ) : (
         <>
           <div className="flex flex-between-center">
@@ -31,7 +56,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
               </h2>
             </div>
             <button
-              onClick={onClickWriteReview}
+              onClick={() => handleOpenForm('create')}
               className="rounded-lg bg-[#FF7058] p-2 text-right text-white">
               작성
             </button>
@@ -39,7 +64,7 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
 
           <div className="flex flex-col gap-2">
             {reviews && (
-              <ReviewList reviews={reviews} restaurantId={restaurantId} />
+              <ReviewList reviews={reviews} restaurantId={restaurantId} handleOpenForm={handleOpenForm} />
             )}
           </div>
         </>
