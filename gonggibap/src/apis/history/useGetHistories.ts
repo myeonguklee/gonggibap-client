@@ -34,13 +34,12 @@ export const useGetHistories = (
     const query = useQuery<GetHistoriesResponse, AxiosError<ErrorResponse>>({
       queryKey: QUERY_KEYS.HISTORY.DETAIL(restaurantId, page),
       queryFn: () => getHistories(restaurantId, page),
-      enabled: !!restaurantId,
       staleTime: Infinity,
     });
   
     // 프리페칭 로직
     useEffect(() => {
-      if (restaurantId && query.data?.totalPages) {
+      if (query.data?.totalPages) {
         const visiblePages = getVisiblePageNumbers(page, query.data.totalPages);
         
         visiblePages.forEach((targetPage) => {
@@ -53,7 +52,7 @@ export const useGetHistories = (
           }
         });
       }
-    }, [queryClient, restaurantId, page, query.data?.totalPages]);
+    }, [queryClient, page, query.data?.totalPages]);
   
     return query;
   };

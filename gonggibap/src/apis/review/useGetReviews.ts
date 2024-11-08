@@ -35,14 +35,13 @@ export const useGetReviews = (
   const query = useQuery<GetReviewResponse, AxiosError<ErrorResponse>>({
     queryKey: QUERY_KEYS.REVIEW.DETAIL(restaurantId, page),
     queryFn: () => getReviews(restaurantId, page),
-    enabled: !!restaurantId,
     staleTime: 1000 * 60 * 5,
   });
 
 
     // 프리페칭 로직
     useEffect(() => {
-      if (restaurantId && query.data?.totalPages) {
+      if (query.data?.totalPages) {
         const visiblePages = getVisiblePageNumbers(page, query.data.totalPages);
         
         visiblePages.forEach((targetPage) => {
@@ -55,7 +54,7 @@ export const useGetReviews = (
           }
         });
       }
-    }, [queryClient, restaurantId, page, query.data?.totalPages]);
+    }, [queryClient, page, query.data?.totalPages]);
   
     return query;
 };
