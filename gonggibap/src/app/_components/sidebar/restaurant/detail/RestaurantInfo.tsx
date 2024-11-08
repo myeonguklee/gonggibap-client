@@ -120,12 +120,14 @@ export const RestaurantInfo = ({
               <IoCallOutline aria-hidden="true" />
               <span>{restaurant.phone ? restaurant.phone : '미제공'}</span>
             </div>
-            <button
-              onClick={handleMoveKakaoMap}
-              className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
-              <GoLinkExternal />
-              <span>카카오맵 상세보기</span>
-            </button>
+            <div>
+              <button
+                onClick={handleMoveKakaoMap}
+                className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
+                <GoLinkExternal />
+                <span>카카오맵 상세보기</span>
+              </button>
+            </div>
           </address>
         </div>
 
@@ -142,7 +144,7 @@ export const RestaurantInfo = ({
           </dl>
           <button
             onClick={handleShare}
-            className="gap-1 text-gray-500 flex-center hover:text-black dark:text-white">
+            className="flex-center gap-1 text-gray-500 hover:text-black dark:text-white">
             <PiLinkBold />
             <span>공유하기</span>
           </button>
