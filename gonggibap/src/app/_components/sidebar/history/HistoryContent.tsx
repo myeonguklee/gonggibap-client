@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -14,6 +14,9 @@ interface HistoryContentProps {
 export function HistoryContent({ restaurantId }: HistoryContentProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
+
+  const sectionRef = useRef<HTMLElement>(null); // 섹션에 대한 ref 추가
+
   const { data: histories, isLoading } = useGetHistories(
     restaurantId,
     currentPage,
@@ -34,12 +37,19 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
     setExpandedItems([]);
   }, [restaurantId]);
 
+  // 페이지가 변경될 때마다 섹션의 시작 부분으로 스크롤
+  useEffect(() => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentPage]);
+
   if (isLoading) {
     return <MapPinLoading />;
   }
 
   return (
-    <section className="history-section">
+    <section ref={sectionRef} className="history-section">
       {histories?.content && histories.content.length > 0 ? (
         <div className="flex flex-col gap-5">
           <aside className="text-xs text-gray-500">
@@ -54,7 +64,8 @@ export function HistoryContent({ restaurantId }: HistoryContentProps) {
                 {history.historyDate.split('T')[0]}
               </time>
               <header className="font-bold">
-                {history.publicOfficeName} {history.consumer}
+                {history.publicOfficeName}{' '}
+                {history.consumer === 'Unknown' ? '' : history.consumer}
               </header>
 
               <div className="flex-between-center">
