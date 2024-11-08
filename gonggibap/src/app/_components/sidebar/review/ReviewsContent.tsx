@@ -71,18 +71,21 @@ export const ReviewsContent = ({ restaurantId }: ReviewsContentProps) => {
 
           <div className="flex flex-col gap-2">
             {reviews && (
-              <>
-                <ReviewList
-                  reviews={reviews.content}
-                  restaurantId={restaurantId}
-                  handleOpenForm={handleOpenForm}
-                />
+              <ReviewList
+                reviews={reviews.content}
+                restaurantId={restaurantId}
+                handleOpenForm={handleOpenForm}
+              />
+            )}
+
+            {reviews && reviews.content.length > 0 && (
+              <nav>
                 <Pagination
                   totalPages={reviews.totalPages}
                   currentPage={currentPage}
                   onPageChange={handleReviewPageChange}
                 />
-              </>
+              </nav>
             )}
           </div>
         </>
