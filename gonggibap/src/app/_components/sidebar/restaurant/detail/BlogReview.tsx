@@ -18,14 +18,14 @@ export const BlogReview = ({ restaurantId }: BlogReviewProps) => {
         <ul className="space-y-4">
           {blogs.map((blog, index) => (
             <li key={index} className="border-b border-gray-200 pb-4">
-              <article>
+              <article className="w-full">
                 <a
                   href={blog.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block">
+                  className="block w-full">
                   <div className="flex gap-4">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h3
                         className="text-md mb-2 line-clamp-2 font-semibold"
                         dangerouslySetInnerHTML={{ __html: blog.title }}
