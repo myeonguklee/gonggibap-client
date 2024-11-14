@@ -35,10 +35,16 @@ export function HistoryContent({
     );
   };
 
+  // restaurantId 변경시 currentPage와 expandedItems 초기화
   useEffect(() => {
     setCurrentPage(0);
     setExpandedItems([]);
   }, [restaurantId]);
+
+  // currentPage 변경시 expandedItems 초기화
+  useEffect(() => {
+    setExpandedItems([]);
+  },[currentPage]);
 
   if (isLoading) {
     return <MapPinLoading />;
