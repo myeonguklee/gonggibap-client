@@ -50,7 +50,7 @@ export const ReviewListItem = ({
         </div>
         <div className="flex gap-1 text-xs font-semibold">
           <p className="text-gray-500">평균별점</p>
-          <p>{review.userReviewAvg}</p>
+          <p>{review.userReviewAvg.toFixed(1)}</p>
         </div>
       </div>
       <div className="flex justify-between">
