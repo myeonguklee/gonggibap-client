@@ -99,7 +99,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
       </section>
       <button
         onClick={handleFeedbackClick}
-        className="fixed bottom-52 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
+        className="fixed bottom-36 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
         aria-label="프로젝트 피드백">
         <MdOutlineFeedback className="size-6 rotate-90 text-[#B3B3B3]" />
       </button>
@@ -109,7 +109,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
           onRestaurantSelect(null);
           onSelectCategory(null);
         }}
-        className="fixed bottom-36 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
+        className="fixed bottom-20 right-4 z-10 rounded-full bg-white p-3 shadow-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700"
         aria-label="현재 위치로 이동">
         <PiNavigationArrowBold className="size-6 rotate-90 text-[#B3B3B3]" />
       </button>

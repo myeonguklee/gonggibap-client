@@ -33,7 +33,7 @@ export function ThemeToggleBtn({ position }: ThemeToggleBtnProps) {
       className={`
         z-10 size-12 rounded-full bg-white shadow-lg flex-center 
         hover:bg-gray-100 focus:outline-none dark:bg-gray-800 dark:hover:bg-gray-700
-        ${isMobile ? 'absolute -top-16 right-4' : 'fixed bottom-20 right-4'}
+        ${isMobile ? 'absolute -top-16 right-4' : 'fixed bottom-4 right-4'}
         ${position === 'full' ? '!hidden' : ''}
       `}>
       {theme === 'dark' ? (
