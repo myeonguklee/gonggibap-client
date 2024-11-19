@@ -144,7 +144,7 @@ export const RestaurantInfo = ({
           </dl>
           <button
             onClick={handleShare}
-            className="flex-center gap-1 text-gray-500 hover:text-black dark:text-white">
+            className="gap-1 text-gray-500 flex-center hover:text-black dark:text-white">
             <PiLinkBold />
             <span>공유하기</span>
           </button>
