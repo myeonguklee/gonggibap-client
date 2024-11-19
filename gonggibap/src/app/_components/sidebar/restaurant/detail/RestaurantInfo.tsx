@@ -17,8 +17,7 @@ import {
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { FaRegBookmark } from 'react-icons/fa6';
-import { GoBookmarkSlash } from 'react-icons/go';
-import { GoLinkExternal } from 'react-icons/go';
+import { GoBookmarkSlash, GoLinkExternal } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
 import { PiLinkBold } from 'react-icons/pi';
 
