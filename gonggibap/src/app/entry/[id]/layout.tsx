@@ -14,8 +14,13 @@ export async function generateMetadata({
     return {
       title,
       description: restaurant.restaurantDetailCategory,
+      other: {
+        'kakao:title': restaurant.restaurantName,
+        'kakao:description': `${restaurant.restaurantAddressName}\n${process.env.NEXT_PUBLIC_CLIENT_URL}/entry/${params.id}`,
+        'kakao:image': restaurant.restaurantImage,
+      },
       openGraph: {
-        title,
+        title: '공기밥',
         description: restaurant.restaurantName,
         images: [
           {
