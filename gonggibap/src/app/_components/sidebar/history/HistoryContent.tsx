@@ -44,7 +44,7 @@ export function HistoryContent({
   // currentPage 변경시 expandedItems 초기화
   useEffect(() => {
     setExpandedItems([]);
-  },[currentPage]);
+  }, [currentPage]);
 
   if (isLoading) {
     return <MapPinLoading />;

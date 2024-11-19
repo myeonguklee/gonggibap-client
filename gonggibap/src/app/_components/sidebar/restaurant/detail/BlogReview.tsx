@@ -25,7 +25,7 @@ export const BlogReview = ({ restaurantId }: BlogReviewProps) => {
                   rel="noopener noreferrer"
                   className="block w-full">
                   <div className="flex gap-4">
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0 flex-1">
                       <h3
                         className="text-md mb-2 line-clamp-2 font-semibold"
                         dangerouslySetInnerHTML={{ __html: blog.title }}
