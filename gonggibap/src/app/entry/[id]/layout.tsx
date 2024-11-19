@@ -16,7 +16,7 @@ export async function generateMetadata({
       description: restaurant.restaurantDetailCategory,
       openGraph: {
         title: `${restaurant.restaurantName} : 공기밥`,
-        description: `방문수 ${restaurant.visitCount} · 평점 : ${restaurant.pointAvg || '-'}\n${restaurant.restaurantAddressName}`,
+        description: `${restaurant.restaurantAddressName}`,
         images: [
           {
             url: restaurant.restaurantImage,
