@@ -137,7 +137,7 @@ export const RestaurantInfo = ({
                 onClick={handleReport}
                 className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
                 <RiAlarmWarningLine />
-                <span>신고하기</span>
+                <span>제보하기</span>
               </button>
             </div>
           </address>
