@@ -20,6 +20,7 @@ import { FaRegBookmark } from 'react-icons/fa6';
 import { GoBookmarkSlash, GoLinkExternal } from 'react-icons/go';
 import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
 import { PiLinkBold } from 'react-icons/pi';
+import { RiAlarmWarningLine } from 'react-icons/ri';
 
 type RestaurantInfoProps = {
   restaurant: Restaurant;
@@ -98,6 +99,10 @@ export const RestaurantInfo = ({
     );
   };
 
+  const handleReport = () => {
+    window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
+  };
+
   return (
     <>
       <section className="flex flex-col gap-4" aria-label="음식점 기본 정보">
@@ -125,6 +130,14 @@ export const RestaurantInfo = ({
                 className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
                 <GoLinkExternal />
                 <span>카카오맵 상세보기</span>
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={handleReport}
+                className="flex items-center gap-2 font-semibold text-gray-700 dark:text-white">
+                <RiAlarmWarningLine />
+                <span>신고하기</span>
               </button>
             </div>
           </address>
