@@ -100,7 +100,7 @@ export const RestaurantInfo = ({
   };
 
   const handleReport = () => {
-    window.open('https://forms.gle/WFvToA68sKEQFYG77', '_blank');
+    window.open('https://forms.gle/z1fGxsK4G3uiEovG7', '_blank');
   };
 
   return (
