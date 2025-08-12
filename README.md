@@ -75,6 +75,7 @@ ___
 ### 사용자 트래픽 분석
 
 ![](https://i.imgur.com/nI3Ava8.png)
+|      |      |
 |:----:|:----:|
 |![](https://i.imgur.com/cP7Qxl4.png)|![](https://i.imgur.com/Jb0p6ob.png)|
 > 프로모션(링크드인, 인스타 등) 진행 후 MAU는 `330명`, 재방문자 수는 `47명` 로 증가
